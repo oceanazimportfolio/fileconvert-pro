@@ -1,0 +1,92 @@
+[
+  {
+    "url": "https://github.com/SudoKMaar/netflix-clone-nextjs",
+    "name": "SudoKMaar/netflix-clone-nextjs - GitHub",
+    "snippet": "This project is a Netflix clone built using Next.js, React, Tailwind CSS, Recoil, Material-UI, and Heroicons, with Firebase for authentication.",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/mmahabadi/nextjs-netflix",
+    "name": "mmahabadi/nextjs-netflix - GitHub",
+    "snippet": "This project is a Netflix clone built using React and Next.js, showcasing modern web development technologies. The goal is to replicate the user interface ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/ederssouza/netflix-clone",
+    "name": "A simple Netflix clone with React JS and Next.js - GitHub",
+    "snippet": "A simple Netflix clone with React JS and Next.js. Contribute to ederssouza/netflix-clone development by creating an account on GitHub.",
+    "host_name": "github.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/Shivamrai15/Netflix-Clone",
+    "name": "Shivamrai15/Netflix-Clone - GitHub",
+    "snippet": "This is repository for the full stack netflix clone using React, NextJs, TailwindCss and Prisma ORM. NextAuth is used for handling ...",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=mTW3V2IpOrg",
+    "name": "Next.js 14 Netflix Clone using React, Supabase, Next-Auth, Prisma and",
+    "snippet": "... Github Repository: https://www.janmarshal.com/courses/next-js-14-netflix-clone-using-react-supabase-next-auth-prisma-and-tailwind-css ☕️ ... Missing: open source",
+    "host_name": "www.youtube.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/Francogalfre/netflix-clone",
+    "name": "francogalfre/netflix-clone: Discover a Next.js project that  - GitHub",
+    "snippet": "Discover a Next.js project that mirrors the beloved Netflix interface. Dive into seamless streaming experiences with advanced features.",
+    "host_name": "github.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/ertugrulsertaslan/netflix-clone",
+    "name": "ertugrulsertaslan/netflix-clone - GitHub",
+    "snippet": "Netflix Clone is a web application that replicates the functionality and design of Netflix, allowing users to browse and stream movies and TV shows. Demo.",
+    "host_name": "github.com",
+    "rank": 6,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=qd5hDEfO_fE",
+    "name": "Build & Deploy a Netflix Clone with Next js 16, Tailwind CSS 4 & TMDB",
+    "snippet": "Build & Deploy a Netflix Clone with Next.js 16, Tailwind CSS 4 & TMDB API In this video, I'll walk you through MovieFlix — a modern, ...",
+    "host_name": "www.youtube.com",
+    "rank": 7,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/Cwarcup/netflix-clone",
+    "name": "Cwarcup/netflix-clone - GitHub",
+    "snippet": "Ñotflix: A Modern Streaming Platform Clone This repository showcases a full-stack streaming platform project built with cutting-edge technologies.",
+    "host_name": "github.com",
+    "rank": 8,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=X2Rcp87yl4s",
+    "name": "React Netflix Clone (2026): Beginner's Guide to Building Real Apps",
+    "snippet": "... GitHub Repo:* https://github.com/shrutikapoor08/youtube-react-course *Full Course on O'Reilly:* https://www.oreilly.com/library/view/react ... Missing: open source streaming",
+    "host_name": "www.youtube.com",
+    "rank": 9,
+    "date": "",
+    "favicon": ""
+  }
+]
