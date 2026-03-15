@@ -89,24 +89,25 @@ export function QrCodeGenerator() {
   return (
     <div className="space-y-6">
       {/* Info Banner */}
-      <Card className="bg-cyan-500/10 border-cyan-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <QrCode className="w-5 h-5 text-cyan-400 mt-0.5" />
+      <Card className="bg-primary/10 border-primary/30 p-4">
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <QrCode className="w-5 h-5 text-primary" />
+          </div>
           <div>
-            <p className="text-cyan-400 font-medium">Generate QR Codes</p>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-primary font-bold tracking-tight">Generate QR Codes</p>
+            <p className="text-sm text-slate-400 mt-1 font-medium">
               Create custom QR codes for URLs, text, email, phone, SMS, and WiFi.
-              Download in high quality PNG format.
+              Download in high quality PNG format instantly.
             </p>
           </div>
         </div>
       </Card>
 
       {/* Content Type Selection */}
-      <div>
-        <Label className="text-white mb-3 block">Content Type</Label>
+      <div className="overflow-x-auto pb-2 -mx-2 px-2 scrollbar-none">
         <Tabs value={contentType} onValueChange={(v) => setContentType(v as typeof contentType)}>
-          <TabsList className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 bg-transparent h-auto p-0">
+          <TabsList className="flex w-max sm:grid sm:w-full sm:grid-cols-6 gap-2 bg-transparent h-auto p-0">
             {[
               { value: 'url', icon: Link, label: 'URL' },
               { value: 'text', icon: QrCode, label: 'Text' },
@@ -118,9 +119,9 @@ export function QrCodeGenerator() {
               <TabsTrigger
                 key={value}
                 value={value}
-                className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 gap-1 sm:gap-2 text-xs sm:text-sm h-10 px-2 sm:px-4"
+                className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary gap-2 text-sm h-11 px-4 font-bold border border-transparent data-[state=active]:border-primary/30"
               >
-                <Icon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                <Icon className="w-4 h-4 flex-shrink-0" />
                 <span>{label}</span>
               </TabsTrigger>
             ))}
@@ -349,10 +350,11 @@ export function QrCodeGenerator() {
 
             {/* Download Buttons */}
             {qrDataUrl && (
-              <div className="mt-4 space-y-2">
+              <div className="mt-6 space-y-3">
                 <Button
                   onClick={handleDownload}
-                  className="w-full gap-2 bg-cyan-500 hover:bg-cyan-600"
+                  size="lg"
+                  className="w-full gap-2 bg-primary hover:bg-primary/90 font-bold shadow-lg shadow-primary/20"
                 >
                   <Download className="w-4 h-4" />
                   Download PNG
@@ -360,11 +362,12 @@ export function QrCodeGenerator() {
                 <Button
                   onClick={handleCopy}
                   variant="outline"
-                  className="w-full gap-2"
+                  size="lg"
+                  className="w-full gap-2 font-bold"
                 >
                   {copied ? (
                     <>
-                      <CheckCircle className="w-4 h-4 text-green-400" />
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
                       Copied!
                     </>
                   ) : (

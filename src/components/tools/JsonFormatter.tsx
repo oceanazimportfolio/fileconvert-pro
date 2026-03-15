@@ -6,8 +6,8 @@ import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { 
-  Braces, Copy, CheckCircle, AlertCircle, Trash2, 
+import {
+  Braces, Copy, CheckCircle, AlertCircle, Trash2,
   Minimize2, Maximize2, Download
 } from 'lucide-react'
 
@@ -19,16 +19,16 @@ export function JsonFormatter() {
 
   const result = useMemo(() => {
     if (!input.trim()) return { valid: true, output: '' }
-    
+
     try {
       const parsed = JSON.parse(input)
-      const output = mode === 'format' 
+      const output = mode === 'format'
         ? JSON.stringify(parsed, null, indent)
         : JSON.stringify(parsed)
       return { valid: true, output }
     } catch (error) {
-      return { 
-        valid: false, 
+      return {
+        valid: false,
         output: error instanceof Error ? error.message : 'Invalid JSON'
       }
     }
@@ -85,7 +85,7 @@ export function JsonFormatter() {
           <div>
             <p className="text-amber-400 font-medium">JSON Formatter & Validator</p>
             <p className="text-sm text-slate-400 mt-1">
-              Format, validate, and minify JSON data. Instantly beautify messy JSON 
+              Format, validate, and minify JSON data. Instantly beautify messy JSON
               or compress it for production use.
             </p>
           </div>
@@ -117,8 +117,8 @@ export function JsonFormatter() {
                 variant="outline"
                 size="sm"
                 onClick={() => setIndent(size)}
-                className={indent === size 
-                  ? 'bg-amber-500/20 border-amber-500 text-amber-400' 
+                className={indent === size
+                  ? 'bg-amber-500/20 border-amber-500 text-amber-400'
                   : 'bg-slate-800/50 border-slate-600 text-slate-300'
                 }
               >
@@ -180,12 +180,11 @@ export function JsonFormatter() {
               </div>
             )}
           </div>
-          <div 
-            className={`w-full h-64 p-4 rounded-lg border font-mono text-sm overflow-auto ${
-              result.valid 
-                ? 'bg-slate-800/50 border-slate-600 text-green-400' 
+          <div
+            className={`w-full h-64 p-4 rounded-lg border font-mono text-sm overflow-auto ${result.valid
+                ? 'bg-slate-800/50 border-slate-600 text-green-400'
                 : 'bg-red-500/10 border-red-500/30 text-red-400'
-            }`}
+              }`}
           >
             <pre className="whitespace-pre-wrap break-all">
               {result.output || 'Formatted JSON will appear here...'}
@@ -195,13 +194,13 @@ export function JsonFormatter() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-2">
-        <Button variant="outline" onClick={handleClear} className="gap-2">
+      <div className="flex flex-wrap gap-2">
+        <Button variant="outline" onClick={handleClear} className="gap-2 flex-1 sm:flex-none">
           <Trash2 className="w-4 h-4" />
           Clear
         </Button>
         {result.valid && result.output && (
-          <Button onClick={handleDownload} className="gap-2 bg-amber-500 hover:bg-amber-600">
+          <Button onClick={handleDownload} className="gap-2 flex-1 sm:flex-none bg-primary hover:bg-primary/90 font-bold">
             <Download className="w-4 h-4" />
             Download JSON
           </Button>
@@ -222,8 +221,8 @@ export function JsonFormatter() {
             </div>
             <div>
               <p className="text-2xl font-bold text-green-400">
-                {mode === 'minify' && input.length > 0 
-                  ? `${Math.round((1 - result.output.length / input.length) * 100)}%` 
+                {mode === 'minify' && input.length > 0
+                  ? `${Math.round((1 - result.output.length / input.length) * 100)}%`
                   : '-'
                 }
               </p>

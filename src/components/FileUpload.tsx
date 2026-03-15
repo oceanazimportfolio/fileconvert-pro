@@ -5,8 +5,8 @@ import { Upload, X, File, Image, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
+import { Badge } from '@/components/ui/badge'
 import { formatFileSize, generateId, isValidFileType } from '@/lib/fileUtils'
-
 export interface UploadedFile {
   id: string
   file: File
@@ -146,11 +146,11 @@ export function FileUpload({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`
-          relative border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all duration-300 cursor-pointer
+          relative border-2 border-dashed rounded-xl p-6 sm:p-10 text-center transition-all duration-300 cursor-pointer
           active:scale-[0.98] md:active:scale-100 touch-manipulation
           ${isDragging
-            ? 'border-blue-500 bg-blue-500/10'
-            : 'border-slate-600 hover:border-slate-500 bg-slate-800/30 shadow-inner'
+            ? 'border-primary bg-primary/10 scale-[1.02]'
+            : 'border-slate-600 hover:border-primary/50 bg-slate-800/20 shadow-inner hover:bg-slate-800/30'
           }
           ${isProcessing ? 'pointer-events-none opacity-50' : ''}
         `}
@@ -165,23 +165,26 @@ export function FileUpload({
           style={{ display: 'none' }} // Hidden but triggered via click()
         />
 
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-4">
           <div className={`
-            w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center
-            ${isDragging ? 'bg-blue-500/20' : 'bg-slate-700/50'}
+            w-14 h-14 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-colors
+            ${isDragging ? 'bg-primary/20' : 'bg-slate-700/30'}
           `}>
-            <IconComponent className={`w-7 h-7 sm:w-8 sm:h-8 ${isDragging ? 'text-blue-400' : 'text-slate-400'}`} />
+            <IconComponent className={`w-7 h-7 sm:w-10 sm:h-10 ${isDragging ? 'text-primary' : 'text-slate-400'}`} />
           </div>
 
           <div>
-            <p className="text-base sm:text-lg font-medium text-white">{label}</p>
-            <p className="text-sm text-slate-400 mt-1">{description}</p>
+            <p className="text-base sm:text-xl font-bold text-white tracking-tight">{label}</p>
+            <p className="text-sm text-slate-400 mt-1 font-medium">{description}</p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-2 text-[10px] sm:text-xs text-slate-500">
-            <span>Accepted: {accept.join(', ').toUpperCase()}</span>
-            <span className="hidden sm:inline">•</span>
-            <span>Max: {formatFileSize(maxSize)}</span>
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[10px] sm:text-xs">
+            <Badge variant="outline" className="text-slate-500 border-slate-700 font-medium">
+              {accept.join(', ').toUpperCase()}
+            </Badge>
+            <Badge variant="outline" className="text-slate-500 border-slate-700 font-medium">
+              MAX {formatFileSize(maxSize)}
+            </Badge>
           </div>
         </div>
       </div>

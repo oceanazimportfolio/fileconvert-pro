@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { 
+import {
   Binary, Copy, CheckCircle, ArrowRightLeft, Trash2,
   Upload, Download
 } from 'lucide-react'
@@ -21,7 +21,7 @@ export function Base64Tool() {
 
   const handleConvert = () => {
     setError(null)
-    
+
     if (!input.trim()) {
       setOutput('')
       return
@@ -84,7 +84,7 @@ export function Base64Tool() {
 
   const handleDownload = () => {
     if (!output) return
-    
+
     const blob = new Blob([output], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -103,7 +103,7 @@ export function Base64Tool() {
           <div>
             <p className="text-indigo-400 font-medium">Base64 Encoder & Decoder</p>
             <p className="text-sm text-slate-400 mt-1">
-              Convert text to Base64 format and vice versa. Useful for encoding data, 
+              Convert text to Base64 format and vice versa. Useful for encoding data,
               creating data URLs, and handling binary data in text format.
             </p>
           </div>
@@ -153,8 +153,8 @@ export function Base64Tool() {
         <Textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={mode === 'encode' 
-            ? 'Enter text to encode...' 
+          placeholder={mode === 'encode'
+            ? 'Enter text to encode...'
             : 'Enter Base64 string to decode...'
           }
           className="min-h-32 bg-slate-800/50 border-slate-600 text-white font-mono"
@@ -162,18 +162,18 @@ export function Base64Tool() {
       </div>
 
       {/* Actions */}
-      <div className="flex gap-2">
-        <Button 
+      <div className="flex flex-wrap gap-2">
+        <Button
           onClick={handleConvert}
-          className="gap-2 bg-indigo-500 hover:bg-indigo-600"
+          className="gap-2 flex-1 sm:flex-none bg-primary hover:bg-primary/90 font-bold"
         >
           {mode === 'encode' ? 'Encode' : 'Decode'}
         </Button>
-        <Button variant="outline" onClick={handleSwap} disabled={!output} className="gap-2">
+        <Button variant="outline" onClick={handleSwap} disabled={!output} className="gap-2 flex-1 sm:flex-none">
           <ArrowRightLeft className="w-4 h-4" />
           Swap
         </Button>
-        <Button variant="outline" onClick={handleClear} className="gap-2">
+        <Button variant="outline" onClick={handleClear} className="gap-2 flex-1 sm:flex-none">
           <Trash2 className="w-4 h-4" />
           Clear
         </Button>
@@ -232,7 +232,7 @@ export function Base64Tool() {
           </Card>
           <Card className="bg-slate-800/30 border-slate-700/30 p-3 text-center">
             <p className="text-2xl font-bold text-indigo-400">
-              {mode === 'encode' 
+              {mode === 'encode'
                 ? `+${Math.round((output.length / input.length - 1) * 100)}%`
                 : `-${Math.round((1 - output.length / input.length) * 100)}%`
               }
