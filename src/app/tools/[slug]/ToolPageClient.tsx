@@ -38,6 +38,11 @@ interface ToolConfig {
     description: string
     category: string
   }
+  seoContent?: {
+    about: string
+    features: string[]
+    benefits: string
+  }
 }
 
 interface ToolPageClientProps {
@@ -224,34 +229,32 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
 
             {/* About Tool Section */}
             <section className="mt-8 py-8 border-t border-slate-700/50">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                About {tool.schemaData.name}
+              <h2 className="text-2xl font-bold text-white mb-6">
+                About this tool
               </h2>
               <div className="prose prose-invert max-w-none">
-                <p className="text-slate-300 leading-relaxed">
-                  {tool.description} This free online tool works entirely in your browser,
-                  ensuring your files and data never leave your device. No registration required,
-                  no limits, and no watermarks on your output.
+                <p className="text-slate-300 leading-relaxed mb-6">
+                  {tool.seoContent?.about || tool.description}
                 </p>
-                <h3 className="text-lg font-semibold text-white mt-6 mb-3">Key Features</h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-slate-300">
-                  <li className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-yellow-400" />
-                    Lightning fast processing
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-green-400" />
-                    100% secure - files stay in browser
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-blue-400" />
-                    Works offline after initial load
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-purple-400" />
-                    Completely free, no limits
-                  </li>
-                </ul>
+
+                {tool.seoContent?.features && (
+                  <>
+                    <h3 className="text-xl font-semibold text-white mt-8 mb-4">Key features</h3>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300 decoration-blue-500/50">
+                      {tool.seoContent.features.map((feature, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+
+                <h3 className="text-xl font-semibold text-white mt-8 mb-4">Why use this tool?</h3>
+                <p className="text-slate-300 leading-relaxed">
+                  {tool.seoContent?.benefits || "Our tools are fast, secure, and run entirely in your browser. No files are ever uploaded to a server."}
+                </p>
               </div>
             </section>
 

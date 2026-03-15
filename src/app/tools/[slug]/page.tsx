@@ -21,6 +21,11 @@ export const toolsConfig: Record<string, {
     description: string
     category: string
   }
+  seoContent?: {
+    about: string
+    features: string[]
+    benefits: string
+  }
 }> = {
   'image-converter': {
     title: 'Free Image Converter - PNG to JPG, WebP, AVIF | FileConvert.pro',
@@ -35,6 +40,11 @@ export const toolsConfig: Record<string, {
       name: 'Image Converter',
       description: 'Free online image converter supporting PNG, JPG, WebP, and AVIF formats. Batch convert multiple images at once.',
       category: 'Image Conversion Tool'
+    },
+    seoContent: {
+      about: "Our **image converter online** provides a seamless way to transform your photos and graphics into various formats without compromising on quality or privacy. This powerful utility supports popular formats including PNG, JPG, WebP, and AVIF, allowing both single and batch processing directly in your browser. Because all operations are executed locally on your device, your images are never uploaded to our servers, ensuring absolute privacy and significantly faster processing speeds compared to traditional cloud-based converters. Whether you need to convert a single profile picture or a large collection of asset files for web development, our tool handles the task with ease. The interface is designed for efficiency, permitting you to drag and drop files and choose your desired output format in seconds. This makes it an ideal solution for photographers, designers, and everyday users who value their data security and time. Enjoy unlimited, free conversions with no registration, no watermarks, and no hidden fees.",
+      features: ["Batch conversion support", "PNG to JPG/WebP/AVIF", "100% browser-based (no uploads)", "No quality loss options"],
+      benefits: "All images are processed locally on your machine. This means your private photos never touch the internet, offering unparalleled security and speed. The tool is free, unlimited, and works offline after the initial load."
     }
   },
   'image-compress': {
@@ -50,6 +60,11 @@ export const toolsConfig: Record<string, {
       name: 'Image Compressor & Resizer',
       description: 'Free online image compressor to reduce file size and resize images. Batch processing supported.',
       category: 'Image Optimization Tool'
+    },
+    seoContent: {
+      about: "Use our utility to **compress images online** and significantly reduce file sizes without sacrificing visual clarity. In the modern web environment, optimized images are crucial for fast loading times and better SEO rankings. Our compressor allows you to fine-tune the quality and dimensions of your PNG, JPG, and WebP files to find the perfect balance between size and performance. Since the compression happens entirely in your browser, your sensitive photos remain private and you don't waste bandwidth uploading large files to a remote server. This is particularly beneficial for web developers, social media managers, and anyone looking to store more photos without running out of disk space. You can process multiple images simultaneously, making it quick and easy to optimize entire galleries in one go. Our intelligent algorithm ensures that even at lower file sizes, your images maintain the professional look required for high-quality websites and applications.",
+      features: ["Adjustable compression levels", "Real-time file size preview", "Batch processing functionality", "Support for PNG, JPG, and WebP"],
+      benefits: "Processing images locally ensures maximum privacy and speed. No waiting for uploads or downloads; get instant results directly on your device while keeping your original data secure."
     }
   },
   'image-enhancer': {
@@ -65,6 +80,11 @@ export const toolsConfig: Record<string, {
       name: 'Image Enhancer',
       description: 'Free online image enhancer with brightness, contrast, saturation, and sharpening adjustments.',
       category: 'Image Enhancement Tool'
+    },
+    seoContent: {
+      about: "Elevate your photography with our **image enhancer online**, designed to bring out the best in every shot through advanced browser-based processing. This tool provides professional-grade adjustments for brightness, contrast, saturation, and sharpness, allowing you to fix underexposed photos or add a vibrant pop to dull images. Our unique \"AI Enhance\" feature uses local computation to intelligently analyze and improve your images without ever sending them to a third-party server. This ensures that your personal memories and professional assets remain completely confidential. The intuitive sliders allow for precision control, and you can see your changes in real-time before downloading the final result. Whether you're a designer looking to polish a project or a hobbyist wanting to improve vacation photos, our enhancer provides the tools you need in a simple, fast interface. No expensive software or complicated tutorials are required to achieve stunning results.",
+      features: ["Real-time brightness & contrast adjustment", "Professional sharpening algorithm", "Saturation and color balance tools", "Instant \"AI Enhance\" feature"],
+      benefits: "Achieve professional photo editing results without the need for heavy software. Your data stays on your machine, ensuring privacy while providing a fast and responsive editing experience."
     }
   },
   'background-remover': {
@@ -80,6 +100,11 @@ export const toolsConfig: Record<string, {
       name: 'Background Remover',
       description: 'Free online background remover to create transparent PNG images from any photo.',
       category: 'Image Editing Tool'
+    },
+    seoContent: {
+      about: "Effortlessly **remove background from image online** using our sophisticated, browser-based extraction tool. Creating transparent PNGs for product displays, profile pictures, or design projects has never been easier or more secure. Unlike other services that process your images in the cloud, our tool utilizes your local hardware to identify and isolate subjects, meaning your photos never leave your computer. This provides peace of mind for privacy-conscious users while delivering quick results. The tool handles complex edges and various backgrounds with high precision, saving you hours of manual masking in professional design software. Perfect for e-commerce sellers needing clean product shots or creators looking to combine multiple elements into a single composition. Enjoy high-resolution exports and a clean, ad-free workflow that respects your privacy and your time. Best of all, it's completely free and requires no account or subscription.",
+      features: ["Automated background detection", "High-precision subject isolation", "Transparent PNG output", "No file size or resolution limits"],
+      benefits: "Privacy is our priority; your images are processed locally, so they are never stored or seen by anyone. It's fast, free, and produces professional results instantly."
     }
   },
   'json-formatter': {
@@ -95,6 +120,11 @@ export const toolsConfig: Record<string, {
       name: 'JSON Formatter',
       description: 'Free online JSON formatter, validator, and beautifier with syntax highlighting.',
       category: 'Developer Tool'
+    },
+    seoContent: {
+      about: "The **JSON formatter online** is an essential tool for developers and data analysts who need to visualize and debug complex data structures with ease. Our tool quickly beautifies minified JSON, making it human-readable with proper indentation and syntax highlighting. Like all tools on this site, it works entirely within your browser, which means your sensitive configuration files or data logs are never sent to a server. This makes it a perfect choice for working with private API keys or proprietary business logic. Beyond simple formatting, the utility validates your JSON strings in real-time, highlighting syntax errors to help you troubleshoot issues instantly. Whether you are cleaning up a messy log file or preparing a clear data structure for documentation, this formatter provides the speed and privacy required for professional workflows.",
+      features: ["Syntax highlighting & error validation", "One-click minification & beautification", "Copy-to-clipboard functionality", "Tree-view and raw text modes"],
+      benefits: "Instant local processing ensures your sensitive data stays on your device, while providing a clean, dark-mode optimized interface for reduced eye strain during long sessions."
     }
   },
   'base64-encoder': {
@@ -110,6 +140,11 @@ export const toolsConfig: Record<string, {
       name: 'Base64 Encoder/Decoder',
       description: 'Free online Base64 encoder and decoder for text and images.',
       category: 'Developer Tool'
+    },
+    seoContent: {
+      about: "Our **Base64 encoder online** provides a secure and reliable way to convert text or images into Base64 format and back again. Base64 encoding is widely used for embedding data directly into HTML, CSS, or JSON files without needing separate external links. This tool is particularly useful for web developers who want to include small icons or configuration strings directly in their code to reduce HTTP requests. Because all encoding and decoding occurs locally in your browser, your data—whether it's a sensitive password or a private image—never travels across the internet to a third-party server. The interface is clean and straightforward, featuring a \"Copy to Clipboard\" button for quick integration into your projects. You can also upload images to generate Base64 data URIs instantly. This ensures a fast, secure, and efficient workflow for all your developer needs, with no limits on usage or data size.",
+      features: ["Text-to-Base64 conversion", "Image-to-Base64 Data URI generator", "Real-time decoding functionality", "Secure local processing"],
+      benefits: "Security is paramount when handling data. By processing everything in your browser, we guarantee that your encoded strings and images remain private and secure."
     }
   },
   'url-encoder': {
@@ -125,6 +160,11 @@ export const toolsConfig: Record<string, {
       name: 'URL Encoder/Decoder',
       description: 'Free online URL encoder and decoder with percent encoding support.',
       category: 'Developer Tool'
+    },
+    seoContent: {
+      about: "Ensure your web addresses are always valid and secure with our **URL encoder online**. This tool is designed to convert special characters and non-ASCII text into a format that can be safely transmitted over the internet using percent encoding. Whether you're building complex API queries, sharing links with special characters, or debugging network requests, our encoder and decoder handle the job with precision. Since all processing happens locally on your computer, you can safely encode sensitive information like tokens or internal URLs without worrying about them being logged by a remote service. The utility also handles decoding, allowing you to quickly read and understand obfuscated URLs. With its simple design and instant response time, it's a must-have tool for developers, SEO professionals, and digital marketers who frequently work with web infrastructure. Save time and prevent broken links by validating your URL components in our secure browser-based environment.",
+      features: ["Percent encoding for all special characters", "Instant URL decoding functionality", "Handles complex query parameters", "Completely secure local execution"],
+      benefits: "Avoid the risks of cloud-based encoders. Our tool provides a fast, reliable, and private environment for all your URL manipulation needs, ensuring your links stay functional."
     }
   },
   'case-converter': {
@@ -140,6 +180,11 @@ export const toolsConfig: Record<string, {
       name: 'Case Converter',
       description: 'Free online case converter supporting uppercase, lowercase, title case, and more.',
       category: 'Text Tool'
+    },
+    seoContent: {
+      about: "Transform your text instantly with our versatile **case converter online**, the perfect tool for writers, developers, and office professionals. This utility allows you to switch between various text formats including Uppercase, Lowercase, Title Case, Sentence Case, and even specialized coding formats like camelCase, PascalCase, and snake_case. Whether you're fixing a document written in all caps or preparing variable names for a software project, our tool provides a fast and efficient solution. Because all text processing is done locally in your browser, your content is never seen by anyone else, making it safe for sensitive emails, reports, and code snippets. The interface is distraction-free and updates in real-time as you type or paste your text. With its comprehensive range of formatting options and silent, secure operation, it’s an essential part of any productive digital workspace. Improve your writing speed and consistency with just a few clicks.",
+      features: ["Support for Title, Sentence, and Toggle Case", "Coding formats (Camel, Snake, Pascal)", "Real-time text transformation", "No limits on text length"],
+      benefits: "Save time on manual formatting while ensuring your data privacy. Our browser-based execution means your text never leaves your device, providing a secure and rapid experience."
     }
   },
   'word-counter': {
@@ -155,6 +200,11 @@ export const toolsConfig: Record<string, {
       name: 'Word Counter',
       description: 'Free online word and character counter with reading time estimation.',
       category: 'Text Tool'
+    },
+    seoContent: {
+      about: "Get detailed insights into your writing with our **word counter online**, a professional-grade text analysis tool for students, authors, and SEO writers. Beyond just counting words, this utility provides character counts (with and without spaces), sentence counts, and even an estimated reading time. This level of detail is crucial for meeting strict assignment requirements, optimizing social media posts, or planning long-form blog content. Like every tool on our platform, the processing is entirely client-side; your text is never uploaded to a server, ensuring your personal drafts and confidential documents remain 100% private. The tool updates dynamically as you type, allowing for real-time monitoring of your progress. Whether you're writing a thesis, a marketing copy, or a novel, our word counter helps you maintain precision and clarity without the need for expensive software or privacy-risking cloud converters.",
+      features: ["Real-time word and character count", "Sentence and paragraph detection", "Estimated reading time calculation", "Secure, browser-based analysis"],
+      benefits: "Perfect for writers who value privacy. Process your drafts locally to ensure your creative work stays on your device while benefiting from accurate, instant metrics."
     }
   },
   'lorem-ipsum-generator': {
@@ -170,6 +220,11 @@ export const toolsConfig: Record<string, {
       name: 'Lorem Ipsum Generator',
       description: 'Free online Lorem Ipsum placeholder text generator.',
       category: 'Text Tool'
+    },
+    seoContent: {
+      about: "Quickly populate your designs and layouts with our customizable **lorem ipsum generator**, the go-to tool for UI/UX designers and web developers. Whether you need a few dummy words for a button or several paragraphs of placeholder text for a new website mock-up, our generator provides high-quality, standard Latin text in seconds. You can customize the number of paragraphs, sentences, or words to perfectly fit your design requirements. Because this tool runs locally in your browser, it is incredibly fast and works even without an active internet connection after the initial load. It’s an essential utility for focusing on visual hierarchy and typography without being distracted by meaningful content. Simple, efficient, and completely free, our generator helps you move from wireframes to polished designs faster. No more searching for dummy text manually; get the perfect amount of placeholder content exactly when you need it in our secure environment.",
+      features: ["Customizable word, sentence, and paragraph counts", "Standard Latin placeholder text", "One-click copy functionality", "Instant generation"],
+      benefits: "It's fast, free, and works offline. A reliable companion for designers and developers who need to fill layouts and test typography with zero friction."
     }
   },
   'color-palette': {
@@ -185,6 +240,11 @@ export const toolsConfig: Record<string, {
       name: 'Color Palette Generator',
       description: 'Free online color palette generator for designers and developers.',
       category: 'Design Tool'
+    },
+    seoContent: {
+      about: "Discover the perfect color scheme for your next project with our **color palette generator online**. This tool is a favorite among artists, designers, and web developers who want to create harmonious and visually striking designs. It allows you to generate random palettes or build customized schemes based on hex codes, HSL, or RGB values. With features like color contrast checking and real-time visualization, you can ensure your designs are both beautiful and accessible to all users. Since all color calculations and exports happen locally in your browser, your creative inspirations remain your own. You can easily export your chosen palettes as CSS variables or JSON objects, making integration into your codebase effortless. Whether you're rebranding a business or designing a new app interface, our palette generator provides a fast, secure, and professional way to find the colors that truly represent your vision.",
+      features: ["Random and custom palette generation", "Contrast ratio checking for accessibility", "CSS and JSON export options", "Real-time visual landing page preview"],
+      benefits: "Focus on your creativity without distraction. Our tool provides a professional, browser-based environment for color theory and design experimentation that respects your privacy."
     }
   },
   'password-generator': {
@@ -200,6 +260,11 @@ export const toolsConfig: Record<string, {
       name: 'Password Generator',
       description: 'Free online password generator creating strong, secure passwords.',
       category: 'Security Tool'
+    },
+    seoContent: {
+      about: "Protecting your digital identity starts with using a **secure password generator** like ours, which uses cryptographically strong algorithms to create unique, uncrackable passwords. You can fully customize your passwords by choosing their length and selecting which character types to include, such as uppercase letters, numbers, and special symbols. Crucially, all password generation occurs entirely within your own browser using the Web Crypto API. This means your new passwords are never transmitted over the internet or stored on our servers, providing the highest level of security for your sensitive accounts. In an age of frequent data breaches, using random, high-entropy passwords for every site is the best defense. Our tool makes this process easy, providing you with high-quality security at the click of a button. No registration is required, and there are no limits on how many secure passwords you can generate for your personal or professional use.",
+      features: ["Customizable length and complexity", "Uses cryptographically secure random values", "Symbols, numbers, and mixed-case support", "100% private (nothing is sent to server)"],
+      benefits: "Security you can trust. By generating passwords locally, we ensure that your most sensitive information is never exposed to the internet during the creation process."
     }
   },
   'qr-code-generator': {
@@ -215,6 +280,11 @@ export const toolsConfig: Record<string, {
       name: 'QR Code Generator',
       description: 'Free online QR code generator for URLs, text, and more.',
       category: 'Utility Tool'
+    },
+    seoContent: {
+      about: "Create high-quality scannable codes in seconds with our **QR code generator online**, perfect for sharing URLs, WiFi credentials, text, or contact information. QR codes have become an essential bridge between the physical and digital worlds, used everywhere from restaurant menus to marketing materials and business cards. Our tool allows you to input your data and instantly generate a QR code that can be downloaded as a high-resolution PNG file. Because the generation happens locally in your browser, the data you embed in the QR code—whether it's a private URL or sensitive text—never leaves your device. This offers a major security advantage over cloud-based generators that might log your inputs. The interface is optimized for speed and ease of use, requiring no technical knowledge. Simply enter your information, see the real-time preview, and download your free QR code for immediate use in your projects or business.",
+      features: ["URL, text, and WiFi support", "High-resolution PNG downloads", "Instant real-time preview", "Privacy-focused local generation"],
+      benefits: "Generate codes quickly and securely. Your input data stays private because all processing is client-side, making it the safest choice for personal and business use."
     }
   },
   'youtube-thumbnail': {
@@ -230,8 +300,13 @@ export const toolsConfig: Record<string, {
       name: 'YouTube Thumbnail Downloader',
       description: 'Free online tool to download HD thumbnails from YouTube videos.',
       category: 'Social Media Tool'
+    },
+    seoContent: {
+      about: "Our **YouTube thumbnail downloader** is the fastest and most reliable way to retrieve high-definition thumbnails from any video on the platform. Whether you're a content creator looking for inspiration, a researcher documenting trends, or a designer needing a quick asset, our tool provides access to HD, HQ, and standard quality images instantly. Simply paste the video URL and our browser-based utility extracts the images directly, ensuring a fast and secure experience without the need for external accounts or software. As with all of our tools, your browsing habits and requested URLs remain private as the extraction logic runs on your local machine. You can view the thumbnails in full size and download them with a single click. This tool is completely free to use and provides a streamlined workflow for getting the visual assets you need from YouTube without the hassle of screenshots or complex browser extensions.",
+      features: ["Supports 4K and HD thumbnails", "Instant URL extraction", "Preview before download", "No account or registration required"],
+      benefits: "Get high-quality video assets in seconds. Our tool provides a clean, fast, and secure way to access YouTube thumbnails while keeping your activity private."
     }
-  }
+  },
 }
 
 // Generate static paths for all tools
@@ -242,14 +317,14 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for each tool page
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
   const tool = toolsConfig[slug]
-  
+
   if (!tool) {
     return {
       title: 'Tool Not Found | FileConvert.pro'
@@ -278,14 +353,14 @@ export async function generateMetadata({
   }
 }
 
-export default async function ToolPageWrapper({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export default async function ToolPageWrapper({
+  params
+}: {
+  params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
   const tool = toolsConfig[slug]
-  
+
   if (!tool) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
@@ -296,6 +371,6 @@ export default async function ToolPageWrapper({
       </div>
     )
   }
-  
+
   return <ToolPageClient slug={slug} tool={tool} />
 }
