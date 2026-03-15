@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Slider } from '@/components/ui/slider'
-import { 
+import {
   QrCode, Download, CheckCircle,
   Link, Mail, Phone, MessageSquare, Wifi
 } from 'lucide-react'
@@ -50,8 +50,8 @@ export function QrCodeGenerator() {
   }
 
   const qrContent = getQRContent()
-  
-  const qrDataUrl = qrContent 
+
+  const qrDataUrl = qrContent
     ? `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(qrContent)}&color=${foregroundColor.replace('#', '')}&bgcolor=${backgroundColor.replace('#', '')}&ecc=${errorCorrectionLevel}`
     : null
 
@@ -95,7 +95,7 @@ export function QrCodeGenerator() {
           <div>
             <p className="text-cyan-400 font-medium">Generate QR Codes</p>
             <p className="text-sm text-slate-400 mt-1">
-              Create custom QR codes for URLs, text, email, phone, SMS, and WiFi. 
+              Create custom QR codes for URLs, text, email, phone, SMS, and WiFi.
               Download in high quality PNG format.
             </p>
           </div>
@@ -106,7 +106,7 @@ export function QrCodeGenerator() {
       <div>
         <Label className="text-white mb-3 block">Content Type</Label>
         <Tabs value={contentType} onValueChange={(v) => setContentType(v as typeof contentType)}>
-          <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-transparent h-auto p-0">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 bg-transparent h-auto p-0">
             {[
               { value: 'url', icon: Link, label: 'URL' },
               { value: 'text', icon: QrCode, label: 'Text' },
@@ -115,13 +115,13 @@ export function QrCodeGenerator() {
               { value: 'sms', icon: MessageSquare, label: 'SMS' },
               { value: 'wifi', icon: Wifi, label: 'WiFi' },
             ].map(({ value, icon: Icon, label }) => (
-              <TabsTrigger 
-                key={value} 
+              <TabsTrigger
+                key={value}
                 value={value}
-                className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 gap-2"
+                className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 gap-1 sm:gap-2 text-xs sm:text-sm h-10 px-2 sm:px-4"
               >
-                <Icon className="w-4 h-4" />
-                {label}
+                <Icon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                <span>{label}</span>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -226,8 +226,8 @@ export function QrCodeGenerator() {
                     variant="outline"
                     size="sm"
                     onClick={() => setWifiType(type)}
-                    className={wifiType === type 
-                      ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' 
+                    className={wifiType === type
+                      ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400'
                       : 'bg-slate-800/50 border-slate-600 text-slate-300'
                     }
                   >
@@ -307,8 +307,8 @@ export function QrCodeGenerator() {
                   variant="outline"
                   size="sm"
                   onClick={() => setErrorCorrectionLevel(level)}
-                  className={errorCorrectionLevel === level 
-                    ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' 
+                  className={errorCorrectionLevel === level
+                    ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400'
                     : 'bg-slate-800/50 border-slate-600 text-slate-300'
                   }
                 >
@@ -331,13 +331,13 @@ export function QrCodeGenerator() {
                 <CheckCircle className="w-4 h-4 text-green-400" />
               )}
             </div>
-            
-            <div 
+
+            <div
               className="aspect-square rounded-lg flex items-center justify-center overflow-hidden"
               style={{ backgroundColor }}
             >
               {qrDataUrl ? (
-                <img 
+                <img
                   src={qrDataUrl}
                   alt="QR Code"
                   className="w-full h-full object-contain"
@@ -350,14 +350,14 @@ export function QrCodeGenerator() {
             {/* Download Buttons */}
             {qrDataUrl && (
               <div className="mt-4 space-y-2">
-                <Button 
+                <Button
                   onClick={handleDownload}
                   className="w-full gap-2 bg-cyan-500 hover:bg-cyan-600"
                 >
                   <Download className="w-4 h-4" />
                   Download PNG
                 </Button>
-                <Button 
+                <Button
                   onClick={handleCopy}
                   variant="outline"
                   className="w-full gap-2"

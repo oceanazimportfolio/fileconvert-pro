@@ -9,20 +9,20 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Switch } from '@/components/ui/switch'
-import { 
-  Image as ImageIcon, ArrowRight, Download, Loader2, 
+import {
+  Image as ImageIcon, ArrowRight, Download, Loader2,
   CheckCircle, Minimize2, Maximize2
 } from 'lucide-react'
 import { FileUpload, UploadedFile } from '@/components/FileUpload'
-import { 
-  compressImage, 
+import {
+  compressImage,
   resizeImage,
   batchCompressImages,
-  getImageDimensions 
+  getImageDimensions
 } from '@/lib/imageUtils'
-import { 
-  downloadFile, 
-  downloadAsZip, 
+import {
+  downloadFile,
+  downloadAsZip,
   formatFileSize,
   calculateCompressionRatio
 } from '@/lib/fileUtils'
@@ -95,8 +95,8 @@ export function ImageCompressResize() {
 
     for (let i = 0; i < pendingFiles.length; i++) {
       const file = pendingFiles[i]
-      
-      setFiles(prev => prev.map(f => 
+
+      setFiles(prev => prev.map(f =>
         f.id === file.id ? { ...f, status: 'processing' } : f
       ))
 
@@ -118,17 +118,17 @@ export function ImageCompressResize() {
 
         const compressionRatio = calculateCompressionRatio(file.file.size, result.size)
 
-        setFiles(prev => prev.map(f => 
-          f.id === file.id ? { 
-            ...f, 
-            status: 'done', 
+        setFiles(prev => prev.map(f =>
+          f.id === file.id ? {
+            ...f,
+            status: 'done',
             result,
             resultSize: result.size,
             compressionRatio
           } : f
         ))
       } catch {
-        setFiles(prev => prev.map(f => 
+        setFiles(prev => prev.map(f =>
           f.id === file.id ? { ...f, status: 'error' } : f
         ))
       }
@@ -147,7 +147,7 @@ export function ImageCompressResize() {
   const handleDownloadAll = async () => {
     const doneFiles = files.filter(f => f.status === 'done' && f.result)
     if (doneFiles.length === 0) return
-    
+
     await downloadAsZip(
       doneFiles.map(f => ({ blob: f.result!, name: f.file.name })),
       `${mode === 'compress' ? 'compressed' : 'resized'}_images.zip`
@@ -276,7 +276,7 @@ export function ImageCompressResize() {
             </span>
           </div>
           <div className="w-full bg-slate-700 rounded-full h-2">
-            <div 
+            <div
               className="bg-green-500 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
@@ -287,12 +287,12 @@ export function ImageCompressResize() {
       {/* Results */}
       {doneFiles.length > 0 && (
         <div className="space-y-3">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <h3 className="text-lg font-semibold text-white">
               {mode === 'compress' ? 'Compressed' : 'Resized'} Files ({doneFiles.length})
             </h3>
             {doneFiles.length > 1 && (
-              <Button onClick={handleDownloadAll} className="gap-2">
+              <Button onClick={handleDownloadAll} className="gap-2 w-full sm:w-auto">
                 <Download className="w-4 h-4" />
                 Download All as ZIP
               </Button>
@@ -301,53 +301,58 @@ export function ImageCompressResize() {
 
           <div className="grid gap-2">
             {doneFiles.map((file) => (
-              <Card key={file.id} className="bg-slate-800/50 border-slate-700/50 p-4">
-                <div className="flex items-center gap-4">
-                  {file.preview ? (
-                    <img 
-                      src={file.preview} 
-                      alt={file.file.name}
-                      className="w-16 h-16 object-cover rounded-lg"
-                    />
-                  ) : (
-                    <div className="w-16 h-16 bg-slate-700 rounded-lg flex items-center justify-center">
-                      <ImageIcon className="w-8 h-8 text-slate-400" />
-                    </div>
-                  )}
+              <Card key={file.id} className="bg-slate-800/50 border-slate-700/50 p-3 sm:p-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <div className="flex items-center gap-4 w-full sm:w-auto overflow-hidden">
+                    {file.preview ? (
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
+                        <img
+                          src={file.preview}
+                          alt={file.file.name}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-slate-400" />
+                      </div>
+                    )}
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      <p className="text-white font-medium truncate">{file.file.name}</p>
-                    </div>
-                    
-                    {/* Size comparison */}
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="text-slate-400">
-                        {formatFileSize(file.file.size)}
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-slate-500" />
-                      <span className="text-green-400 font-medium">
-                        {formatFileSize(file.resultSize || 0)}
-                      </span>
-                      {file.compressionRatio !== undefined && file.compressionRatio > 0 && (
-                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30 ml-2">
-                          -{file.compressionRatio}%
-                        </Badge>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
+                        <CheckCircle className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                        <p className="text-sm sm:text-base text-white font-medium truncate">{file.file.name}</p>
+                      </div>
+
+                      {/* Size comparison */}
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm">
+                        <span className="text-slate-400">
+                          {formatFileSize(file.file.size)}
+                        </span>
+                        <ArrowRight className="w-3 h-3 text-slate-500" />
+                        <span className="text-green-400 font-medium whitespace-nowrap">
+                          {formatFileSize(file.resultSize || 0)}
+                        </span>
+                        {file.compressionRatio !== undefined && file.compressionRatio > 0 && (
+                          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-[10px] sm:text-xs">
+                            -{file.compressionRatio}%
+                          </Badge>
+                        )}
+                      </div>
+
+                      {/* Dimensions */}
+                      {file.dimensions && (
+                        <p className="text-[10px] sm:text-xs text-slate-500 mt-1">
+                          {file.dimensions.width} × {file.dimensions.height}px
+                        </p>
                       )}
                     </div>
-
-                    {/* Dimensions */}
-                    {file.dimensions && (
-                      <p className="text-xs text-slate-500 mt-1">
-                        {file.dimensions.width} × {file.dimensions.height}px
-                      </p>
-                    )}
                   </div>
 
                   <Button
                     onClick={() => handleDownload(file)}
-                    className="gap-2"
+                    size="sm"
+                    className="gap-2 w-full sm:w-auto sm:ml-auto"
                   >
                     <Download className="w-4 h-4" />
                     Download

@@ -6,8 +6,8 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Youtube, Download, Loader2, CheckCircle, 
+import {
+  Youtube, Download, Loader2, CheckCircle,
   Image as ImageIcon, AlertCircle, ExternalLink
 } from 'lucide-react'
 
@@ -70,7 +70,7 @@ export function YouTubeThumbnail() {
 
     // Check which thumbnails exist
     const validThumbnails: ThumbnailResult[] = []
-    
+
     for (const thumb of thumbnailQualities) {
       try {
         const response = await fetch(thumb.url, { method: 'HEAD' })
@@ -141,7 +141,7 @@ export function YouTubeThumbnail() {
             placeholder="https://www.youtube.com/watch?v=..."
             className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
           />
-          <Button 
+          <Button
             onClick={handleFetch}
             disabled={isLoading}
             className="bg-red-500 hover:bg-red-600"
@@ -174,7 +174,7 @@ export function YouTubeThumbnail() {
           <div className="flex items-center gap-3 mb-3">
             <CheckCircle className="w-5 h-5 text-green-400" />
             <span className="text-white font-medium">Video Found</span>
-            <a 
+            <a
               href={`https://www.youtube.com/watch?v=${videoId}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -183,10 +183,10 @@ export function YouTubeThumbnail() {
               Watch <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-          
+
           {/* Main Preview */}
           <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-900 mb-4">
-            <img 
+            <img
               src={thumbnails[0]?.url}
               alt="YouTube Thumbnail"
               className="w-full h-full object-cover"
@@ -201,20 +201,20 @@ export function YouTubeThumbnail() {
           <h3 className="text-lg font-semibold text-white">
             Available Thumbnails ({thumbnails.length})
           </h3>
-          
+
           <div className="grid gap-4">
             {thumbnails.map((thumbnail, index) => (
               <Card key={index} className="bg-slate-800/50 border-slate-700/50 overflow-hidden">
                 <div className="flex flex-col md:flex-row">
                   {/* Preview */}
                   <div className="md:w-64 flex-shrink-0 bg-slate-900">
-                    <img 
+                    <img
                       src={thumbnail.url}
                       alt={thumbnail.quality}
                       className="w-full h-auto"
                     />
                   </div>
-                  
+
                   {/* Info */}
                   <div className="flex-1 p-4 flex flex-col justify-between">
                     <div>
@@ -228,11 +228,11 @@ export function YouTubeThumbnail() {
                         </Badge>
                       </div>
                     </div>
-                    
-                    <div className="flex gap-2 mt-4">
+
+                    <div className="flex flex-col sm:flex-row gap-2 mt-4">
                       <Button
                         onClick={() => handleDownload(thumbnail)}
-                        className="gap-2 bg-red-500 hover:bg-red-600"
+                        className="gap-2 bg-red-500 hover:bg-red-600 w-full sm:w-auto"
                       >
                         <Download className="w-4 h-4" />
                         Download
@@ -240,7 +240,7 @@ export function YouTubeThumbnail() {
                       <Button
                         variant="outline"
                         onClick={() => window.open(thumbnail.url, '_blank')}
-                        className="gap-2"
+                        className="gap-2 w-full sm:w-auto"
                       >
                         <ExternalLink className="w-4 h-4" />
                         Open

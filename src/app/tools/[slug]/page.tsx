@@ -338,7 +338,7 @@ export async function generateMetadata({
     openGraph: {
       title: tool.title,
       description: tool.description,
-      url: `https://fileconvert.pro/tools/${slug}`,
+      url: `https://convertfiles.qzz.io/tools/${slug}/`,
       siteName: 'FileConvert.pro',
       type: 'website',
     },
@@ -348,7 +348,7 @@ export async function generateMetadata({
       description: tool.description,
     },
     alternates: {
-      canonical: `https://fileconvert.pro/tools/${slug}`,
+      canonical: `https://convertfiles.qzz.io/tools/${slug}/`,
     }
   }
 }

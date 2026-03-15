@@ -124,48 +124,63 @@ export function FileUpload({
     }
   }, [processFiles])
 
+  const fileInputRef = useCallback((node: HTMLInputElement | null) => {
+    if (node) {
+      // Focus ref can go here if needed
+    }
+  }, [])
+
+  const onZoneClick = () => {
+    const input = document.getElementById('file-upload-input') as HTMLInputElement
+    if (input) input.click()
+  }
+
   const IconComponent = icon === 'image' ? Image : icon === 'pdf' ? FileText : File
 
   return (
     <div className="space-y-4">
       {/* Drop Zone */}
       <div
+        onClick={onZoneClick}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`
-          relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 cursor-pointer
+          relative border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all duration-300 cursor-pointer
+          active:scale-[0.98] md:active:scale-100 touch-manipulation
           ${isDragging
             ? 'border-blue-500 bg-blue-500/10'
-            : 'border-slate-600 hover:border-slate-500 bg-slate-800/30'
+            : 'border-slate-600 hover:border-slate-500 bg-slate-800/30 shadow-inner'
           }
           ${isProcessing ? 'pointer-events-none opacity-50' : ''}
         `}
       >
         <input
+          id="file-upload-input"
           type="file"
           multiple={multiple}
           accept={accept.map(a => `.${a}`).join(',')}
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          style={{ display: 'none' }} // Hidden but triggered via click()
         />
 
         <div className="flex flex-col items-center gap-3">
           <div className={`
-            w-16 h-16 rounded-full flex items-center justify-center
+            w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center
             ${isDragging ? 'bg-blue-500/20' : 'bg-slate-700/50'}
           `}>
-            <IconComponent className={`w-8 h-8 ${isDragging ? 'text-blue-400' : 'text-slate-400'}`} />
+            <IconComponent className={`w-7 h-7 sm:w-8 sm:h-8 ${isDragging ? 'text-blue-400' : 'text-slate-400'}`} />
           </div>
 
           <div>
-            <p className="text-lg font-medium text-white">{label}</p>
+            <p className="text-base sm:text-lg font-medium text-white">{label}</p>
             <p className="text-sm text-slate-400 mt-1">{description}</p>
           </div>
 
-          <div className="flex gap-2 text-xs text-slate-500">
+          <div className="flex flex-wrap justify-center gap-2 text-[10px] sm:text-xs text-slate-500">
             <span>Accepted: {accept.join(', ').toUpperCase()}</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>Max: {formatFileSize(maxSize)}</span>
           </div>
         </div>

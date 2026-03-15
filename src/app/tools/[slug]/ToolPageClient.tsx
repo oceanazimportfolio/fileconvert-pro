@@ -127,13 +127,13 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
       <header className="border-b border-slate-700/50 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
                   <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <div className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                  <div className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors whitespace-nowrap">
                     FileConvert<span className="text-blue-400">.pro</span>
                   </div>
                 </div>
@@ -155,16 +155,16 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
           ========================================== */}
       <div className="max-w-7xl mx-auto px-4 pt-4">
         <div
-          className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center"
+          className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center overflow-hidden"
           role="complementary"
           aria-label="Advertisement"
         >
-          <div className="h-[90px] flex items-center justify-center">
+          <div className="min-h-[50px] md:h-[90px] flex items-center justify-center overflow-auto">
             {/* ==========================================
                 AD PLACEHOLDER - INSERT YOUR AD CODE HERE
                 Recommended: Google AdSense Leaderboard (728x90)
                 ========================================== */}
-            <span className="text-slate-600 text-sm">Advertisement Space (728x90)</span>
+            <span className="text-slate-600 text-xs sm:text-sm">Advertisement Space (Responsive)</span>
           </div>
         </div>
       </div>
@@ -172,15 +172,19 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
         {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-slate-400">
-            <li>
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
+        <nav className="mb-6 overflow-hidden" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-y-2 gap-x-2 text-sm text-slate-400">
+            <li className="flex items-center gap-2">
+              <Link href="/" className="hover:text-white transition-colors whitespace-nowrap">Home</Link>
+              <ChevronRight className="w-4 h-4 flex-shrink-0" />
             </li>
-            <li><ChevronRight className="w-4 h-4" /></li>
-            <li>{tool.breadcrumb}</li>
-            <li><ChevronRight className="w-4 h-4" /></li>
-            <li className="text-white font-medium">{tool.schemaData.name}</li>
+            <li className="flex items-center gap-2">
+              <span className="whitespace-nowrap">{tool.breadcrumb}</span>
+              <ChevronRight className="w-4 h-4 flex-shrink-0" />
+            </li>
+            <li className="text-white font-medium truncate max-w-[150px] sm:max-w-none">
+              {tool.schemaData.name}
+            </li>
           </ol>
         </nav>
 
