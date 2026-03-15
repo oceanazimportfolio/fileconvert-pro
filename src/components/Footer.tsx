@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Zap, Shield, Globe } from 'lucide-react'
+import { Zap, Shield } from 'lucide-react'
 
 export function Footer() {
     const currentYear = new Date().getFullYear()
@@ -9,7 +9,7 @@ export function Footer() {
     return (
         <footer className="border-t border-slate-700/50 mt-16 bg-slate-900/50 backdrop-blur-sm">
             <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12 border-b border-slate-800 pb-12">
                     {/* Brand and Mission */}
                     <div className="col-span-2 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-4">
@@ -68,16 +68,30 @@ export function Footer() {
                     </nav>
                 </div>
 
-                <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="flex items-center gap-2 text-sm text-slate-500">
-                        <span>© {currentYear}</span>
-                        <span className="font-semibold text-slate-400">FileConvert.pro</span>
-                        <span className="hidden md:inline text-slate-700">•</span>
-                        <span className="hidden md:inline">Made with ♥ for the web</span>
+                {/* Attribution Section */}
+                <div className="flex flex-col items-center text-center space-y-8">
+                    <div className="flex flex-col items-center gap-4">
+                        <span className="text-slate-500 text-sm font-medium">© {currentYear} ConvertFiles</span>
+
+                        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium">
+                            <Link href="/privacy-policy" className="text-slate-400 hover:text-blue-400 transition-colors">Privacy Policy</Link>
+                            <Link href="/terms" className="text-slate-400 hover:text-blue-400 transition-colors">Terms</Link>
+                            <Link href="/contact" className="text-slate-400 hover:text-blue-400 transition-colors">Contact</Link>
+                            <Link href="/about" className="text-slate-400 hover:text-blue-400 transition-colors">About</Link>
+                        </nav>
                     </div>
-                    <div className="flex gap-6 text-sm">
-                        <Link href="/privacy-policy" className="text-slate-500 hover:text-white transition-colors">Privacy</Link>
-                        <Link href="/terms" className="text-slate-500 hover:text-white transition-colors">Terms</Link>
+
+                    <div className="pt-4 border-t border-slate-800/50 w-full max-w-xs mx-auto">
+                        <p className="text-slate-500 text-xs tracking-widest uppercase mb-1">Created By</p>
+                        <a
+                            href="https://azimulhaque.qzz.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white font-bold hover:text-blue-400 transition-colors text-base group inline-flex items-center gap-1"
+                        >
+                            Azimul Haque
+                            <span className="inline-block transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
+                        </a>
                     </div>
                 </div>
             </div>
