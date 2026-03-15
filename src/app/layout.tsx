@@ -19,12 +19,12 @@ const geistMono = Geist_Mono({
 // ==========================================
 export const metadata: Metadata = {
   // IMPORTANT: Update this with your actual domain
-  metadataBase: new URL('https://fileconvert.pro'),
+  metadataBase: new URL('https://convertfiles.qzz.io'),
 
   // Primary Meta Tags - Optimized for high-volume searches
   title: {
-    default: "FileConvert.pro - Free Online Image Converter & Developer Tools",
-    template: "%s | FileConvert.pro"
+    default: "ConvertFiles.qzz.io - Free Online Image Converter & Developer Tools",
+    template: "%s | ConvertFiles.qzz.io"
   },
   description: "Free online tools: Image converter (PNG to JPG, WebP, AVIF), JSON formatter, Base64 encoder, password generator, QR code creator. 100% browser-based, no uploads. Fast, secure, unlimited use.",
 

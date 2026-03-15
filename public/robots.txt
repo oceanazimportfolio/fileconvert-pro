@@ -1,5 +1,5 @@
 # ==========================================
-# robots.txt for FileConvert.pro
+# robots.txt for ConvertFiles.qzz.io
 # Target: US, Europe, Worldwide audience
 # ==========================================
 
@@ -10,7 +10,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location (UPDATE WITH YOUR ACTUAL DOMAIN)
-Sitemap: https://fileconvert.pro/sitemap.xml
+Sitemap: https://convertfiles.qzz.io/sitemap.xml
 
 # Disallow admin/API routes (not useful for search)
 Disallow: /api/
