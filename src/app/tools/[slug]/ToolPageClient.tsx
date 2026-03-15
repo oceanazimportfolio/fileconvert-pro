@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { 
+import {
   ChevronRight, Zap, Shield, Globe, Home, ArrowLeft,
   Sparkles
 } from 'lucide-react'
@@ -128,13 +128,13 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
                   <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                  <div className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
                     FileConvert<span className="text-blue-400">.pro</span>
-                  </h1>
+                  </div>
                 </div>
               </Link>
             </div>
-            
+
             <Link href="/">
               <Button variant="ghost" className="text-slate-400 hover:text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -149,7 +149,7 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
           AD BANNER - TOP LEADERBOARD (728x90)
           ========================================== */}
       <div className="max-w-7xl mx-auto px-4 pt-4">
-        <div 
+        <div
           className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center"
           role="complementary"
           aria-label="Advertisement"
@@ -185,12 +185,12 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
             <Sparkles className="w-3 h-3 mr-1" />
             {tool.category}
           </Badge>
-          
+
           {/* H1 - Primary SEO Heading */}
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
             {tool.h1}
           </h1>
-          
+
           {/* H2 - Secondary SEO Heading */}
           <h2 className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto font-normal">
             {tool.h2}
@@ -211,7 +211,7 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
                 AD BANNER - BELOW TOOL
                 ========================================== */}
             <div className="mt-6">
-              <div 
+              <div
                 className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center"
                 role="complementary"
                 aria-label="Advertisement"
@@ -222,15 +222,15 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
               </div>
             </div>
 
-            {/* SEO Content Section */}
+            {/* About Tool Section */}
             <section className="mt-8 py-8 border-t border-slate-700/50">
               <h2 className="text-xl font-semibold text-white mb-4">
                 About {tool.schemaData.name}
               </h2>
               <div className="prose prose-invert max-w-none">
                 <p className="text-slate-300 leading-relaxed">
-                  {tool.description} This free online tool works entirely in your browser, 
-                  ensuring your files and data never leave your device. No registration required, 
+                  {tool.description} This free online tool works entirely in your browser,
+                  ensuring your files and data never leave your device. No registration required,
                   no limits, and no watermarks on your output.
                 </p>
                 <h3 className="text-lg font-semibold text-white mt-6 mb-3">Key Features</h3>
@@ -252,6 +252,34 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
                     Completely free, no limits
                   </li>
                 </ul>
+              </div>
+            </section>
+
+            {/* Related Tools Section */}
+            <section className="mt-8 py-8 border-t border-slate-700/50">
+              <h2 className="text-xl font-semibold text-white mb-6">Related Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { id: 'image-converter', title: 'Image Converter', desc: 'PNG, JPG, WebP, AVIF' },
+                  { id: 'image-compress', title: 'Compress & Resize', desc: 'Optimize images' },
+                  { id: 'json-formatter', title: 'JSON Formatter', desc: 'Format & validate JSON' }
+                ].filter(t => t.id !== slug).map((tool) => (
+                  <Link key={tool.id} href={`/tools/${tool.id}`}>
+                    <Card className="bg-slate-800/30 border-slate-700/30 hover:border-blue-500/50 transition-all h-full cursor-pointer">
+                      <CardContent className="p-4">
+                        <h3 className="text-white font-medium text-sm mb-1">{tool.title}</h3>
+                        <p className="text-xs text-slate-400">{tool.desc}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-6 text-center">
+                <Link href="/">
+                  <Button variant="outline" size="sm" className="text-slate-400 border-slate-700">
+                    View All Tools
+                  </Button>
+                </Link>
               </div>
             </section>
           </div>
@@ -318,11 +346,11 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
               </Card>
             </div>
           </aside>
-        </div>
-      </main>
+        </div >
+      </main >
 
       {/* Footer */}
-      <footer className="border-t border-slate-700/50 mt-16">
+      < footer className="border-t border-slate-700/50 mt-16" >
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
             <Link href="/" className="flex items-center gap-2">
@@ -332,7 +360,7 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
             <p>© 2024 FileConvert.pro</p>
           </div>
         </div>
-      </footer>
-    </div>
+      </footer >
+    </div >
   )
 }

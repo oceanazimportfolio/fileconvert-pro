@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Image as ImageIcon, Minimize2, QrCode, Youtube, 
+import {
+  Image as ImageIcon, Minimize2, QrCode, Youtube,
   Sparkles, Zap, Shield, Globe, CaseSensitive,
-  Key, Binary, FileText, Hash, Link as LinkIcon, Palette, 
+  Key, Binary, FileText, Hash, Link as LinkIcon, Palette,
   Eraser, Wand2
 } from 'lucide-react'
 
@@ -56,7 +56,7 @@ export default function Home() {
       keywords: ['background remover', 'remove background', 'transparent background', 'bg remover'],
       isNew: true
     },
-    
+
     // === DEVELOPER TOOLS - HIGH CPC ===
     {
       id: 'json-formatter',
@@ -85,7 +85,7 @@ export default function Home() {
       category: 'developer',
       keywords: ['url encoder', 'url decoder', 'encode url', 'percent encoding']
     },
-    
+
     // === TEXT TOOLS ===
     {
       id: 'case-converter',
@@ -114,7 +114,7 @@ export default function Home() {
       category: 'text',
       keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'text generator']
     },
-    
+
     // === DESIGN TOOLS ===
     {
       id: 'color-palette',
@@ -125,7 +125,7 @@ export default function Home() {
       category: 'design',
       keywords: ['color palette', 'color generator', 'hex colors', 'design colors']
     },
-    
+
     // === UTILITY TOOLS ===
     {
       id: 'password-generator',
@@ -145,7 +145,7 @@ export default function Home() {
       category: 'utility',
       keywords: ['qr code generator', 'qr creator', 'barcode generator', 'qr code maker']
     },
-    
+
     // === SOCIAL MEDIA TOOLS ===
     {
       id: 'youtube-thumbnail',
@@ -180,11 +180,11 @@ export default function Home() {
                 <img src="/logo.png" alt="FileConvert.pro Logo" className="w-full h-full object-cover" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">FileConvert<span className="text-blue-400">.pro</span></h1>
+                <div className="text-xl font-bold text-white">FileConvert<span className="text-blue-400">.pro</span></div>
                 <p className="text-xs text-slate-400">Free Online Tools</p>
               </div>
             </div>
-            
+
             <div className="hidden md:flex items-center gap-4 text-xs text-slate-400">
               <span className="flex items-center gap-1">
                 <Zap className="w-3.5 h-3.5 text-yellow-400" />
@@ -207,7 +207,7 @@ export default function Home() {
           AD BANNER - TOP LEADERBOARD (728x90)
           ========================================== */}
       <div className="max-w-7xl mx-auto px-4 pt-4">
-        <div 
+        <div
           className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center"
           role="complementary"
           aria-label="Advertisement"
@@ -234,13 +234,13 @@ export default function Home() {
             <Sparkles className="w-3 h-3 mr-1" />
             100% Browser-based - No Server Uploads
           </Badge>
-          
+
           <h1 id="hero-title" className="text-3xl md:text-4xl font-bold text-white mb-3">
             Free Online <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">File Converter</span> & Tools
           </h1>
-          
+
           <h2 className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto font-normal">
-            Image converter, enhancer, background remover, JSON formatter, password generator, and more. 
+            Image converter, enhancer, background remover, JSON formatter, password generator, and more.
             All processing happens locally in your browser — fast, free, and secure.
           </h2>
         </section>
@@ -251,9 +251,9 @@ export default function Home() {
         <nav aria-label="Tool categories" className="mb-6">
           <div className="flex flex-wrap gap-2 justify-center mb-4">
             {categories.map((cat) => (
-              <Badge 
+              <Badge
                 key={cat.id}
-                variant="outline" 
+                variant="outline"
                 className="cursor-pointer hover:bg-slate-700/50 border-slate-600 text-slate-300"
               >
                 <cat.icon className="w-3 h-3 mr-1" />
@@ -268,7 +268,7 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 mb-8">
           {tools.map((tool) => (
             <Link key={tool.id} href={`/tools/${tool.id}`}>
-              <Card 
+              <Card
                 className="cursor-pointer transition-all duration-200 hover:scale-105 hover:border-blue-500/50 h-full
                   bg-slate-800/50 border-slate-700/50"
                 role="button"
@@ -301,9 +301,9 @@ export default function Home() {
             <article>
               <h2 className="text-lg font-semibold text-white mb-3">Free Image Tools</h2>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Convert, compress, enhance, and remove backgrounds from images instantly. Our image tools support 
-                PNG, JPG, WebP, AVIF, and more. Batch convert multiple images at once. All processing happens 
-                in your browser - no uploads to servers. Perfect for web developers, designers, photographers, 
+                Convert, compress, enhance, and remove backgrounds from images instantly. Our image tools support
+                PNG, JPG, WebP, AVIF, and more. Batch convert multiple images at once. All processing happens
+                in your browser - no uploads to servers. Perfect for web developers, designers, photographers,
                 and anyone needing quick image editing.
               </p>
             </article>
@@ -312,9 +312,9 @@ export default function Home() {
             <article>
               <h2 className="text-lg font-semibold text-white mb-3">Developer Utility Tools</h2>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Essential tools for developers: JSON formatter and validator, Base64 encoder/decoder, 
-                URL encoder/decoder. Format and validate JSON data instantly, encode strings for 
-                web transmission, and handle URL encoding effortlessly. All tools work offline 
+                Essential tools for developers: JSON formatter and validator, Base64 encoder/decoder,
+                URL encoder/decoder. Format and validate JSON data instantly, encode strings for
+                web transmission, and handle URL encoding effortlessly. All tools work offline
                 in your browser - no data sent to external servers.
               </p>
             </article>
@@ -323,9 +323,9 @@ export default function Home() {
             <article>
               <h2 className="text-lg font-semibold text-white mb-3">Text & Content Tools</h2>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Transform text with our case converter, count words and characters, generate 
-                Lorem Ipsum placeholder text. Perfect for writers, students, and content creators. 
-                Convert between uppercase, lowercase, title case, camelCase, snake_case, and more. 
+                Transform text with our case converter, count words and characters, generate
+                Lorem Ipsum placeholder text. Perfect for writers, students, and content creators.
+                Convert between uppercase, lowercase, title case, camelCase, snake_case, and more.
                 Get detailed text statistics including word count and reading time.
               </p>
             </article>
@@ -350,7 +350,7 @@ export default function Home() {
                 <li><Link href="/tools/background-remover" className="hover:text-white hover:underline">Background Remover</Link></li>
               </ul>
             </nav>
-            
+
             {/* Developer Tools */}
             <nav aria-label="Developer tools">
               <h3 className="font-semibold text-white mb-3 text-sm">Developer Tools</h3>
@@ -361,7 +361,7 @@ export default function Home() {
                 <li><Link href="/tools/url-encoder" className="hover:text-white hover:underline">URL Encoder</Link></li>
               </ul>
             </nav>
-            
+
             {/* Text Tools */}
             <nav aria-label="Text tools">
               <h3 className="font-semibold text-white mb-3 text-sm">Text Tools</h3>
@@ -371,7 +371,7 @@ export default function Home() {
                 <li><Link href="/tools/lorem-ipsum-generator" className="hover:text-white hover:underline">Lorem Ipsum Generator</Link></li>
               </ul>
             </nav>
-            
+
             {/* Utilities */}
             <nav aria-label="Utility tools">
               <h3 className="font-semibold text-white mb-3 text-sm">Utilities</h3>
@@ -383,13 +383,13 @@ export default function Home() {
               </ul>
             </nav>
           </div>
-          
+
           <div className="text-center text-slate-500 text-sm border-t border-slate-700/50 pt-6">
             <p className="mb-2">
               <strong className="text-white">FileConvert.pro</strong> — Free online file converter and developer tools
             </p>
             <p className="text-xs">
-              All processing happens locally in your browser. Your files and data never leave your device. 
+              All processing happens locally in your browser. Your files and data never leave your device.
               No registration required. Works on all devices and browsers.
             </p>
             <p className="text-xs mt-3 text-slate-600">

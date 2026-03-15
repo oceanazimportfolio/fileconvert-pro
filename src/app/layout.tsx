@@ -20,14 +20,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   // IMPORTANT: Update this with your actual domain
   metadataBase: new URL('https://fileconvert.pro'),
-  
+
   // Primary Meta Tags - Optimized for high-volume searches
   title: {
     default: "FileConvert.pro - Free Online Image Converter & Developer Tools",
     template: "%s | FileConvert.pro"
   },
   description: "Free online tools: Image converter (PNG to JPG, WebP, AVIF), JSON formatter, Base64 encoder, password generator, QR code creator. 100% browser-based, no uploads. Fast, secure, unlimited use.",
-  
+
   // Keywords - High-volume, high-CPC keywords
   keywords: [
     // Image conversion - High volume
@@ -76,12 +76,12 @@ export const metadata: Metadata = {
     "secure file tools",
     "offline tools"
   ],
-  
+
   // Author and publisher
   authors: [{ name: "FileConvert.pro", url: "https://fileconvert.pro" }],
   creator: "FileConvert.pro",
   publisher: "FileConvert.pro",
-  
+
   // Icons
   icons: {
     icon: [
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     ],
     apple: "/logo.png",
   },
-  
+
   // Open Graph - For Facebook, LinkedIn, etc.
   openGraph: {
     title: "FileConvert.pro - Free Online Image & Developer Tools",
@@ -108,7 +108,7 @@ export const metadata: Metadata = {
       }
     ]
   },
-  
+
   // Twitter Card
   twitter: {
     card: "summary_large_image",
@@ -117,7 +117,7 @@ export const metadata: Metadata = {
     images: ["/logo.png"],
     creator: "@fileconvertpro"
   },
-  
+
   // Robots - Encourage full indexing
   robots: {
     index: true,
@@ -130,14 +130,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  
+
   // Verification - UPDATE WITH YOUR ACTUAL CODES
   verification: {
     google: "YOUR-GOOGLE-SEARCH-CONSOLE-CODE",
     // yandex: "your-yandex-code",  // For Russia
     // yahoo: "your-yahoo-code",    // For Japan
   },
-  
+
   // Alternates for international targeting
   alternates: {
     canonical: "https://fileconvert.pro",
@@ -147,14 +147,14 @@ export const metadata: Metadata = {
       "en-EU": "https://fileconvert.pro",
     }
   },
-  
+
   // App info
   applicationName: "FileConvert.pro",
   generator: "Next.js",
-  
+
   // Category for app directories
   category: "Utilities",
-  
+
   // Classification
   classification: "Online Tools, File Conversion, Developer Utilities",
 };
@@ -170,6 +170,7 @@ const jsonLdSchema = {
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any",
   "browserRequirements": "Requires JavaScript",
+  "isFamilyFriendly": "true",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -246,19 +247,19 @@ export default function RootLayout({
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#0f172a" />
         <meta name="msapplication-TileColor" content="#0f172a" />
-        
+
         {/* Mobile app support */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="FileConvert" />
-        
+
         {/* DNS prefetch for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+
         {/* Canonical URL - UPDATE WITH YOUR DOMAIN */}
         <link rel="canonical" href="https://fileconvert.pro" />
-        
+
         {/* JSON-LD Structured Data for Rich Snippets */}
         <script
           type="application/ld+json"
@@ -272,7 +273,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
         />
-        
+
         {/* ==========================================
             ADSENSE PLACEHOLDER
             Replace the code below with your actual AdSense code
@@ -281,7 +282,7 @@ export default function RootLayout({
         {/* 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR-ADSENSE-ID" crossOrigin="anonymous"></script>
         */}
-        
+
         {/* Google Analytics Placeholder */}
         {/*
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-GA-ID"></script>
