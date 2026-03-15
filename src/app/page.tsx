@@ -9,6 +9,7 @@ import {
   Key, Binary, FileText, Hash, Link as LinkIcon, Palette,
   Eraser, Wand2
 } from 'lucide-react'
+import { Footer } from '@/components/Footer'
 
 export default function Home() {
   // ==========================================
@@ -333,71 +334,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* ==========================================
-          FOOTER WITH SEO LINKS
-          ========================================== */}
-      <footer className="border-t border-slate-700/50 mt-8">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-            {/* Image Tools */}
-            <nav aria-label="Image tools">
-              <h3 className="font-semibold text-white mb-3 text-sm">Image Tools</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/tools/image-converter" className="hover:text-white hover:underline">PNG to JPG Converter</Link></li>
-                <li><Link href="/tools/image-converter" className="hover:text-white hover:underline">JPG to PNG Converter</Link></li>
-                <li><Link href="/tools/image-compress" className="hover:text-white hover:underline">Image Compressor</Link></li>
-                <li><Link href="/tools/image-enhancer" className="hover:text-white hover:underline">Image Enhancer</Link></li>
-                <li><Link href="/tools/background-remover" className="hover:text-white hover:underline">Background Remover</Link></li>
-              </ul>
-            </nav>
-
-            {/* Developer Tools */}
-            <nav aria-label="Developer tools">
-              <h3 className="font-semibold text-white mb-3 text-sm">Developer Tools</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/tools/json-formatter" className="hover:text-white hover:underline">JSON Formatter</Link></li>
-                <li><Link href="/tools/json-formatter" className="hover:text-white hover:underline">JSON Validator</Link></li>
-                <li><Link href="/tools/base64-encoder" className="hover:text-white hover:underline">Base64 Encoder</Link></li>
-                <li><Link href="/tools/url-encoder" className="hover:text-white hover:underline">URL Encoder</Link></li>
-              </ul>
-            </nav>
-
-            {/* Text Tools */}
-            <nav aria-label="Text tools">
-              <h3 className="font-semibold text-white mb-3 text-sm">Text Tools</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/tools/case-converter" className="hover:text-white hover:underline">Case Converter</Link></li>
-                <li><Link href="/tools/word-counter" className="hover:text-white hover:underline">Word Counter</Link></li>
-                <li><Link href="/tools/lorem-ipsum-generator" className="hover:text-white hover:underline">Lorem Ipsum Generator</Link></li>
-              </ul>
-            </nav>
-
-            {/* Utilities */}
-            <nav aria-label="Utility tools">
-              <h3 className="font-semibold text-white mb-3 text-sm">Utilities</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/tools/password-generator" className="hover:text-white hover:underline">Password Generator</Link></li>
-                <li><Link href="/tools/qr-code-generator" className="hover:text-white hover:underline">QR Code Generator</Link></li>
-                <li><Link href="/tools/color-palette" className="hover:text-white hover:underline">Color Palette</Link></li>
-                <li><Link href="/tools/youtube-thumbnail" className="hover:text-white hover:underline">YouTube Thumbnail</Link></li>
-              </ul>
-            </nav>
-          </div>
-
-          <div className="text-center text-slate-500 text-sm border-t border-slate-700/50 pt-6">
-            <p className="mb-2">
-              <strong className="text-white">FileConvert.pro</strong> — Free online file converter and developer tools
-            </p>
-            <p className="text-xs">
-              All processing happens locally in your browser. Your files and data never leave your device.
-              No registration required. Works on all devices and browsers.
-            </p>
-            <p className="text-xs mt-3 text-slate-600">
-              © 2024 FileConvert.pro - All Rights Reserved
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

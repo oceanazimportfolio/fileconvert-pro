@@ -23,6 +23,7 @@ import { WordCounter } from '@/components/tools/WordCounter'
 import { UrlEncoder } from '@/components/tools/UrlEncoder'
 import { YouTubeThumbnail } from '@/components/tools/YouTubeThumbnail'
 import { QrCodeGenerator } from '@/components/tools/QrCodeGenerator'
+import { Footer } from '@/components/Footer'
 
 interface ToolConfig {
   title: string
@@ -356,18 +357,7 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
         </div >
       </main >
 
-      {/* Footer */}
-      < footer className="border-t border-slate-700/50 mt-16" >
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="font-bold text-white">FileConvert.pro</span>
-            </Link>
-            <p>All processing happens locally in your browser. Your data is secure.</p>
-            <p>© 2024 FileConvert.pro</p>
-          </div>
-        </div>
-      </footer >
+      <Footer />
     </div >
   )
 }
