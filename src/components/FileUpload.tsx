@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { Upload, X, File, Image, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -43,6 +43,17 @@ export function FileUpload({
 }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
+
+  // Cleanup object URLs on unmount
+  useEffect(() => {
+    return () => {
+      files.forEach(file => {
+        if (file.preview) {
+          URL.revokeObjectURL(file.preview)
+        }
+      })
+    }
+  }, [files])
 
   const processFiles = useCallback(async (fileList: FileList | File[]) => {
     setIsProcessing(true)
@@ -124,8 +135,8 @@ export function FileUpload({
         onDragLeave={handleDragLeave}
         className={`
           relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 cursor-pointer
-          ${isDragging 
-            ? 'border-blue-500 bg-blue-500/10' 
+          ${isDragging
+            ? 'border-blue-500 bg-blue-500/10'
             : 'border-slate-600 hover:border-slate-500 bg-slate-800/30'
           }
           ${isProcessing ? 'pointer-events-none opacity-50' : ''}
@@ -138,7 +149,7 @@ export function FileUpload({
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         />
-        
+
         <div className="flex flex-col items-center gap-3">
           <div className={`
             w-16 h-16 rounded-full flex items-center justify-center
@@ -146,12 +157,12 @@ export function FileUpload({
           `}>
             <IconComponent className={`w-8 h-8 ${isDragging ? 'text-blue-400' : 'text-slate-400'}`} />
           </div>
-          
+
           <div>
             <p className="text-lg font-medium text-white">{label}</p>
             <p className="text-sm text-slate-400 mt-1">{description}</p>
           </div>
-          
+
           <div className="flex gap-2 text-xs text-slate-500">
             <span>Accepted: {accept.join(', ').toUpperCase()}</span>
             <span>•</span>
@@ -181,9 +192,8 @@ export function FileUpload({
             {files.map((file) => (
               <Card
                 key={file.id}
-                className={`bg-slate-800/50 border-slate-700/50 p-3 ${
-                  file.error ? 'border-red-500/50' : ''
-                }`}
+                className={`bg-slate-800/50 border-slate-700/50 p-3 ${file.error ? 'border-red-500/50' : ''
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   {/* Preview or Icon */}
