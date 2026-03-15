@@ -127,9 +127,9 @@ export function ImageEnhancer() {
       // Apply sharpening kernel for edge enhancement
       // This gives an "AI enhanced" look
       const sharpenKernel = tf.tensor4d([
-        [0, -1, 0],
-        [-1, 5, -1],
-        [0, -1, 0]
+        0, -1, 0,
+        -1, 5, -1,
+        0, -1, 0
       ], [3, 3, 1, 1])
 
       // Split channels for sharpening

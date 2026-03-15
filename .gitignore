@@ -161,3 +161,11 @@ prompt
 
 # Skills directory
 /skills/
+
+# Project specific ignores
+.gemini/
+.openclaw/
+.antigravity/
+upload/
+download/
+db/
