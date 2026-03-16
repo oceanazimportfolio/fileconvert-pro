@@ -120,8 +120,8 @@ export default function TermsOfServicePage() {
 
                     <section className="pt-8 border-t border-slate-700/50">
                         <p className="text-sm text-slate-500">
-                            If you have any questions regarding these terms, please contact us at
-                            <span className="text-blue-400 font-bold ml-1">hello@convertfiles.qzz.io</span>
+                            If you have any questions regarding these terms, please contact us via our
+                            <Link href="/contact" className="text-blue-400 font-bold hover:underline ml-1">contact form</Link>.
                         </p>
                     </section>
                 </div>

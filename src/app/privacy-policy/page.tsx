@@ -124,8 +124,8 @@ export default function PrivacyPolicyPage() {
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">5. Contact Information</h2>
                         <p>
-                            If you have any questions about this Privacy Policy, please contact us at:
-                            <span className="text-blue-400 font-bold ml-1">hello@convertfiles.qzz.io</span>
+                            If you have any questions about this Privacy Policy, please contact us via our
+                            <Link href="/contact" className="text-blue-400 font-bold hover:underline ml-1">contact form</Link>.
                         </p>
                     </section>
                 </div>
