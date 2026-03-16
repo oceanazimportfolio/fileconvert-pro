@@ -1,10 +1,24 @@
-'use client'
-
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Footer } from '@/components/Footer'
 import { ArrowLeft, ShieldCheck, Lock, EyeOff, Cookie } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | ConvertFiles',
+  description: 'Read the ConvertFiles privacy policy. Learn how our browser-based tools process your data locally to ensure maximum privacy and security.',
+  openGraph: {
+    title: 'Privacy Policy | ConvertFiles',
+    description: 'Learn how our browser-based tools process your data locally to ensure maximum privacy.',
+    url: 'https://convertfiles.qzz.io/privacy-policy/',
+    siteName: 'ConvertFiles',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://convertfiles.qzz.io/privacy-policy/',
+  }
+}
 
 export default function PrivacyPolicyPage() {
     const lastUpdated = "March 15, 2026"
@@ -24,12 +38,12 @@ export default function PrivacyPolicyPage() {
                             </div>
                         </Link>
 
-                        <Link href="/">
-                            <Button variant="ghost" className="text-slate-400 hover:text-white">
-                                <ArrowLeft className="w-4 h-4 mr-2" />
-                                Back to Tools
-                            </Button>
-                        </Link>
+                            <Link href="/">
+                                <Button variant="ghost" className="text-slate-400 hover:text-white">
+                                    <ArrowLeft className="w-4 h-4 mr-2" />
+                                    Back to Tools
+                                </Button>
+                            </Link>
                     </div>
                 </div>
             </header>
@@ -46,11 +60,11 @@ export default function PrivacyPolicyPage() {
                         <div className="flex items-start gap-4">
                             <ShieldCheck className="w-10 h-10 text-blue-400 flex-shrink-0" />
                             <div>
-                                <h2 className="text-xl font-bold text-white mb-2">The Golden Rule of ConvertFiles</h2>
+                                <h2 className="text-xl font-bold text-white mb-2">Our Commitment to Privacy</h2>
                                 <p className="text-slate-300">
-                                    We built this platform to be the most private utility toolkit on the web.
-                                    <strong> We do not upload, store, or see any of the files you process using our tools.</strong>
-                                    Everything happens locally in your browser.
+                                    We built this platform to prioritize user privacy.
+                                    <strong> Processing happens locally in your browser.</strong>
+                                    We aim to minimize data collection while providing powerful tools.
                                 </p>
                             </div>
                         </div>
@@ -63,8 +77,8 @@ export default function PrivacyPolicyPage() {
                         </h2>
                         <p className="mb-4">
                             Unlike traditional online converters, ConvertFiles utilizes advanced browser technologies (JavaScript, WebAssembly)
-                            to process your data directly on your device. When you "Upload" a file, it is merely loaded into your browser's memory.
-                            No data packets containing your file content are sent over the internet to our infrastructure.
+                            to process your data directly on your device. When you "Upload" a file, it is loaded into your browser's memory.
+                            The processing computations run locally on your hardware.
                         </p>
                     </section>
 

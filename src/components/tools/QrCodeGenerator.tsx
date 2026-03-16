@@ -12,6 +12,7 @@ import {
   QrCode, Download, CheckCircle,
   Link, Mail, Phone, MessageSquare, Wifi
 } from 'lucide-react'
+import { trackConversion } from '@/lib/analytics'
 
 export function QrCodeGenerator() {
   const [contentType, setContentType] = useState<'text' | 'url' | 'email' | 'phone' | 'sms' | 'wifi'>('url')
@@ -68,6 +69,8 @@ export function QrCodeGenerator() {
     link.click()
     document.body.removeChild(link)
     URL.revokeObjectURL(url)
+    
+    trackConversion('qr-code-generator', 'download', 'png')
   }
 
   const handleCopy = async () => {
@@ -80,6 +83,7 @@ export function QrCodeGenerator() {
         new ClipboardItem({ 'image/png': blob })
       ])
       setCopied(true)
+      trackConversion('qr-code-generator', 'copy', 'png')
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       console.error('Copy failed:', err)

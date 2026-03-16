@@ -119,7 +119,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-white font-bold">Secure Contact</h3>
-                                    <p className="text-xs text-slate-500">End-to-end encrypted relay</p>
+                                    <p className="text-xs text-slate-500">Secure Contact Form</p>
                                 </div>
                             </div>
                             <p className="text-slate-300 text-sm leading-relaxed">

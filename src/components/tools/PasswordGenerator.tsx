@@ -12,6 +12,7 @@ import {
   Key, Copy, CheckCircle, RefreshCw, Shield, 
   ShieldCheck, ShieldAlert
 } from 'lucide-react'
+import { trackConversion } from '@/lib/analytics'
 
 export function PasswordGenerator() {
   const [password, setPassword] = useState('')
@@ -49,6 +50,7 @@ export function PasswordGenerator() {
   const copyPassword = async () => {
     await navigator.clipboard.writeText(password)
     setCopied(true)
+    trackConversion('password-generator', 'copy', 'text')
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -225,7 +227,10 @@ export function PasswordGenerator() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => navigator.clipboard.writeText(pw)}
+                  onClick={() => {
+                    navigator.clipboard.writeText(pw);
+                    trackConversion('password-generator', 'copy', 'text');
+                  }}
                 >
                   <Copy className="w-4 h-4" />
                 </Button>

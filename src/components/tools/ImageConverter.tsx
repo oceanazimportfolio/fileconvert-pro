@@ -22,6 +22,7 @@ import {
   changeFileExtension,
   calculateCompressionRatio
 } from '@/lib/fileUtils'
+import { trackConversion } from '@/lib/analytics'
 
 interface ProcessingFile extends UploadedFile {
   status: 'pending' | 'processing' | 'done' | 'error'
@@ -87,6 +88,8 @@ export function ImageConverter() {
     const pendingFiles = files.filter(f => f.status === 'pending' && !f.error)
     if (pendingFiles.length === 0) return
 
+    trackConversion('image-converter', 'convert')
+
     setIsProcessing(true)
     setProgress(0)
 
@@ -131,6 +134,7 @@ export function ImageConverter() {
     const [_, toFormat] = conversionType.split('_')
     const newName = changeFileExtension(file.file.name, toFormat)
     downloadFile(file.result, newName)
+    trackConversion('image-converter', 'download', toFormat)
   }
 
   const handleDownloadAll = async () => {
@@ -145,6 +149,7 @@ export function ImageConverter() {
     }))
 
     await downloadAsZip(filesToDownload, `converted_images.zip`)
+    trackConversion('image-converter', 'download', 'zip')
   }
 
   const validFiles = files.filter(f => !f.error && f.status !== 'error')

@@ -10,6 +10,7 @@ import {
   Braces, Copy, CheckCircle, AlertCircle, Trash2,
   Minimize2, Maximize2, Download
 } from 'lucide-react'
+import { trackConversion } from '@/lib/analytics'
 
 export function JsonFormatter() {
   const [input, setInput] = useState('')
@@ -38,6 +39,7 @@ export function JsonFormatter() {
     if (!result.output) return
     await navigator.clipboard.writeText(result.output)
     setCopied(true)
+    trackConversion('json-formatter', 'copy', 'json')
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -50,6 +52,7 @@ export function JsonFormatter() {
     link.download = 'formatted.json'
     link.click()
     URL.revokeObjectURL(url)
+    trackConversion('json-formatter', 'download', 'json')
   }
 
   const handleClear = () => {

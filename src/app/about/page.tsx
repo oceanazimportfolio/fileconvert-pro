@@ -1,5 +1,4 @@
-'use client'
-
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,6 +8,21 @@ import {
     ArrowLeft, Shield, Zap, Globe, Heart,
     Sparkles, CheckCircle, Code2
 } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'About ConvertFiles | Privacy-First Online Tools',
+  description: 'Learn about ConvertFiles. We build free, browser-based tools that prioritize your privacy by processing files locally on your device.',
+  openGraph: {
+    title: 'About ConvertFiles | Privacy-First Online Tools',
+    description: 'Learn about ConvertFiles. We build free tools that process your files locally in your browser.',
+    url: 'https://convertfiles.qzz.io/about/',
+    siteName: 'ConvertFiles',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://convertfiles.qzz.io/about/',
+  }
+}
 
 export default function AboutPage() {
     return (
@@ -68,7 +82,7 @@ export default function AboutPage() {
                                     <div className="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                                         <CheckCircle className="w-3 h-3 text-blue-400" />
                                     </div>
-                                    <p className="text-slate-400 text-sm">We don't want your files. They are your business.</p>
+                                    <p className="text-slate-400 text-sm">We process files locally to keep your data under your control.</p>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <div className="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
@@ -95,7 +109,7 @@ export default function AboutPage() {
                                 on your machine.
                             </p>
                             <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-700/50 font-mono text-xs text-blue-400/80">
-                // Your data never leaves your device<br />
+                // Processing happens in your browser environment<br />
                                 processLocal(file).then(downloadResult);
                             </div>
                         </Card>
@@ -103,9 +117,9 @@ export default function AboutPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12">
                         {[
-                            { icon: Shield, title: "100% Private", desc: "No uploads, no server storage, total confidentiality." },
-                            { icon: Zap, title: "Blazing Fast", desc: "No waiting for uploads or long processing queues." },
-                            { icon: Globe, title: "Always Ready", desc: "Works even in low bandwidth environments." }
+                            { icon: Shield, title: "Privacy-Focused", desc: "Local processing means enhanced confidentiality and control over your files." },
+                            { icon: Zap, title: "Fast Performance", desc: "No waiting for uploads or long processing queues." },
+                            { icon: Globe, title: "Browser-Based", desc: "No additional software installation required." }
                         ].map((item, i) => (
                             <Card key={i} className="bg-slate-800/20 border-slate-700/30 p-6 text-center hover:bg-slate-800/40 transition-colors">
                                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-4 border border-blue-500/20">

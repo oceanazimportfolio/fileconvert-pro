@@ -204,24 +204,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ==========================================
-          AD BANNER - TOP LEADERBOARD (728x90)
-          ========================================== */}
-      <div className="max-w-7xl mx-auto px-4 pt-4">
-        <div
-          className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center"
-          role="complementary"
-          aria-label="Advertisement"
-        >
-          <div className="h-[90px] flex items-center justify-center">
-            {/* ==========================================
-                AD PLACEHOLDER - INSERT YOUR AD CODE HERE
-                Recommended: Google AdSense Leaderboard (728x90)
-                ========================================== */}
-            <span className="text-slate-600 text-sm">Advertisement Space (728x90)</span>
-          </div>
-        </div>
-      </div>
+
 
       {/* ==========================================
           MAIN CONTENT AREA

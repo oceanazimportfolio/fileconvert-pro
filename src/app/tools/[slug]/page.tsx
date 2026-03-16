@@ -28,7 +28,7 @@ export const toolsConfig: Record<string, {
   }
 }> = {
   'image-converter': {
-    title: 'Free Image Converter - PNG to JPG, WebP, AVIF | ConvertFiles',
+    title: 'Free Image Converter - PNG to JPG, WebP, AVIF',
     description: 'Convert images for free. PNG to JPG, JPG to PNG, WebP converter, AVIF converter. Batch convert multiple images. No upload to servers, 100% browser-based.',
     keywords: ['png to jpg converter', 'jpg to png', 'webp converter', 'avif converter', 'image converter', 'batch image converter', 'free image converter', 'online image converter'],
     h1: 'Free Online Image Converter',
@@ -48,7 +48,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'image-compress': {
-    title: 'Image Compressor & Resizer - Reduce Image Size Free | ConvertFiles',
+    title: 'Image Compressor & Resizer - Reduce Image Size Free',
     description: 'Compress and resize images for free. Reduce image file size without losing quality. Batch compress multiple images. 100% browser-based.',
     keywords: ['compress image', 'image compressor', 'reduce image size', 'resize image', 'image optimizer', 'batch image compressor', 'free image compressor', 'online image resizer'],
     h1: 'Free Image Compressor & Resizer',
@@ -68,7 +68,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'image-enhancer': {
-    title: 'Image Enhancer - Brightness, Contrast, Sharpen Free | ConvertFiles',
+    title: 'Image Enhancer - Brightness, Contrast, Sharpen Free',
     description: 'Enhance images for free. Adjust brightness, contrast, saturation, sharpness. Auto-enhance feature. All processing in browser, no uploads.',
     keywords: ['image enhancer', 'photo enhancer', 'enhance image quality', 'increase brightness', 'adjust contrast', 'sharpen image', 'free image enhancer', 'online photo editor'],
     h1: 'Free Online Image Enhancer',
@@ -88,7 +88,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'background-remover': {
-    title: 'Background Remover - Remove Image Background Free | ConvertFiles',
+    title: 'Background Remover - Remove Image Background Free',
     description: 'Remove image backgrounds for free. Make transparent PNG images. Perfect for product photos and portraits. 100% browser-based, no uploads.',
     keywords: ['background remover', 'remove background', 'transparent background', 'remove image background', 'free background remover', 'online background remover', 'make transparent png'],
     h1: 'Free Background Remover',
@@ -108,7 +108,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'json-formatter': {
-    title: 'JSON Formatter & Validator - Format JSON Free | ConvertFiles',
+    title: 'JSON Formatter & Validator - Format JSON Free',
     description: 'Format and validate JSON for free. JSON beautifier, minifier, and validator. Syntax highlighting. Copy formatted JSON. 100% browser-based.',
     keywords: ['json formatter', 'json validator', 'json beautifier', 'format json', 'json minifier', 'validate json', 'free json formatter', 'online json editor'],
     h1: 'Free JSON Formatter & Validator',
@@ -128,7 +128,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'base64-encoder': {
-    title: 'Base64 Encoder & Decoder - Free Online Tool | ConvertFiles',
+    title: 'Base64 Encoder & Decoder - Free Online Tool',
     description: 'Encode and decode Base64 for free. Convert text to Base64 and vice versa. Image to Base64 converter. 100% browser-based, secure.',
     keywords: ['base64 encoder', 'base64 decoder', 'encode base64', 'decode base64', 'base64 converter', 'image to base64', 'free base64 encoder', 'online base64 tool'],
     h1: 'Free Base64 Encoder & Decoder',
@@ -148,7 +148,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'url-encoder': {
-    title: 'URL Encoder & Decoder - Encode URL Free | ConvertFiles',
+    title: 'URL Encoder & Decoder - Encode URL Free',
     description: 'Encode and decode URLs for free. Convert special characters to URL-safe format. Percent encoding. 100% browser-based.',
     keywords: ['url encoder', 'url decoder', 'encode url', 'decode url', 'percent encoding', 'url encoding', 'free url encoder', 'online url encoder'],
     h1: 'Free URL Encoder & Decoder',
@@ -168,7 +168,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'case-converter': {
-    title: 'Case Converter - Uppercase, Lowercase, Title Case Free | ConvertFiles',
+    title: 'Case Converter - Uppercase, Lowercase, Title Case Free',
     description: 'Convert text case for free. Uppercase, lowercase, title case, sentence case, camelCase, snake_case. Instant conversion.',
     keywords: ['case converter', 'uppercase converter', 'lowercase converter', 'title case', 'text case converter', 'camel case converter', 'free case converter', 'online text converter'],
     h1: 'Free Case Converter',
@@ -188,7 +188,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'word-counter': {
-    title: 'Word Counter & Character Counter - Free Online Tool | ConvertFiles',
+    title: 'Word Counter & Character Counter - Free Online Tool',
     description: 'Count words and characters for free. Word count, character count, sentence count, reading time. Perfect for writers and students.',
     keywords: ['word counter', 'character counter', 'word count', 'character count', 'text counter', 'reading time calculator', 'free word counter', 'online word counter'],
     h1: 'Free Word Counter & Character Counter',
@@ -208,7 +208,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'lorem-ipsum-generator': {
-    title: 'Lorem Ipsum Generator - Free Placeholder Text | ConvertFiles',
+    title: 'Lorem Ipsum Generator - Free Placeholder Text',
     description: 'Generate Lorem Ipsum placeholder text for free. Paragraphs, sentences, or words. Perfect for designers and developers.',
     keywords: ['lorem ipsum generator', 'placeholder text', 'dummy text', 'lorem ipsum', 'text generator', 'free lorem ipsum', 'online lorem ipsum generator'],
     h1: 'Free Lorem Ipsum Generator',
@@ -228,7 +228,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'color-palette': {
-    title: 'Color Palette Generator - Free Color Scheme Tool | ConvertFiles',
+    title: 'Color Palette Generator - Free Color Scheme Tool',
     description: 'Generate beautiful color palettes for free. Create color schemes for designs. Export as CSS or JSON. Perfect for designers.',
     keywords: ['color palette generator', 'color scheme generator', 'color palette', 'color combinations', 'hex color generator', 'free color palette', 'design color palette'],
     h1: 'Free Color Palette Generator',
@@ -248,7 +248,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'password-generator': {
-    title: 'Password Generator - Create Strong Secure Passwords Free | ConvertFiles',
+    title: 'Password Generator - Create Strong Secure Passwords Free',
     description: 'Generate strong, secure passwords for free. Customizable length and characters. Cryptographically secure. No data stored.',
     keywords: ['password generator', 'secure password', 'random password', 'strong password', 'password creator', 'free password generator', 'online password generator'],
     h1: 'Free Password Generator',
@@ -268,7 +268,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'qr-code-generator': {
-    title: 'QR Code Generator - Create QR Codes Free | ConvertFiles',
+    title: 'QR Code Generator - Create QR Codes Free',
     description: 'Generate QR codes for free. Create QR codes for URLs, text, WiFi, and more. Download as PNG. No registration required.',
     keywords: ['qr code generator', 'qr code creator', 'create qr code', 'qr code maker', 'free qr code', 'online qr generator', 'url qr code'],
     h1: 'Free QR Code Generator',
@@ -288,7 +288,7 @@ export const toolsConfig: Record<string, {
     }
   },
   'youtube-thumbnail': {
-    title: 'YouTube Thumbnail Downloader - Download HD Thumbnails Free | ConvertFiles',
+    title: 'YouTube Thumbnail Downloader - Download HD Thumbnails Free',
     description: 'Download YouTube video thumbnails for free. Get HD thumbnails from any YouTube video. No registration required. Instant download.',
     keywords: ['youtube thumbnail downloader', 'download youtube thumbnail', 'youtube thumbnail', 'video thumbnail downloader', 'yt thumbnail', 'free youtube thumbnail', 'hd thumbnail downloader'],
     h1: 'Free YouTube Thumbnail Downloader',
@@ -372,5 +372,39 @@ export default async function ToolPageWrapper({
     )
   }
 
-  return <ToolPageClient slug={slug} tool={tool} />
+  // Calculate top 3-4 related tools based on category and semantic relevance
+  const allToolSlugs = Object.keys(toolsConfig)
+  
+  // 1. Get siblings in the exact same category
+  const sameCategorySlugs = allToolSlugs.filter(
+    (s) => s !== slug && toolsConfig[s].category === tool.category
+  )
+  
+  // 2. If we need more to reach at least 3, grab from a closely related category
+  // Just a simple fallback: fill with Developer Tools if we are Text Tools, etc.
+  // We'll just pick randomly from other categories as a fallback to ensure we hit 3-4.
+  const otherSlugs = allToolSlugs.filter(
+    (s) => s !== slug && toolsConfig[s].category !== tool.category
+  )
+  
+  // Combine matches, prioritize same category
+  const combinedSlugs = [...sameCategorySlugs, ...otherSlugs]
+  
+  // Slice to max 4
+  const relatedSlugs = combinedSlugs.slice(0, 4)
+  
+  // Map back to minimal data object needed for the UI card
+  const relatedTools = relatedSlugs.map((s) => ({
+    id: s,
+    title: toolsConfig[s].schemaData.name, // Shorter, cleaner name for card
+    desc: toolsConfig[s].h2 // Or description. h2 is usually concise enough. (Wait, description is better for card)
+  }))
+
+  const finalRelatedTools = relatedTools.map((rt, index) => ({
+    id: rt.id,
+    title: rt.title,
+    desc: toolsConfig[rt.id].description.substring(0, 60) + '...' // Short snippet
+  }))
+
+  return <ToolPageClient slug={slug} tool={tool} relatedTools={finalRelatedTools} />
 }

@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Copy, ArrowRightLeft, Trash2, Check, Link, Unlink } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { trackConversion } from '@/lib/analytics'
 
 export function UrlEncoder() {
   const [input, setInput] = useState('')
@@ -43,6 +44,7 @@ export function UrlEncoder() {
 
     const result = mode === 'encode' ? encodeUrl(input) : decodeUrl(input)
     setOutput(result)
+    trackConversion('url-encoder-decoder', 'convert', mode)
   }
 
   const handleSwap = () => {
@@ -57,6 +59,7 @@ export function UrlEncoder() {
     if (!output) return
     try {
       await navigator.clipboard.writeText(output)
+      trackConversion('url-encoder-decoder', 'copy', 'text')
       toast({
         title: "Copied!",
         description: "Output copied to clipboard"

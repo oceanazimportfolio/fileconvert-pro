@@ -9,6 +9,7 @@ import {
   ChevronRight, Zap, Shield, Globe, Home, ArrowLeft,
   Sparkles
 } from 'lucide-react'
+import { trackToolUsage } from '@/lib/analytics'
 import { ImageConverter } from '@/components/tools/ImageConverter'
 import { ImageCompressResize } from '@/components/tools/ImageCompressResize'
 import { ImageEnhancer } from '@/components/tools/ImageEnhancer'
@@ -49,13 +50,21 @@ interface ToolConfig {
 interface ToolPageClientProps {
   slug: string
   tool: ToolConfig
+  relatedTools: {
+    id: string
+    title: string
+    desc: string
+  }[]
 }
 
-export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
+export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps) {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [slug])
+    
+    // Fire analytics once per tool view
+    trackToolUsage(slug, tool.category, tool.schemaData.name)
+  }, [slug, tool.category, tool.schemaData.name])
 
   // Render the appropriate tool component
   const renderTool = () => {
@@ -151,25 +160,6 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
         </div>
       </header>
 
-      {/* ==========================================
-          AD BANNER - TOP LEADERBOARD (728x90)
-          ========================================== */}
-      <div className="max-w-7xl mx-auto px-4 pt-4">
-        <div
-          className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center overflow-hidden"
-          role="complementary"
-          aria-label="Advertisement"
-        >
-          <div className="min-h-[50px] md:h-[90px] flex items-center justify-center overflow-auto">
-            {/* ==========================================
-                AD PLACEHOLDER - INSERT YOUR AD CODE HERE
-                Recommended: Google AdSense Leaderboard (728x90)
-                ========================================== */}
-            <span className="text-slate-600 text-xs sm:text-sm">Advertisement Space (Responsive)</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
         {/* Breadcrumb */}
@@ -217,21 +207,6 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
               </CardContent>
             </Card>
 
-            {/* ==========================================
-                AD BANNER - BELOW TOOL
-                ========================================== */}
-            <div className="mt-6">
-              <div
-                className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-2 text-center"
-                role="complementary"
-                aria-label="Advertisement"
-              >
-                <div className="h-[100px] flex items-center justify-center">
-                  <span className="text-slate-600 text-sm">Advertisement Space</span>
-                </div>
-              </div>
-            </div>
-
             {/* About Tool Section */}
             <section className="mt-8 py-8 border-t border-slate-700/50">
               <h2 className="text-2xl font-bold text-white mb-6">
@@ -258,7 +233,7 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
 
                 <h3 className="text-xl font-semibold text-white mt-8 mb-4">Why use this tool?</h3>
                 <p className="text-slate-300 leading-relaxed">
-                  {tool.seoContent?.benefits || "Our tools are fast, secure, and run entirely in your browser. No files are ever uploaded to a server."}
+                  {tool.seoContent?.benefits || "Our tools are optimized for fast performance and privacy. Browser-based processing helps keep your files local."}
                 </p>
               </div>
             </section>
@@ -267,16 +242,12 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
             <section className="mt-8 py-8 border-t border-slate-700/50">
               <h2 className="text-xl font-semibold text-white mb-6">Related Tools</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  { id: 'image-converter', title: 'Image Converter', desc: 'PNG, JPG, WebP, AVIF' },
-                  { id: 'image-compress', title: 'Compress & Resize', desc: 'Optimize images' },
-                  { id: 'json-formatter', title: 'JSON Formatter', desc: 'Format & validate JSON' }
-                ].filter(t => t.id !== slug).map((tool) => (
-                  <Link key={tool.id} href={`/tools/${tool.id}`}>
+                {relatedTools.map((rt) => (
+                  <Link key={rt.id} href={`/tools/${rt.id}`}>
                     <Card className="bg-slate-800/30 border-slate-700/30 hover:border-blue-500/50 transition-all h-full cursor-pointer">
                       <CardContent className="p-4">
-                        <h3 className="text-white font-medium text-sm mb-1">{tool.title}</h3>
-                        <p className="text-xs text-slate-400">{tool.desc}</p>
+                        <h3 className="text-white font-medium text-sm mb-1">{rt.title}</h3>
+                        <p className="text-xs text-slate-400">{rt.desc}</p>
                       </CardContent>
                     </Card>
                   </Link>
@@ -295,24 +266,6 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
           {/* Right Sidebar */}
           <aside className="lg:col-span-1 order-first lg:order-last">
             <div className="sticky top-20 space-y-4">
-              {/* ==========================================
-                  SIDEBAR AD - MEDIUM RECTANGLE (300x250)
-                  ========================================== */}
-              <Card className="bg-slate-800/30 border-slate-700/30">
-                <CardContent className="p-2">
-                  <div className="h-[250px] flex items-center justify-center">
-                    {/* ==========================================
-                        AD PLACEHOLDER - INSERT YOUR AD CODE HERE
-                        Recommended: Google AdSense (300x250)
-                        ========================================== */}
-                    <div className="text-center text-slate-600">
-                      <p className="text-sm">Advertisement</p>
-                      <p className="text-xs">(300x250)</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
               {/* Trust Features */}
               <Card className="bg-slate-800/50 border-slate-700/50 p-4">
                 <h3 className="text-white font-medium mb-3 text-sm">Why Choose Us?</h3>
@@ -320,38 +273,27 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
                   <div className="flex items-start gap-2">
                     <Shield className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-white font-medium">100% Secure</p>
-                      <p className="text-slate-400 text-xs">Files never leave your browser</p>
+                      <p className="text-white font-medium">Privacy-Focused</p>
+                      <p className="text-slate-400 text-xs">Files processed locally</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2">
                     <Zap className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-white font-medium">Lightning Fast</p>
-                      <p className="text-slate-400 text-xs">No upload/download delays</p>
+                      <p className="text-white font-medium">Fast Performance</p>
+                      <p className="text-slate-400 text-xs">High-speed client-side execution</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2">
                     <Globe className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-white font-medium">Works Offline</p>
-                      <p className="text-slate-400 text-xs">No internet needed after load</p>
+                      <p className="text-white font-medium">Browser-Based</p>
+                      <p className="text-slate-400 text-xs">No extra software downloads</p>
                     </div>
                   </div>
                 </div>
               </Card>
 
-              {/* Second Ad */}
-              <Card className="bg-slate-800/30 border-slate-700/30">
-                <CardContent className="p-2">
-                  <div className="h-[250px] flex items-center justify-center">
-                    <div className="text-center text-slate-600">
-                      <p className="text-sm">Advertisement</p>
-                      <p className="text-xs">(300x250)</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </aside>
         </div >
