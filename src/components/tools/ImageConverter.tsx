@@ -41,9 +41,15 @@ const CONVERT_OPTIONS = [
 
 type ConversionType = string
 
-export function ImageConverter() {
+interface ImageConverterProps {
+  defaultConversionType?: string
+  lockedMode?: boolean
+  toolSlug?: string
+}
+
+export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode = false, toolSlug = 'image-converter' }: ImageConverterProps = {}) {
   const [files, setFiles] = useState<ProcessingFile[]>([])
-  const [conversionType, setConversionType] = useState<string>('png_jpg')
+  const [conversionType, setConversionType] = useState<string>(defaultConversionType)
   const [quality, setQuality] = useState(92)
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -88,7 +94,8 @@ export function ImageConverter() {
     const pendingFiles = files.filter(f => f.status === 'pending' && !f.error)
     if (pendingFiles.length === 0) return
 
-    trackConversion('image-converter', 'convert')
+    const [fromFmt, toFmt] = conversionType.split('_')
+    trackConversion(toolSlug, 'convert', toFmt)
 
     setIsProcessing(true)
     setProgress(0)
@@ -134,7 +141,7 @@ export function ImageConverter() {
     const [_, toFormat] = conversionType.split('_')
     const newName = changeFileExtension(file.file.name, toFormat)
     downloadFile(file.result, newName)
-    trackConversion('image-converter', 'download', toFormat)
+    trackConversion(toolSlug, 'download', toFormat)
   }
 
   const handleDownloadAll = async () => {
@@ -149,44 +156,55 @@ export function ImageConverter() {
     }))
 
     await downloadAsZip(filesToDownload, `converted_images.zip`)
-    trackConversion('image-converter', 'download', 'zip')
+    trackConversion(toolSlug, 'download', 'zip')
   }
 
   const validFiles = files.filter(f => !f.error && f.status !== 'error')
   const doneFiles = files.filter(f => f.status === 'done')
 
+  const [fromFmt, toFmt] = conversionType.split('_')
+  const currentLabel = CONVERT_OPTIONS.find(o => `${o.from}_${o.to}` === conversionType)?.label ?? conversionType.replace('_', ' → ').toUpperCase()
+
   return (
     <div className="space-y-6">
-      {/* Conversion Type Selection */}
-      <div>
-        <Label className="text-white mb-3 block">Select Conversion Type</Label>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-          {CONVERT_OPTIONS.map((option) => (
-            <Button
-              key={`${option.from}_${option.to}`}
-              variant="outline"
-              onClick={() => setConversionType(`${option.from}_${option.to}`)}
-              className={`
-                justify-start text-left h-auto py-3 px-4
-                ${conversionType === `${option.from}_${option.to}`
-                  ? 'bg-blue-500/20 border-blue-500 text-blue-400'
-                  : 'bg-slate-800/50 border-slate-600 text-slate-300 hover:bg-slate-700/50'
-                }
-              `}
-            >
-              <ImageIcon className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">{option.label}</span>
-            </Button>
-          ))}
+      {/* Conversion Type Selection — hidden in locked mode */}
+      {lockedMode ? (
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+          <ImageIcon className="w-4 h-4 text-blue-400 flex-shrink-0" />
+          <span className="text-sm font-semibold text-blue-300">{currentLabel} Conversion</span>
+          <span className="text-xs text-slate-400 ml-auto">Format locked for this page</span>
         </div>
-      </div>
+      ) : (
+        <div>
+          <Label className="text-white mb-3 block font-medium">Select Conversion Format</Label>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+            {CONVERT_OPTIONS.map((option) => (
+              <Button
+                key={`${option.from}_${option.to}`}
+                variant="outline"
+                onClick={() => setConversionType(`${option.from}_${option.to}`)}
+                className={`
+                  justify-start text-left h-auto py-2.5 px-3 transition-all duration-150
+                  ${conversionType === `${option.from}_${option.to}`
+                    ? 'bg-blue-500/20 border-blue-500 text-blue-300 shadow-blue-500/10 shadow-sm'
+                    : 'bg-slate-800/50 border-slate-600/60 text-slate-300 hover:bg-slate-700/60 hover:border-slate-500 hover:text-white'
+                  }
+                `}
+              >
+                <ImageIcon className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
+                <span className="text-xs font-medium">{option.label}</span>
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Quality Slider (for JPG output) */}
       {conversionType.endsWith('_jpg') && (
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <Label className="text-white">Quality</Label>
-            <Badge variant="secondary" className="bg-slate-700 text-white">
+        <div className="bg-slate-800/30 border border-slate-700/40 rounded-lg p-4">
+          <div className="flex items-center justify-between mb-3">
+            <Label className="text-white font-medium">Output Quality</Label>
+            <Badge variant="secondary" className="bg-blue-500/20 text-blue-300 border-blue-500/30 font-mono">
               {quality}%
             </Badge>
           </div>
@@ -198,15 +216,19 @@ export function ImageConverter() {
             step={1}
             className="w-full"
           />
-          <p className="text-xs text-slate-500 mt-1">
-            Lower quality = smaller file size. 85-95% is recommended for most images.
-          </p>
+          <div className="flex justify-between text-xs text-slate-500 mt-2">
+            <span>10% · Smallest file</span>
+            <span className="text-slate-400 font-medium">Recommended: 85–95%</span>
+            <span>100% · Best quality</span>
+          </div>
         </div>
       )}
 
       {/* File Upload */}
       <FileUpload
-        accept={['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif']}
+        accept={lockedMode
+          ? [fromFmt === 'jpg' ? 'jpeg' : fromFmt, fromFmt === 'jpg' ? 'jpg' : fromFmt]
+          : ['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif']}
         multiple
         maxFiles={30}
         maxSize={25 * 1024 * 1024}
@@ -214,8 +236,12 @@ export function ImageConverter() {
         files={files.filter(f => f.status === 'pending' || f.error)}
         onFileRemove={handleRemoveFile}
         onClearAll={handleClearAll}
-        label="Drop images here to convert"
-        description="or click to browse"
+        label={lockedMode
+          ? `Drop your ${fromFmt.toUpperCase()} images here, or click to select`
+          : 'Drop images here, or click to select'}
+        description={lockedMode
+          ? `Accepts .${fromFmt} files · Up to 30 files · Max 25 MB each`
+          : 'Accepts PNG, JPG, WebP, AVIF · Up to 30 files · Max 25 MB each'}
         icon="image"
       />
 
@@ -320,7 +346,7 @@ export function ImageConverter() {
           onClick={handleConvert}
           disabled={isProcessing}
           size="lg"
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 active:scale-[0.99] transition-all duration-150 shadow-lg shadow-blue-500/20"
         >
           {isProcessing ? (
             <>
@@ -330,7 +356,10 @@ export function ImageConverter() {
           ) : (
             <>
               <ArrowRight className="w-5 h-5 mr-2" />
-              Convert {validFiles.filter(f => f.status === 'pending').length} Image{validFiles.filter(f => f.status === 'pending').length !== 1 ? 's' : ''}
+              {lockedMode
+                ? `Convert ${validFiles.filter(f => f.status === 'pending').length} Image${validFiles.filter(f => f.status === 'pending').length !== 1 ? 's' : ''} to ${toFmt.toUpperCase()}`
+                : `Convert ${validFiles.filter(f => f.status === 'pending').length} Image${validFiles.filter(f => f.status === 'pending').length !== 1 ? 's' : ''}`
+              }
             </>
           )}
         </Button>

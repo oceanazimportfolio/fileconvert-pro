@@ -16,6 +16,10 @@ export const toolsConfig: Record<string, {
   component: string
   category: string
   breadcrumb: string
+  defaultConversionType?: string
+  lockedMode?: boolean
+  relatedToolsOverride?: string[]
+  faq?: { q: string; a: string }[]
   schemaData: {
     name: string
     description: string
@@ -307,6 +311,191 @@ export const toolsConfig: Record<string, {
       benefits: "Get high-quality video assets in seconds. Our tool provides a clean, fast, and secure way to access YouTube thumbnails while keeping your activity private."
     }
   },
+  // ==========================================
+  // DEDICATED IMAGE CONVERSION PAGES
+  // High-intent SEO landing pages locked to a
+  // specific conversion mode for top rankings.
+  // ==========================================
+  'webp-to-png': {
+    title: 'WebP to PNG Converter - Free, Lossless, Browser-Based',
+    description: 'Convert WebP images to PNG for free. Lossless conversion with full transparency support. No uploads, no registration. Runs entirely in your browser.',
+    keywords: ['webp to png', 'convert webp to png', 'webp to png converter', 'webp png free', 'online webp to png', 'webp converter', 'convert webp online'],
+    h1: 'WebP to PNG Converter',
+    h2: 'Convert WebP images to high-quality PNG with full transparency preserved. Browser-based, no uploads required.',
+    component: 'ImageConverter',
+    category: 'Image Conversion',
+    breadcrumb: 'Image Conversion',
+    defaultConversionType: 'webp_png',
+    lockedMode: true,
+    relatedToolsOverride: ['png-to-jpg', 'jpg-to-png', 'webp-to-jpg', 'image-compress'],
+    schemaData: {
+      name: 'WebP to PNG Converter',
+      description: 'Free browser-based tool to convert WebP images to PNG format with lossless quality and transparency support.',
+      category: 'Image Conversion Tool'
+    },
+    seoContent: {
+      about: 'WebP is Google\'s modern image format designed for the web — compact and efficient. But when you need universal compatibility, maximum editing flexibility, or lossless quality with transparency support, PNG is the better choice. Our WebP to PNG converter handles the conversion directly in your browser using the Canvas API, so no files are ever uploaded to a server. This matters because WebP images often contain private or work-in-progress content that you may not want passing through a third-party service. The conversion is instantaneous for most images, and you can process up to 30 files at once, making it practical for batch workflows. The resulting PNG files are standard, uncompressed images compatible with every image editor, operating system, and web platform in existence.',
+      features: [
+        'Lossless conversion with alpha channel (transparency) preserved',
+        'Batch convert up to 30 WebP images at once',
+        'Browser-based — files never uploaded to a server',
+        'No registration, no limits, no watermarks',
+        'Instant download of converted PNG files'
+      ],
+      benefits: 'PNG is universally supported across all platforms, browsers, and design tools. When you need reliable compatibility or lossless editing capability, converting from WebP to PNG is the right choice. Our tool makes it fast, free, and private.'
+    },
+    faq: [
+      { q: 'Does WebP to PNG conversion lose any image quality?', a: 'No. PNG is a lossless format, so converting from WebP to PNG produces a pixel-perfect result. Transparency (alpha channel) is also fully preserved during conversion.' },
+      { q: 'Do my files get uploaded to a server?', a: 'No. All conversion happens locally in your browser using the Canvas API. Your images never leave your device, so there is no privacy risk.' },
+      { q: 'Why would I want to convert WebP to PNG?', a: 'PNG offers wider compatibility with older software, supports lossless editing, and is better suited for images that require transparency without compression artifacts. Many design tools and print workflows still prefer PNG.' },
+      { q: 'Can I convert multiple WebP files at once?', a: 'Yes. You can drag and drop up to 30 WebP images at once, and our converter will process them all and let you download each individually or as a ZIP archive.' },
+      { q: 'Will transparent areas in my WebP file be preserved?', a: 'Yes. WebP supports transparency, and our converter carries that alpha channel information over to the resulting PNG correctly.' }
+    ]
+  },
+  'png-to-jpg': {
+    title: 'PNG to JPG Converter - Compress & Convert Free Online',
+    description: 'Convert PNG images to JPG for free. Reduce file size while maintaining good quality. Adjustable compression. No uploads, no registration. Browser-based.',
+    keywords: ['png to jpg', 'convert png to jpg', 'png to jpg converter', 'png to jpeg', 'compress png to jpg', 'reduce png size', 'png jpg online free'],
+    h1: 'PNG to JPG Converter',
+    h2: 'Convert PNG images to JPG and shrink file size with adjustable quality control. Free and browser-based.',
+    component: 'ImageConverter',
+    category: 'Image Conversion',
+    breadcrumb: 'Image Conversion',
+    defaultConversionType: 'png_jpg',
+    lockedMode: true,
+    relatedToolsOverride: ['jpg-to-png', 'webp-to-png', 'webp-to-jpg', 'image-compress'],
+    schemaData: {
+      name: 'PNG to JPG Converter',
+      description: 'Free browser-based PNG to JPG converter with adjustable quality settings for smaller file sizes.',
+      category: 'Image Conversion Tool'
+    },
+    seoContent: {
+      about: 'PNG files offer lossless quality and transparency support, making them ideal for editing workflows. But for web publishing, email sharing, or storage optimization, JPG is typically a much better fit — it compresses photographic content efficiently, resulting in file sizes that can be 60–80% smaller than the equivalent PNG. Our PNG to JPG converter lets you tune the output quality from 10% to 100%, giving you precise control over the size-to-quality tradeoff. Everything runs in your browser, so your files stay local and the conversion is near-instantaneous. There is no signup required, no watermark added, and no limit on how many files you convert. It\'s ideal for web developers preparing assets, photographers creating web-ready exports, and anyone who needs smaller image files without sacrificing visual clarity.',
+      features: [
+        'Adjustable JPG quality from 10% to 100%',
+        'Batch convert multiple PNG files at once',
+        'See before/after file sizes to verify savings',
+        'Browser-based — zero uploads, maximum privacy',
+        'No registration, no watermarks, unlimited use'
+      ],
+      benefits: 'JPG is the web standard for photographic content. Converting PNG to JPG dramatically reduces file size, improving page load times and saving storage. Use this tool when you need efficient, share-ready images without managing complex export settings.'
+    },
+    faq: [
+      { q: 'Why should I convert PNG to JPG?', a: 'JPG files are significantly smaller than PNG for photographic content — often 60–80% smaller — making them faster to load and easier to share. If your PNG doesn\'t use transparency, converting to JPG is usually the right choice for web or email use.' },
+      { q: 'What quality setting should I use?', a: 'For most photos, 85–92% quality produces an excellent result at a fraction of the file size. Settings below 70% may introduce visible compression artifacts. Use 100% only if absolute lossless quality is required.' },
+      { q: 'Does the converter handle transparency?', a: 'PNG supports transparent backgrounds, but JPG does not. Areas that were transparent will be converted to white by default during conversion. If you need to preserve transparency, keep your image as PNG.' },
+      { q: 'How many files can I convert at once?', a: 'You can process up to 30 PNG images in one batch. Each file can be up to 25 MB. Results are available for individual download or as a ZIP archive.' },
+      { q: 'Will the converter add a watermark to my images?', a: 'No. Your converted images are completely clean with zero watermarks. What you see is exactly what you download.' }
+    ]
+  },
+  'jpg-to-png': {
+    title: 'JPG to PNG Converter - Free, Transparent Background Support',
+    description: 'Convert JPG images to PNG for free. Lossless conversion, supports transparent backgrounds. No uploads, no registration. Runs entirely in your browser.',
+    keywords: ['jpg to png', 'convert jpg to png', 'jpg to png converter', 'jpeg to png', 'jpg png free online', 'convert jpeg to png', 'transparent png from jpg'],
+    h1: 'JPG to PNG Converter',
+    h2: 'Convert JPG and JPEG images to lossless PNG format. Keep full quality and enable transparency support.',
+    component: 'ImageConverter',
+    category: 'Image Conversion',
+    breadcrumb: 'Image Conversion',
+    defaultConversionType: 'jpg_png',
+    lockedMode: true,
+    relatedToolsOverride: ['png-to-jpg', 'webp-to-png', 'webp-to-jpg', 'image-enhancer'],
+    schemaData: {
+      name: 'JPG to PNG Converter',
+      description: 'Free browser-based JPG to PNG converter that produces lossless, high-quality PNG images.',
+      category: 'Image Conversion Tool'
+    },
+    seoContent: {
+      about: 'Converting a JPG to PNG is a common step in editing workflows. PNG\'s lossless compression means that once you have your PNG, repeated saving and re-exporting won\'t degrade quality the way JPG does. This makes PNG the right format for images you intend to edit, layer, or use in design tools like Figma, Photoshop, or Sketch. Our JPG to PNG converter operates entirely within your browser, producing clean PNG output without the compression artifacts that come from additional JPG re-encoding. It is particularly useful for developers working with interface assets, designers preparing files for handoff, or anyone who needs a high-quality PNG starting point for further work. You can convert a single file or batch-process up to 30 images at once, with each result available for immediate download.',
+      features: [
+        'Lossless PNG output — no quality degradation from re-encoding',
+        'Supports both .jpg and .jpeg file extensions',
+        'Batch convert up to 30 JPG images simultaneously',
+        'Browser-based with zero server uploads',
+        'Compatible with all PNG-aware tools and platforms'
+      ],
+      benefits: 'PNG is the format to choose when quality and editing headroom matter. Converting your JPG to PNG before further editing prevents cumulative compression loss and makes your workflow more flexible. Our tool does it instantly and privately.'
+    },
+    faq: [
+      { q: 'Does converting JPG to PNG improve image quality?', a: 'No. If a JPG has already been compressed, converting to PNG will not recover lost detail. However, it will prevent any further quality loss from additional rounds of JPG compression, making it ideal as a working format for editing.' },
+      { q: 'When should I choose PNG over JPG?', a: 'Choose PNG when you need lossless quality, plan to edit the image further, or need to support transparency. For images that will only be displayed (not edited), JPG is usually smaller and more practical.' },
+      { q: 'Will this work with .jpeg files as well?', a: 'Yes. Our converter accepts both .jpg and .jpeg file extensions — they are the same format and produce identical output.' },
+      { q: 'Is there a file size limit?', a: 'You can upload files up to 25 MB each, and convert up to 30 images in a single batch session.' },
+      { q: 'Can any transparency be added during conversion?', a: 'The conversion preserves what is in the original JPG image. Since JPG does not support transparency, the resulting PNG will have a fully opaque background. You would need an image editor to add transparency after conversion.' }
+    ]
+  },
+  'webp-to-jpg': {
+    title: 'WebP to JPG Converter - Free, Adjustable Quality, Browser-Based',
+    description: 'Convert WebP images to JPG for free. Control output quality. Smaller file size for sharing and publishing. No uploads. Runs in your browser.',
+    keywords: ['webp to jpg', 'convert webp to jpg', 'webp to jpeg', 'webp jpg converter', 'online webp to jpg', 'compress webp to jpg', 'webp converter free'],
+    h1: 'WebP to JPG Converter',
+    h2: 'Convert WebP to JPG with adjustable quality for smaller, share-ready image files.',
+    component: 'ImageConverter',
+    category: 'Image Conversion',
+    breadcrumb: 'Image Conversion',
+    defaultConversionType: 'webp_jpg',
+    lockedMode: true,
+    relatedToolsOverride: ['webp-to-png', 'png-to-jpg', 'jpg-to-png', 'image-compress'],
+    schemaData: {
+      name: 'WebP to JPG Converter',
+      description: 'Free browser-based tool to convert WebP images to JPG with adjustable quality control.',
+      category: 'Image Conversion Tool'
+    },
+    seoContent: {
+      about: 'WebP is an efficient format for web delivery, but its compatibility with older software and native photo apps can be inconsistent. JPG remains the universal format for photographs, supported by every device, cloud storage service, printer, and social platform without question. Our WebP to JPG converter gives you two things you need: format compatibility and size control. You can adjust the output quality from 10% to 100% to find the right balance between file size and visual clarity. All processing happens in your browser — no files are sent to any server — so you can safely convert private images, sensitive work files, or personal photos. Batch processing support means you can handle an entire folder\'s worth of WebP exports in one go.',
+      features: [
+        'Adjustable JPG quality from 10% to 100%',
+        'Batch convert multiple WebP files in one session',
+        'Wide compatibility — JPG works everywhere',
+        'Zero server uploads — full privacy',
+        'Download individually or as a ZIP archive'
+      ],
+      benefits: 'JPG compatibility is universal. When WebP causes issues in older apps, email clients, or print workflows, converting to JPG solves those problems instantly. Our tool makes the conversion free, fast, and private.'
+    },
+    faq: [
+      { q: 'Why convert WebP to JPG instead of PNG?', a: 'JPG produces smaller files than PNG for photographic content, making it better for sharing, emailing, or uploading to social platforms. Choose JPG over PNG when transparency is not needed and file size matters.' },
+      { q: 'Does WebP to JPG conversion lose quality?', a: 'JPG uses lossy compression, so some detail is sacrificed for smaller file size. At quality settings of 85% and above, the difference is nearly invisible in photographs. Our quality slider lets you control this tradeoff precisely.' },
+      { q: 'My WebP image has a transparent background — what happens?', a: 'JPG does not support transparency. Transparent areas will be filled with a solid color (typically white) during conversion. If transparency is important, convert to PNG instead.' },
+      { q: 'Can I upload WebP files without them being sent to a server?', a: 'Yes. Our tool processes everything locally inside your browser. No file data is ever transmitted to a remote server.' },
+      { q: 'How many WebP files can I convert at once?', a: 'Up to 30 files per session, each up to 25 MB. Downloads are available per file or as a ZIP archive of all results.' }
+    ]
+  },
+  'avif-to-png': {
+    title: 'AVIF to PNG Converter - Free Online, No Uploads',
+    description: 'Convert AVIF images to PNG for free. Lossless output with full quality. No uploads needed. Works entirely in your browser without registration.',
+    keywords: ['avif to png', 'convert avif to png', 'avif png converter', 'avif to png free', 'online avif converter', 'avif image converter', 'avif to png online'],
+    h1: 'AVIF to PNG Converter',
+    h2: 'Convert AVIF images to universally compatible PNG format. Lossless output, no server uploads.',
+    component: 'ImageConverter',
+    category: 'Image Conversion',
+    breadcrumb: 'Image Conversion',
+    defaultConversionType: 'avif_png',
+    lockedMode: true,
+    relatedToolsOverride: ['webp-to-png', 'jpg-to-png', 'png-to-jpg', 'image-converter'],
+    schemaData: {
+      name: 'AVIF to PNG Converter',
+      description: 'Free browser-based tool to convert AVIF images to universally compatible PNG format.',
+      category: 'Image Conversion Tool'
+    },
+    seoContent: {
+      about: 'AVIF is one of the most advanced image formats available today, offering remarkable compression at very high quality levels. It is increasingly used for web delivery where bandwidth efficiency is a priority. However, AVIF support in desktop applications, design tools, and older platforms remains limited — which is exactly when converting to PNG becomes necessary. PNG is the most universally supported lossless image format, compatible with every image editor, operating system, and browser on the market. Our AVIF to PNG converter runs entirely in your browser using native Canvas API capabilities, so no file is ever uploaded anywhere. This is especially valuable for AVIF files containing sensitive imagery or proprietary design work. The conversion is fast even for large images, and you can batch-process up to 30 files at once.',
+      features: [
+        'Convert AVIF to PNG without any server uploads',
+        'Full lossless output — no quality degradation',
+        'Batch convert up to 30 AVIF files at once',
+        'Preserves alpha channel (transparency) if present',
+        'Compatible with all image editors and design tools'
+      ],
+      benefits: 'PNG works everywhere. When AVIF files cause compatibility problems in your workflow, converting to PNG is the reliable solution. Our converter makes it fast, free, and completely private.'
+    },
+    faq: [
+      { q: 'What is AVIF and why would I need to convert it?', a: 'AVIF (AV1 Image File Format) is a modern format with excellent compression. However, many design tools, older browsers, and desktop apps don\'t yet support it natively. Converting to PNG solves compatibility issues instantly.' },
+      { q: 'Is the conversion from AVIF to PNG lossless?', a: 'The output PNG is lossless, but AVIF itself may have already used lossy compression when the file was created. The conversion to PNG preserves exactly what is in the AVIF file without introducing any additional quality loss.' },
+      { q: 'Does this work for AVIF files with transparent backgrounds?', a: 'Yes. AVIF can encode alpha channel data, and our converter carries that transparency information through to the resulting PNG.' },
+      { q: 'Do I need to install anything?', a: 'No. The converter runs directly in your web browser with no plugins, extensions, or software downloads required. Any modern browser on any operating system will work.' },
+      { q: 'How large can the AVIF files be?', a: 'Each file can be up to 25 MB, and you can convert up to 30 images in a single batch session. If a file is too large to convert in-browser, try processing fewer files at once.' }
+    ]
+  },
 }
 
 // Generate static paths for all tools
@@ -372,38 +561,29 @@ export default async function ToolPageWrapper({
     )
   }
 
-  // Calculate top 3-4 related tools based on category and semantic relevance
-  const allToolSlugs = Object.keys(toolsConfig)
-  
-  // 1. Get siblings in the exact same category
-  const sameCategorySlugs = allToolSlugs.filter(
-    (s) => s !== slug && toolsConfig[s].category === tool.category
-  )
-  
-  // 2. If we need more to reach at least 3, grab from a closely related category
-  // Just a simple fallback: fill with Developer Tools if we are Text Tools, etc.
-  // We'll just pick randomly from other categories as a fallback to ensure we hit 3-4.
-  const otherSlugs = allToolSlugs.filter(
-    (s) => s !== slug && toolsConfig[s].category !== tool.category
-  )
-  
-  // Combine matches, prioritize same category
-  const combinedSlugs = [...sameCategorySlugs, ...otherSlugs]
-  
-  // Slice to max 4
-  const relatedSlugs = combinedSlugs.slice(0, 4)
-  
-  // Map back to minimal data object needed for the UI card
-  const relatedTools = relatedSlugs.map((s) => ({
-    id: s,
-    title: toolsConfig[s].schemaData.name, // Shorter, cleaner name for card
-    desc: toolsConfig[s].h2 // Or description. h2 is usually concise enough. (Wait, description is better for card)
-  }))
+  // Calculate related tools: use curated override if set, otherwise auto-select by category
+  let relatedSlugs: string[]
 
-  const finalRelatedTools = relatedTools.map((rt, index) => ({
-    id: rt.id,
-    title: rt.title,
-    desc: toolsConfig[rt.id].description.substring(0, 60) + '...' // Short snippet
+  if (tool.relatedToolsOverride && tool.relatedToolsOverride.length > 0) {
+    // Use explicitly curated list for dedicated pages
+    relatedSlugs = tool.relatedToolsOverride.filter(
+      (s) => s !== slug && toolsConfig[s]
+    ).slice(0, 4)
+  } else {
+    const allToolSlugs = Object.keys(toolsConfig).filter((s) => !toolsConfig[s].lockedMode)
+    const sameCategorySlugs = allToolSlugs.filter(
+      (s) => s !== slug && toolsConfig[s].category === tool.category
+    )
+    const otherSlugs = allToolSlugs.filter(
+      (s) => s !== slug && toolsConfig[s].category !== tool.category
+    )
+    relatedSlugs = [...sameCategorySlugs, ...otherSlugs].slice(0, 4)
+  }
+
+  const finalRelatedTools = relatedSlugs.map((s) => ({
+    id: s,
+    title: toolsConfig[s].schemaData.name,
+    desc: toolsConfig[s].h2
   }))
 
   return <ToolPageClient slug={slug} tool={tool} relatedTools={finalRelatedTools} />

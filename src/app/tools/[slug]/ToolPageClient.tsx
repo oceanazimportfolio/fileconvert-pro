@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   ChevronRight, Zap, Shield, Globe, Home, ArrowLeft,
-  Sparkles
+  Sparkles, ChevronDown, ArrowRight
 } from 'lucide-react'
 import { trackToolUsage } from '@/lib/analytics'
 import { ImageConverter } from '@/components/tools/ImageConverter'
@@ -35,6 +35,10 @@ interface ToolConfig {
   component: string
   category: string
   breadcrumb: string
+  defaultConversionType?: string
+  lockedMode?: boolean
+  relatedToolsOverride?: string[]
+  faq?: { q: string; a: string }[]
   schemaData: {
     name: string
     description: string
@@ -61,7 +65,6 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0)
-    
     // Fire analytics once per tool view
     trackToolUsage(slug, tool.category, tool.schemaData.name)
   }, [slug, tool.category, tool.schemaData.name])
@@ -70,7 +73,13 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
   const renderTool = () => {
     switch (tool.component) {
       case 'ImageConverter':
-        return <ImageConverter />
+        return (
+          <ImageConverter
+            defaultConversionType={tool.defaultConversionType ?? 'png_jpg'}
+            lockedMode={tool.lockedMode ?? false}
+            toolSlug={slug}
+          />
+        )
       case 'ImageCompressResize':
         return <ImageCompressResize />
       case 'ImageEnhancer':
@@ -98,7 +107,7 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
       case 'QrCodeGenerator':
         return <QrCodeGenerator />
       default:
-        return <ImageConverter />
+        return <ImageConverter defaultConversionType="png_jpg" lockedMode={false} toolSlug={slug} />
     }
   }
 
@@ -125,6 +134,22 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
     }
   }
 
+  // FAQ schema (if FAQ data exists)
+  const faqSchema = tool.faq && tool.faq.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": tool.faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  } : null
+
+  const isConversionPage = tool.category === 'Image Conversion'
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* JSON-LD Schema */}
@@ -132,9 +157,15 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       {/* Header */}
-      <header className="border-b border-slate-700/50 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3">
@@ -151,8 +182,8 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
             </div>
 
             <Link href="/">
-              <Button variant="ghost" className="text-slate-400 hover:text-white">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all">
+                <ArrowLeft className="w-4 h-4 mr-1.5" />
                 All Tools
               </Button>
             </Link>
@@ -161,57 +192,90 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <main className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
         {/* Breadcrumb */}
-        <nav className="mb-6 overflow-hidden" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-y-2 gap-x-2 text-sm text-slate-400">
-            <li className="flex items-center gap-2">
-              <Link href="/" className="hover:text-white transition-colors whitespace-nowrap">Home</Link>
-              <ChevronRight className="w-4 h-4 flex-shrink-0" />
+        <nav className="mb-6" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-y-1 gap-x-1.5 text-sm">
+            <li className="flex items-center gap-1.5">
+              <Link href="/" className="text-slate-400 hover:text-white transition-colors flex items-center gap-1">
+                <Home className="w-3.5 h-3.5" />
+                Home
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-600 flex-shrink-0" />
             </li>
-            <li className="flex items-center gap-2">
-              <span className="whitespace-nowrap">{tool.breadcrumb}</span>
-              <ChevronRight className="w-4 h-4 flex-shrink-0" />
+            <li className="flex items-center gap-1.5">
+              <span className="text-slate-400 whitespace-nowrap">{tool.breadcrumb}</span>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-600 flex-shrink-0" />
             </li>
-            <li className="text-white font-medium truncate max-w-[150px] sm:max-w-none">
-              {tool.schemaData.name}
+            <li>
+              <span className="text-slate-200 font-medium truncate">{tool.schemaData.name}</span>
             </li>
           </ol>
         </nav>
 
         {/* Tool Hero */}
-        <div className="text-center mb-8">
-          <Badge className="mb-4 bg-blue-500/10 text-blue-400 border-blue-500/20">
-            <Sparkles className="w-3 h-3 mr-1" />
+        <div className="text-center mb-8 sm:mb-10">
+          <Badge className="mb-4 bg-blue-500/10 text-blue-400 border-blue-500/25 px-3 py-1 text-xs font-medium">
+            <Sparkles className="w-3 h-3 mr-1.5" />
             {tool.category}
           </Badge>
 
-          {/* H1 - Primary SEO Heading */}
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          {/* H1 */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-4 leading-tight px-4">
             {tool.h1}
           </h1>
 
-          {/* H2 - Secondary SEO Heading */}
-          <h2 className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto font-normal">
+          {/* H2 */}
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed px-4">
             {tool.h2}
-          </h2>
+          </p>
         </div>
 
         {/* Main Tool Area with Sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-6">
           {/* Tool Content */}
           <div className="lg:col-span-3">
-            <Card className="bg-slate-800/50 border-slate-700/50">
+            <Card className="bg-slate-800/50 border-slate-700/50 shadow-xl shadow-black/20">
               <CardContent className="p-4 md:p-6">
                 {renderTool()}
               </CardContent>
             </Card>
 
+            {/* Sibling conversion links for dedicated pages */}
+            {isConversionPage && relatedTools.length > 0 && (
+              <div className="mt-6 p-4 rounded-xl bg-slate-800/30 border border-slate-700/30">
+                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">
+                  Also try these converters
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {relatedTools.map((rt) => (
+                    <Link key={rt.id} href={`/tools/${rt.id}/`}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs bg-slate-800/60 border-slate-600/60 text-slate-300 hover:bg-slate-700/60 hover:border-slate-500 hover:text-white transition-all duration-150"
+                      >
+                        {rt.title}
+                        <ArrowRight className="w-3 h-3 ml-1.5 opacity-60" />
+                      </Button>
+                    </Link>
+                  ))}
+                  <Link href="/tools/image-converter/">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-xs text-slate-500 hover:text-slate-300 border border-slate-700/50 hover:border-slate-600"
+                    >
+                      All image formats →
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            )}
+
             {/* About Tool Section */}
-            <section className="mt-8 py-8 border-t border-slate-700/50">
-              <h2 className="text-2xl font-bold text-white mb-6">
-                About this tool
-              </h2>
+            <section className="mt-10 py-8 border-t border-slate-700/40">
+              <h2 className="text-2xl font-bold text-white mb-5">About this tool</h2>
               <div className="prose prose-invert max-w-none">
                 <p className="text-slate-300 leading-relaxed mb-6">
                   {tool.seoContent?.about || tool.description}
@@ -220,11 +284,11 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                 {tool.seoContent?.features && (
                   <>
                     <h3 className="text-xl font-semibold text-white mt-8 mb-4">Key features</h3>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300 decoration-blue-500/50">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 not-prose">
                       {tool.seoContent.features.map((feature, index) => (
                         <li key={index} className="flex items-start gap-3">
-                          <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
-                          <span>{feature}</span>
+                          <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                          <span className="text-slate-300 text-sm leading-relaxed">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -233,29 +297,51 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
 
                 <h3 className="text-xl font-semibold text-white mt-8 mb-4">Why use this tool?</h3>
                 <p className="text-slate-300 leading-relaxed">
-                  {tool.seoContent?.benefits || "Our tools are optimized for fast performance and privacy. Browser-based processing helps keep your files local."}
+                  {tool.seoContent?.benefits || 'Our tools are optimized for fast performance and privacy. Browser-based processing keeps your files local.'}
                 </p>
               </div>
             </section>
 
+            {/* FAQ Section */}
+            {tool.faq && tool.faq.length > 0 && (
+              <section className="mt-8 py-8 border-t border-slate-700/40">
+                <h2 className="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h2>
+                <div className="space-y-4">
+                  {tool.faq.map((item, index) => (
+                    <div key={index} className="rounded-xl bg-slate-800/40 border border-slate-700/40 overflow-hidden">
+                      <details className="group">
+                        <summary className="flex items-center justify-between gap-4 p-4 sm:p-5 cursor-pointer list-none hover:bg-slate-700/20 transition-colors">
+                          <span className="font-medium text-white text-sm sm:text-base leading-snug">{item.q}</span>
+                          <ChevronDown className="w-4 h-4 text-slate-400 flex-shrink-0 group-open:rotate-180 transition-transform duration-200" />
+                        </summary>
+                        <div className="px-4 sm:px-5 pb-4 sm:pb-5">
+                          <p className="text-slate-300 text-sm leading-relaxed border-t border-slate-700/40 pt-3">{item.a}</p>
+                        </div>
+                      </details>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* Related Tools Section */}
-            <section className="mt-8 py-8 border-t border-slate-700/50">
-              <h2 className="text-xl font-semibold text-white mb-6">Related Tools</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <section className="mt-8 py-8 border-t border-slate-700/40">
+              <h2 className="text-xl font-bold text-white mb-5">Related Tools</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {relatedTools.map((rt) => (
-                  <Link key={rt.id} href={`/tools/${rt.id}`}>
-                    <Card className="bg-slate-800/30 border-slate-700/30 hover:border-blue-500/50 transition-all h-full cursor-pointer">
+                  <Link key={rt.id} href={`/tools/${rt.id}/`} className="group">
+                    <Card className="bg-slate-800/30 border-slate-700/30 hover:border-blue-500/40 hover:bg-slate-800/60 transition-all duration-200 h-full cursor-pointer shadow-sm hover:shadow-blue-500/5 hover:shadow-md">
                       <CardContent className="p-4">
-                        <h3 className="text-white font-medium text-sm mb-1">{rt.title}</h3>
-                        <p className="text-xs text-slate-400">{rt.desc}</p>
+                        <h3 className="text-white font-medium text-sm mb-1.5 group-hover:text-blue-300 transition-colors">{rt.title}</h3>
+                        <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{rt.desc}</p>
                       </CardContent>
                     </Card>
                   </Link>
                 ))}
               </div>
-              <div className="mt-6 text-center">
+              <div className="mt-5 text-center">
                 <Link href="/">
-                  <Button variant="outline" size="sm" className="text-slate-400 border-slate-700">
+                  <Button variant="outline" size="sm" className="text-slate-400 border-slate-700 hover:bg-slate-800 hover:text-white transition-all">
                     View All Tools
                   </Button>
                 </Link>
@@ -266,40 +352,63 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
           {/* Right Sidebar */}
           <aside className="lg:col-span-1 order-first lg:order-last">
             <div className="sticky top-20 space-y-4">
-              {/* Trust Features */}
-              <Card className="bg-slate-800/50 border-slate-700/50 p-4">
-                <h3 className="text-white font-medium mb-3 text-sm">Why Choose Us?</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-white font-medium">Privacy-Focused</p>
-                      <p className="text-slate-400 text-xs">Files processed locally</p>
+              {/* Trust Features Card */}
+              <Card className="bg-slate-800/50 border-slate-700/50">
+                <CardContent className="p-4">
+                  <h3 className="text-white font-semibold mb-4 text-sm">Why ConvertFiles?</h3>
+                  <div className="space-y-3.5">
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-green-500/15 border border-green-500/20 flex items-center justify-center flex-shrink-0">
+                        <Shield className="w-3.5 h-3.5 text-green-400" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium text-sm leading-snug">Privacy-Focused</p>
+                        <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">Files processed locally in your browser. Nothing is uploaded.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-yellow-500/15 border border-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                        <Zap className="w-3.5 h-3.5 text-yellow-400" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium text-sm leading-snug">Fast Results</p>
+                        <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">No upload wait time. Conversions complete in seconds.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-blue-500/15 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                        <Globe className="w-3.5 h-3.5 text-blue-400" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium text-sm leading-snug">No Account Needed</p>
+                        <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">No sign-up, no subscription. Free and unlimited.</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <Zap className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-white font-medium">Fast Performance</p>
-                      <p className="text-slate-400 text-xs">High-speed client-side execution</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Globe className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-white font-medium">Browser-Based</p>
-                      <p className="text-slate-400 text-xs">No extra software downloads</p>
-                    </div>
-                  </div>
-                </div>
+                </CardContent>
               </Card>
 
+              {/* Generic image converter link for dedicated pages */}
+              {isConversionPage && (
+                <Card className="bg-blue-500/5 border-blue-500/20">
+                  <CardContent className="p-4">
+                    <p className="text-blue-300 font-medium text-sm mb-1.5">Need more formats?</p>
+                    <p className="text-slate-400 text-xs mb-3 leading-relaxed">Our all-in-one converter supports PNG, JPG, WebP, and AVIF in any combination.</p>
+                    <Link href="/tools/image-converter/">
+                      <Button size="sm" className="w-full bg-blue-600/80 hover:bg-blue-600 text-white text-xs transition-all">
+                        Open Image Converter
+                        <ArrowRight className="w-3 h-3 ml-1.5" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </aside>
-        </div >
-      </main >
+        </div>
+      </main>
 
       <Footer />
-    </div >
+    </div>
   )
 }
