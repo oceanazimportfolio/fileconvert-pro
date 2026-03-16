@@ -19,11 +19,11 @@ export default function ContactPage() {
                     <div className="flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
-                                <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
+                                <img src="/logo.png" alt="ConvertFiles" className="w-full h-full object-cover" />
                             </div>
                             <div>
                                 <div className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                                    FileConvert<span className="text-blue-400">.pro</span>
+                                    ConvertFiles
                                 </div>
                             </div>
                         </Link>
@@ -80,7 +80,7 @@ export default function ContactPage() {
                                     <p className="text-xs text-slate-500">Stay updated</p>
                                 </div>
                             </div>
-                            <p className="text-purple-400 font-medium text-sm">@fileconvertpro</p>
+                            <p className="text-purple-400 font-medium text-sm">@convertfiles</p>
                         </Card>
 
                         <div className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800">

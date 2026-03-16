@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 
   // Primary Meta Tags - Optimized for high-volume searches
   title: {
-    default: "ConvertFiles.qzz.io - Free Online Image Converter & Developer Tools",
-    template: "%s | ConvertFiles.qzz.io"
+    default: "ConvertFiles - Free Online Image Converter & Developer Tools",
+    template: "%s | ConvertFiles"
   },
   description: "Free online tools: Image converter (PNG to JPG, WebP, AVIF), JSON formatter, Base64 encoder, password generator, QR code creator. 100% browser-based, no uploads. Fast, secure, unlimited use.",
 
@@ -78,9 +78,9 @@ export const metadata: Metadata = {
   ],
 
   // Author and publisher
-  authors: [{ name: "FileConvert.pro", url: "https://fileconvert.pro" }],
-  creator: "FileConvert.pro",
-  publisher: "FileConvert.pro",
+  authors: [{ name: "ConvertFiles", url: "https://convertfiles.qzz.io" }],
+  creator: "ConvertFiles",
+  publisher: "ConvertFiles",
 
   // Icons
   icons: {
@@ -93,10 +93,10 @@ export const metadata: Metadata = {
 
   // Open Graph - For Facebook, LinkedIn, etc.
   openGraph: {
-    title: "FileConvert.pro - Free Online Image & Developer Tools",
+    title: "ConvertFiles - Free Online Image & Developer Tools",
     description: "Convert images, format JSON, generate passwords - 11+ free tools. 100% browser-based, no server uploads. Fast, secure, unlimited.",
-    url: "https://fileconvert.pro",
-    siteName: "FileConvert.pro",
+    url: "https://convertfiles.qzz.io",
+    siteName: "ConvertFiles",
     type: "website",
     locale: "en_US",
     images: [
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "FileConvert.pro - Free Online Tools"
+        alt: "ConvertFiles - Free Online Tools"
       }
     ]
   },
@@ -112,10 +112,9 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "FileConvert.pro - Free Online Tools",
+    title: "ConvertFiles - Free Online Tools",
     description: "Convert images, format JSON, generate passwords - 11+ free tools. 100% browser-based, secure.",
     images: ["/logo.png"],
-    creator: "@fileconvertpro"
   },
 
   // Robots - Encourage full indexing
@@ -140,16 +139,16 @@ export const metadata: Metadata = {
 
   // Alternates for international targeting
   alternates: {
-    canonical: "https://fileconvert.pro",
+    canonical: "https://convertfiles.qzz.io",
     languages: {
-      "en-US": "https://fileconvert.pro",
-      "en-GB": "https://fileconvert.pro",
-      "en-EU": "https://fileconvert.pro",
+      "en-US": "https://convertfiles.qzz.io",
+      "en-GB": "https://convertfiles.qzz.io",
+      "en-EU": "https://convertfiles.qzz.io",
     }
   },
 
   // App info
-  applicationName: "FileConvert.pro",
+  applicationName: "ConvertFiles",
   generator: "Next.js",
 
   // Category for app directories
@@ -164,9 +163,9 @@ export const metadata: Metadata = {
 const jsonLdSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "FileConvert.pro",
+  "name": "ConvertFiles",
   "description": "Free online tools for image conversion, JSON formatting, password generation, and more. All processing happens in your browser - no uploads needed.",
-  "url": "https://fileconvert.pro",
+  "url": "https://convertfiles.qzz.io",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any",
   "browserRequirements": "Requires JavaScript",
@@ -199,8 +198,8 @@ const jsonLdSchema = {
   },
   "author": {
     "@type": "Organization",
-    "name": "FileConvert.pro",
-    "url": "https://fileconvert.pro"
+    "name": "ConvertFiles",
+    "url": "https://convertfiles.qzz.io"
   }
 };
 
@@ -208,11 +207,10 @@ const jsonLdSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "FileConvert.pro",
-  "url": "https://fileconvert.pro",
-  "logo": "https://fileconvert.pro/logo.png",
+  "name": "ConvertFiles",
+  "url": "https://convertfiles.qzz.io",
+  "logo": "https://convertfiles.qzz.io/logo.png",
   "sameAs": [
-    "https://twitter.com/fileconvertpro",
     // Add your social profiles here
   ]
 };
@@ -221,7 +219,7 @@ const organizationSchema = {
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "FileConvert.pro",
+  "name": "ConvertFiles",
   "applicationCategory": "Utilities",
   "operatingSystem": "Web Browser",
   "offers": {
@@ -232,7 +230,7 @@ const softwareSchema = {
   "softwareVersion": "1.0",
   "softwareHelp": {
     "@type": "CreativeWork",
-    "url": "https://fileconvert.pro"
+    "url": "https://convertfiles.qzz.io"
   }
 };
 
@@ -251,14 +249,14 @@ export default function RootLayout({
         {/* Mobile app support */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="FileConvert" />
+        <meta name="apple-mobile-web-app-title" content="ConvertFiles" />
 
         {/* DNS prefetch for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* Canonical URL - UPDATE WITH YOUR DOMAIN */}
-        <link rel="canonical" href="https://fileconvert.pro" />
+        <link rel="canonical" href="https://convertfiles.qzz.io" />
 
         {/* JSON-LD Structured Data for Rich Snippets */}
         <script

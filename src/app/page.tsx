@@ -178,10 +178,10 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
-                <img src="/logo.png" alt="FileConvert.pro Logo" className="w-full h-full object-cover" />
+                <img src="/logo.png" alt="ConvertFiles Logo" className="w-full h-full object-cover" />
               </div>
               <div>
-                <div className="text-xl font-bold text-white">FileConvert<span className="text-blue-400">.pro</span></div>
+                <div className="text-xl font-bold text-white">ConvertFiles</div>
                 <p className="text-xs text-slate-400">Free Online Tools</p>
               </div>
             </div>

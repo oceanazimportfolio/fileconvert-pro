@@ -17,10 +17,10 @@ export default function TermsOfServicePage() {
                     <div className="flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
-                                <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
+                                <img src="/logo.png" alt="ConvertFiles" className="w-full h-full object-cover" />
                             </div>
                             <div className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                                FileConvert<span className="text-blue-400">.pro</span>
+                                ConvertFiles
                             </div>
                         </Link>
 
@@ -47,7 +47,7 @@ export default function TermsOfServicePage() {
                             1. Acceptance of Terms
                         </h2>
                         <p>
-                            By accessing and using FileConvert.pro, you agree to comply with and be bound by these Terms of Service.
+                            By accessing and using ConvertFiles, you agree to comply with and be bound by these Terms of Service.
                             If you do not agree to these terms, please do not use our services. These terms apply to all visitors,
                             users, and others who access or use the Service.
                         </p>
@@ -59,7 +59,7 @@ export default function TermsOfServicePage() {
                             2. Description of Service
                         </h2>
                         <p className="mb-4">
-                            FileConvert.pro provides a suite of online tools for image conversion, file optimization,
+                            ConvertFiles provides a suite of online tools for image conversion, file optimization,
                             text manipulation, and developer utilities. All processing is executed locally in the user's browser.
                             We reserve the right to modify, suspend, or discontinue any part of the service at any time without notice.
                         </p>
@@ -84,7 +84,7 @@ export default function TermsOfServicePage() {
                         </h2>
                         <Card className="bg-amber-500/5 border-amber-500/20 p-6">
                             <p className="text-slate-300 italic">
-                                The service is provided on an "AS IS" and "AS AVAILABLE" basis. FileConvert.pro makes no warranties,
+                                The service is provided on an "AS IS" and "AS AVAILABLE" basis. ConvertFiles makes no warranties,
                                 expressed or implied, and hereby disclaims and negates all other warranties including, without limitation,
                                 implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement
                                 of intellectual property or other violation of rights.
@@ -95,9 +95,9 @@ export default function TermsOfServicePage() {
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">5. Limitation of Liability</h2>
                         <p>
-                            In no event shall FileConvert.pro or its developers be liable for any damages (including, without limitation,
+                            In no event shall ConvertFiles or its developers be liable for any damages (including, without limitation,
                             damages for loss of data or profit, or due to business interruption) arising out of the use or inability
-                            to use the materials on FileConvert.pro, even if we have been notified orally or in writing of the possibility
+                            to use the materials on ConvertFiles, even if we have been notified orally or in writing of the possibility
                             of such damage.
                         </p>
                     </section>
@@ -105,7 +105,7 @@ export default function TermsOfServicePage() {
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">6. Intellectual Property</h2>
                         <p>
-                            The design, source code, and original content of FileConvert.pro (excluding user-provided files) are the
+                            The design, source code, and original content of ConvertFiles (excluding user-provided files) are the
                             exclusive property of the site owners and are protected by copyright, trademark, and other laws.
                         </p>
                     </section>

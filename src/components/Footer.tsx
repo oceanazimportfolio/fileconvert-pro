@@ -13,7 +13,7 @@ export function Footer() {
                     {/* Brand and Mission */}
                     <div className="col-span-2 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-4">
-                            <span className="text-xl font-bold text-white">FileConvert<span className="text-blue-400">.pro</span></span>
+                            <span className="text-xl font-bold text-white">ConvertFiles</span>
                         </Link>
                         <p className="text-sm text-slate-400 leading-relaxed mb-6">
                             The ultimate free online toolkit for image conversion, developer utilities, and content creation.

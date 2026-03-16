@@ -99,7 +99,7 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
     "@type": "WebApplication",
     "name": tool.schemaData.name,
     "description": tool.schemaData.description,
-    "url": `https://fileconvert.pro/tools/${slug}`,
+    "url": `https://convertfiles.qzz.io/tools/${slug}`,
     "applicationCategory": tool.schemaData.category,
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
@@ -131,11 +131,11 @@ export function ToolPageClient({ slug, tool }: ToolPageClientProps) {
             <div className="flex items-center gap-2 sm:gap-3">
               <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
-                  <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
+                  <img src="/logo.png" alt="ConvertFiles" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <div className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors whitespace-nowrap">
-                    FileConvert<span className="text-blue-400">.pro</span>
+                    ConvertFiles
                   </div>
                 </div>
               </Link>

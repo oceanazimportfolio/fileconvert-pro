@@ -19,11 +19,11 @@ export default function AboutPage() {
                     <div className="flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
-                                <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
+                                <img src="/logo.png" alt="ConvertFiles" className="w-full h-full object-cover" />
                             </div>
                             <div>
                                 <div className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                                    FileConvert<span className="text-blue-400">.pro</span>
+                                    ConvertFiles
                                 </div>
                             </div>
                         </Link>
@@ -49,7 +49,7 @@ export default function AboutPage() {
                         Privacy-First <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Online Tools</span>
                     </h1>
                     <p className="text-xl text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
-                        At FileConvert.pro, we believe that powerful software shouldn't come at the cost of your privacy or your budget.
+                        At ConvertFiles, we believe that powerful software shouldn't come at the cost of your privacy or your budget.
                     </p>
                 </div>
 
@@ -120,7 +120,7 @@ export default function AboutPage() {
                     <div className="text-center py-12 border-t border-slate-700/50">
                         <h2 className="text-2xl font-bold text-white mb-6">Built for the Modern Web</h2>
                         <p className="text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-                            ConvertFiles.pro is an evolving project. We are constantly adding new tools and optimizing
+                            ConvertFiles is an evolving project. We are constantly adding new tools and optimizing
                             existing ones to ensure you have the best utility toolkit available in your browser.
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

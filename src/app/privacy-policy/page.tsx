@@ -17,10 +17,10 @@ export default function PrivacyPolicyPage() {
                     <div className="flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
-                                <img src="/logo.png" alt="FileConvert.pro" className="w-full h-full object-cover" />
+                                <img src="/logo.png" alt="ConvertFiles" className="w-full h-full object-cover" />
                             </div>
                             <div className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                                FileConvert<span className="text-blue-400">.pro</span>
+                                ConvertFiles
                             </div>
                         </Link>
 
@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
                         <div className="flex items-start gap-4">
                             <ShieldCheck className="w-10 h-10 text-blue-400 flex-shrink-0" />
                             <div>
-                                <h2 className="text-xl font-bold text-white mb-2">The Golden Rule of FileConvert.pro</h2>
+                                <h2 className="text-xl font-bold text-white mb-2">The Golden Rule of ConvertFiles</h2>
                                 <p className="text-slate-300">
                                     We built this platform to be the most private utility toolkit on the web.
                                     <strong> We do not upload, store, or see any of the files you process using our tools.</strong>
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
                             1. Local vs. Server-Side Processing
                         </h2>
                         <p className="mb-4">
-                            Unlike traditional online converters, FileConvert.pro utilizes advanced browser technologies (JavaScript, WebAssembly)
+                            Unlike traditional online converters, ConvertFiles utilizes advanced browser technologies (JavaScript, WebAssembly)
                             to process your data directly on your device. When you "Upload" a file, it is merely loaded into your browser's memory.
                             No data packets containing your file content are sent over the internet to our infrastructure.
                         </p>
