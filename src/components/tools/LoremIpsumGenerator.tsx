@@ -122,163 +122,165 @@ export function LoremIpsumGenerator() {
   const charCount = output.length
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-teal-500/10 border-teal-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <FileText className="w-5 h-5 text-teal-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <FileText className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-teal-400 font-medium">Lorem Ipsum Generator</p>
-            <p className="text-sm text-slate-400 mt-1">
-              Generate placeholder text for your designs, documents, and mockups. 
-              Choose paragraphs, sentences, or words.
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">Lorem Ipsum Generator</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Generate premium placeholder text for your designs. Choose between 
+              paragraphs, sentences, or word counts.
             </p>
           </div>
         </div>
       </Card>
 
-      {/* Content Type Selection */}
-      <div className="space-y-4">
-        <Label className="text-white">Content Type</Label>
-        <Tabs value={contentType} onValueChange={(v) => setContentType(v as ContentType)}>
-          <TabsList className="bg-slate-800/50">
-            <TabsTrigger value="paragraphs" className="gap-2">
-              <AlignLeft className="w-4 h-4" />
-              Paragraphs
-            </TabsTrigger>
-            <TabsTrigger value="sentences" className="gap-2">
-              <Type className="w-4 h-4" />
-              Sentences
-            </TabsTrigger>
-            <TabsTrigger value="words" className="gap-2">
-              <Hash className="w-4 h-4" />
-              Words
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
+      <div className="grid md:grid-cols-2 gap-8 items-start">
+        {/* Left Column: Configuration */}
+        <div className="space-y-8">
+          {/* Content Type Selection */}
+          <div className="space-y-4">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Content Type</Label>
+            <Tabs value={contentType} onValueChange={(v) => setContentType(v as ContentType)}>
+              <TabsList className="bg-muted/50 p-1 h-14 rounded-xl w-full border border-border">
+                {[
+                  { value: 'paragraphs', icon: AlignLeft, label: 'Paragraphs' },
+                  { value: 'sentences', icon: Type, label: 'Sentences' },
+                  { value: 'words', icon: Hash, label: 'Words' },
+                ].map((type) => (
+                  <TabsTrigger
+                    key={type.value}
+                    value={type.value}
+                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex-1 h-11 font-bold rounded-lg transition-all"
+                  >
+                    <type.icon className="w-4 h-4 mr-2" />
+                    {type.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
 
-      {/* Count Slider */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <Label className="text-white">
-            Number of {contentType}
-          </Label>
-          <Badge variant="secondary" className="bg-teal-500/20 text-teal-400 border-teal-500/30">
-            {count} {contentType}
-          </Badge>
+          {/* Count Slider */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Label className="text-white font-bold uppercase tracking-wider text-[10px]">
+                Count
+              </Label>
+              <Badge variant="outline" className="bg-muted px-2 py-0.5">
+                {count} {contentType}
+              </Badge>
+            </div>
+            <Slider
+              value={[count]}
+              onValueChange={([value]) => setCount(value)}
+              min={1}
+              max={contentType === 'words' ? 500 : contentType === 'sentences' ? 20 : 10}
+              step={1}
+              className="w-full"
+            />
+          </div>
+
+          {/* Options */}
+          <div className="space-y-4">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Options</Label>
+            <div 
+              className="flex items-center justify-between p-4 rounded-xl bg-muted/30 border border-border cursor-pointer group"
+              onClick={() => setStartWithClassic(!startWithClassic)}
+            >
+              <span className="text-sm font-bold text-white uppercase tracking-tight">Start with "Lorem ipsum..."</span>
+              <div className={`w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center ${startWithClassic ? 'bg-primary border-primary' : 'border-muted-foreground'}`}>
+                {startWithClassic && <CheckCircle className="w-4 h-4 text-white" />}
+              </div>
+            </div>
+          </div>
+
+          <Button 
+            onClick={generate}
+            className="w-full h-14 gap-3 uppercase tracking-widest font-black text-base shadow-xl shadow-primary/20"
+          >
+            <RefreshCw className="w-5 h-5" />
+            Generate Text
+          </Button>
         </div>
-        <Slider
-          value={[count]}
-          onValueChange={([value]) => setCount(value)}
-          min={1}
-          max={contentType === 'words' ? 500 : contentType === 'sentences' ? 20 : 10}
-          step={1}
-          className="w-full"
-        />
-        <div className="flex justify-between text-xs text-slate-500">
-          <span>1</span>
-          <span>
-            Max: {contentType === 'words' ? 500 : contentType === 'sentences' ? 20 : 10}
-          </span>
-        </div>
-      </div>
 
-      {/* Options */}
-      <div className="flex items-center gap-4">
-        <Button
-          variant={startWithClassic ? 'default' : 'outline'}
-          onClick={() => setStartWithClassic(!startWithClassic)}
-          className={startWithClassic ? 'bg-teal-500 hover:bg-teal-600' : ''}
-        >
-          {startWithClassic ? '✓ ' : ''}
-          Start with "Lorem ipsum dolor..."
-        </Button>
-      </div>
-
-      {/* Generate Button */}
-      <Button 
-        onClick={generate}
-        className="w-full h-12 gap-2 bg-teal-500 hover:bg-teal-600"
-      >
-        <RefreshCw className="w-5 h-5" />
-        Generate Lorem Ipsum
-      </Button>
-
-      {/* Output */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Label className="text-white">Generated Text</Label>
+        {/* Right Column: Output */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Generated Output</Label>
             {output && (
-              <div className="flex gap-2 text-xs text-slate-400">
-                <span>{wordCount} words</span>
-                <span>•</span>
-                <span>{charCount} characters</span>
+              <div className="flex gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+                <span>{wordCount} Words</span>
+                <span className="opacity-30">•</span>
+                <span>{charCount} Characters</span>
               </div>
             )}
           </div>
-          {output && (
-            <div className="flex gap-2">
-              <Button variant="ghost" size="sm" onClick={handleCopy}>
-                {copied ? (
-                  <>
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 mr-2" />
-                    Copy
-                  </>
-                )}
+          <div className="relative group">
+            <Textarea
+              value={output}
+              readOnly
+              placeholder="Your placeholder text will appear here..."
+              className="min-h-[300px] text-base leading-relaxed bg-black/20"
+            />
+            {output && (
+              <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button variant="secondary" size="icon" onClick={handleCopy} className="size-8 rounded-lg">
+                  {copied ? <CheckCircle className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </Button>
+                <Button variant="secondary" size="icon" onClick={handleDownload} className="size-8 rounded-lg">
+                  <Download className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* Quick Actions */}
+          <div className="space-y-3">
+            <Label className="text-muted-foreground font-black uppercase tracking-[0.2em] text-[9px]">Quick Presets</Label>
+            <div className="grid grid-cols-3 gap-2">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="text-[10px] font-bold uppercase h-9"
+                onClick={() => {
+                  navigator.clipboard.writeText('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 1000)
+                }}
+              >
+                Sentence
               </Button>
-              <Button variant="ghost" size="sm" onClick={handleDownload}>
-                <Download className="w-4 h-4 mr-2" />
-                Download
+              <Button
+                variant="secondary"
+                size="sm"
+                className="text-[10px] font-bold uppercase h-9"
+                onClick={() => {
+                  setCount(3)
+                  setContentType('paragraphs')
+                  generate()
+                }}
+              >
+                3 Paras
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="text-[10px] font-bold uppercase h-9"
+                onClick={() => {
+                  navigator.clipboard.writeText('Lorem ipsum dolor sit amet')
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 1000)
+                }}
+              >
+                5 Words
               </Button>
             </div>
-          )}
-        </div>
-        <Textarea
-          value={output}
-          readOnly
-          placeholder="Click Generate to create placeholder text..."
-          className="min-h-64 bg-slate-800/50 border-slate-600 text-white"
-        />
-      </div>
-
-      {/* Quick Copy Buttons */}
-      <div className="space-y-2">
-        <Label className="text-slate-400 text-sm">Quick Copy</Label>
-        <div className="grid grid-cols-3 gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => navigator.clipboard.writeText('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')}
-          >
-            One Sentence
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setInput('3')
-              setContentType('paragraphs')
-              generate()
-            }}
-          >
-            3 Paragraphs
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              navigator.clipboard.writeText('Lorem ipsum dolor sit amet')
-            }}
-          >
-            5 Words
-          </Button>
+          </div>
         </div>
       </div>
     </div>

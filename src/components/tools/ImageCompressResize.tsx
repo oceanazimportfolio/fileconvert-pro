@@ -155,235 +155,232 @@ export function ImageCompressResize() {
 
   const validFiles = files.filter(f => !f.error)
   const doneFiles = files.filter(f => f.status === 'done')
+  const pendingFilesCount = validFiles.filter(f => f.status === 'pending').length
 
   return (
-    <div className="space-y-6">
-      {/* Mode Tabs */}
-      <Tabs value={mode} onValueChange={(v) => setMode(v as 'compress' | 'resize')}>
-        <TabsList className="grid w-full grid-cols-2 bg-slate-800/50">
-          <TabsTrigger value="compress" className="gap-2">
-            <Minimize2 className="w-4 h-4" />
-            Compress
-          </TabsTrigger>
-          <TabsTrigger value="resize" className="gap-2">
-            <Maximize2 className="w-4 h-4" />
-            Resize
-          </TabsTrigger>
-        </TabsList>
-
-        {/* Compression Options */}
-        <TabsContent value="compress" className="space-y-4 mt-4">
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            {mode === 'compress' ? <Minimize2 className="w-7 h-7 text-primary" /> : <Maximize2 className="w-7 h-7 text-primary" />}
+          </div>
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <Label className="text-white">Target Size (MB)</Label>
-              <Badge variant="secondary" className="bg-slate-700 text-white">
-                {maxSizeMB} MB
-              </Badge>
-            </div>
-            <Slider
-              value={[maxSizeMB]}
-              onValueChange={([value]) => setMaxSizeMB(value)}
-              min={0.1}
-              max={10}
-              step={0.1}
-              className="w-full"
-            />
-            <p className="text-xs text-slate-500 mt-1">
-              Image will be compressed to approximately this file size
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">Image {mode === 'compress' ? 'Compressor' : 'Resizer'}</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              {mode === 'compress' 
+                ? 'Reduce file size without losing quality.' 
+                : 'Change image dimensions with pixel-perfect accuracy.'}
+              Locally processed for maximum privacy.
             </p>
           </div>
+        </div>
+      </Card>
 
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <Label className="text-white">Max Dimension (px)</Label>
-              <Badge variant="secondary" className="bg-slate-700 text-white">
-                {maxDimension}px
-              </Badge>
-            </div>
-            <Slider
-              value={[maxDimension]}
-              onValueChange={([value]) => setMaxDimension(value)}
-              min={500}
-              max={4000}
-              step={100}
-              className="w-full"
-            />
-            <p className="text-xs text-slate-500 mt-1">
-              Maximum width or height while maintaining aspect ratio
-            </p>
-          </div>
-        </TabsContent>
+      {/* Main Configuration Grid */}
+      <div className="grid lg:grid-cols-3 gap-8 items-start">
+        {/* Settings Panel */}
+        <div className="lg:col-span-1 space-y-6">
+          <Card className="p-6 bg-muted/20 border-border/50">
+            <Tabs value={mode} onValueChange={(v) => setMode(v as 'compress' | 'resize')} className="space-y-6">
+              <div className="space-y-4">
+                <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Processing Mode</Label>
+                <TabsList className="grid w-full grid-cols-2 bg-black/20 p-1 h-12 rounded-xl">
+                  <TabsTrigger value="compress" className="rounded-lg font-black uppercase text-[10px] tracking-widest gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                    <Minimize2 className="w-3.5 h-3.5" />
+                    Compress
+                  </TabsTrigger>
+                  <TabsTrigger value="resize" className="rounded-lg font-black uppercase text-[10px] tracking-widest gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    Resize
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
-        {/* Resize Options */}
-        <TabsContent value="resize" className="space-y-4 mt-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label className="text-white mb-2 block">Width (px)</Label>
-              <Input
-                type="number"
-                value={resizeWidth}
-                onChange={(e) => setResizeWidth(parseInt(e.target.value) || 0)}
-                className="bg-slate-800/50 border-slate-600 text-white"
-              />
-            </div>
-            <div>
-              <Label className="text-white mb-2 block">Height (px)</Label>
-              <Input
-                type="number"
-                value={resizeHeight}
-                onChange={(e) => setResizeHeight(parseInt(e.target.value) || 0)}
-                className="bg-slate-800/50 border-slate-600 text-white"
-              />
-            </div>
-          </div>
+              <TabsContent value="compress" className="space-y-8 animate-in fade-in slide-in-from-top-2">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Target Size Limit</Label>
+                    <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-black h-6">{maxSizeMB} MB</Badge>
+                  </div>
+                  <Slider
+                    value={[maxSizeMB]}
+                    onValueChange={([value]) => setMaxSizeMB(value)}
+                    min={0.1}
+                    max={10}
+                    step={0.1}
+                    className="py-4"
+                  />
+                  <p className="text-[10px] text-muted-foreground font-medium italic">Recommended: 0.5MB - 1MB for web usage.</p>
+                </div>
 
-          <div className="flex items-center justify-between">
-            <div>
-              <Label className="text-white">Maintain Aspect Ratio</Label>
-              <p className="text-xs text-slate-500">Image won't be stretched</p>
-            </div>
-            <Switch
-              checked={maintainAspect}
-              onCheckedChange={setMaintainAspect}
-            />
-          </div>
-        </TabsContent>
-      </Tabs>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Max Dimension Bounds</Label>
+                    <Badge variant="secondary" className="bg-muted text-white/50 font-black h-6">{maxDimension}px</Badge>
+                  </div>
+                  <Slider
+                    value={[maxDimension]}
+                    onValueChange={([value]) => setMaxDimension(value)}
+                    min={500}
+                    max={4000}
+                    step={100}
+                    className="py-4"
+                  />
+                </div>
+              </TabsContent>
 
-      {/* File Upload */}
-      <FileUpload
-        accept={['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif']}
-        multiple
-        maxFiles={30}
-        maxSize={25 * 1024 * 1024}
-        onFilesSelected={handleFilesSelected}
-        files={files.filter(f => f.status === 'pending' || f.error)}
-        onFileRemove={handleRemoveFile}
-        onClearAll={handleClearAll}
-        label={`Drop images here to ${mode}`}
-        description="or click to browse"
-        icon="image"
-      />
+              <TabsContent value="resize" className="space-y-6 animate-in fade-in slide-in-from-top-2">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Width (px)</Label>
+                    <Input
+                      type="number"
+                      value={resizeWidth}
+                      onChange={(e) => setResizeWidth(parseInt(e.target.value) || 0)}
+                      className="h-12 bg-black/40 border-border/50 text-white font-mono"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Height (px)</Label>
+                    <Input
+                      type="number"
+                      value={resizeHeight}
+                      onChange={(e) => setResizeHeight(parseInt(e.target.value) || 0)}
+                      className="h-12 bg-black/40 border-border/50 text-white font-mono"
+                    />
+                  </div>
+                </div>
 
-      {/* Progress */}
-      {isProcessing && (
-        <Card className="bg-slate-800/50 border-slate-700/50 p-4">
-          <div className="flex items-center gap-3 mb-2">
-            <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
-            <span className="text-white">
-              {mode === 'compress' ? 'Compressing' : 'Resizing'} images...
-            </span>
-          </div>
-          <div className="w-full bg-slate-700 rounded-full h-2">
-            <div
-              className="bg-green-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </Card>
-      )}
+                <div className="flex items-center justify-between p-4 rounded-xl bg-black/20 border border-white/5">
+                  <div className="space-y-0.5">
+                    <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Maintain Aspect</Label>
+                    <p className="text-[9px] text-muted-foreground uppercase font-black opacity-40">Prevent distortion</p>
+                  </div>
+                  <Switch
+                    checked={maintainAspect}
+                    onCheckedChange={setMaintainAspect}
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+          </Card>
 
-      {/* Results */}
-      {doneFiles.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <h3 className="text-xl font-bold text-white tracking-tight">
-              {mode === 'compress' ? 'Compressed' : 'Resized'} Files ({doneFiles.length})
-            </h3>
-            {doneFiles.length > 1 && (
-              <Button onClick={handleDownloadAll} variant="secondary" className="gap-2 w-full sm:w-auto font-semibold">
-                <Download className="w-4 h-4" />
-                Download All (.zip)
-              </Button>
-            )}
-          </div>
+          {/* Action Call */}
+          {pendingFilesCount > 0 && (
+            <Button
+              onClick={handleProcess}
+              disabled={isProcessing}
+              className="w-full h-16 uppercase tracking-[0.2em] font-black text-xs shadow-xl shadow-primary/20 relative overflow-hidden group"
+            >
+              {isProcessing ? (
+                <div className="flex items-center gap-3">
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>Processing Queue...</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  {mode === 'compress' ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                  <span>Execute {mode === 'compress' ? 'Compression' : 'Resize'}</span>
+                </div>
+              )}
+              {isProcessing && (
+                <div 
+                  className="absolute bottom-0 left-0 h-1 bg-white/20 transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
+              )}
+            </Button>
+          )}
+        </div>
 
-          <div className="grid gap-3">
-            {doneFiles.map((file) => (
-              <Card key={file.id} className="bg-slate-800/40 border-slate-700/50 p-4 sm:p-5 hover:bg-slate-800/60 transition-colors overflow-hidden">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-                  <div className="flex items-center gap-4 w-full sm:flex-1 min-w-0">
-                    {file.preview ? (
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 shadow-lg ring-1 ring-white/10 rounded-lg overflow-hidden">
-                        <img
-                          src={file.preview}
-                          alt={file.file.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 border border-slate-700">
-                        <ImageIcon className="w-7 h-7 text-slate-500" />
-                      </div>
-                    )}
+        {/* Upload & Results Area */}
+        <div className="lg:col-span-2 space-y-8">
+          <FileUpload
+            accept={['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif']}
+            multiple
+            maxFiles={30}
+            maxSize={25 * 1024 * 1024}
+            onFilesSelected={handleFilesSelected}
+            files={files.filter(f => f.status === 'pending' || f.error)}
+            onFileRemove={handleRemoveFile}
+            onClearAll={handleClearAll}
+            label={`Drop assets to ${mode}`}
+            description="Supports high-res PNG, JPG, WebP"
+            icon="image"
+          />
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                        <p className="text-white font-semibold truncate text-sm sm:text-base pr-2">{file.file.name}</p>
-                      </div>
+          {/* Results List */}
+          {doneFiles.length > 0 && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
+              <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                 <h3 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-3">
+                   Processed Queue
+                   <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">{doneFiles.length}</Badge>
+                 </h3>
+                 {doneFiles.length > 1 && (
+                  <Button onClick={handleDownloadAll} variant="secondary" size="sm" className="h-9 gap-2 font-black uppercase text-[10px] tracking-widest border-border/50">
+                    <Download className="w-3.5 h-3.5" />
+                    Export All (.ZIP)
+                  </Button>
+                 )}
+              </div>
 
-                      {/* Size comparison */}
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm">
-                        <span className="text-slate-400 font-medium">
-                          {formatFileSize(file.file.size)}
-                        </span>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-600" />
-                        <span className="text-emerald-400 font-bold whitespace-nowrap">
-                          {formatFileSize(file.resultSize || 0)}
-                        </span>
-                        {file.compressionRatio !== undefined && file.compressionRatio > 0 && (
-                          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] sm:text-xs font-bold py-0 h-5">
-                            -{file.compressionRatio}%
-                          </Badge>
+              <div className="grid gap-4">
+                {doneFiles.map((file) => (
+                  <Card key={file.id} className="group bg-muted/10 border-border/50 hover:bg-muted/20 transition-all duration-300 overflow-hidden">
+                    <div className="p-4 flex items-center gap-6">
+                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-black/40 border border-white/5 flex-shrink-0 group-hover:scale-105 transition-transform duration-500">
+                        {file.preview ? (
+                          <img src={file.preview} alt={file.file.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <ImageIcon className="w-8 h-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-muted-foreground/20" />
                         )}
                       </div>
 
-                      {/* Dimensions */}
-                      {file.dimensions && (
-                        <p className="text-[10px] sm:text-xs text-slate-500 mt-1 font-medium italic">
-                          {file.dimensions.width} × {file.dimensions.height}px
-                        </p>
-                      )}
+                      <div className="flex-1 min-w-0 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                          <p className="text-xs font-black text-white uppercase tracking-tight truncate">{file.file.name}</p>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-4">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{formatFileSize(file.file.size)}</span>
+                            <ArrowRight className="w-3 h-3 text-muted-foreground/30" />
+                            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">{formatFileSize(file.resultSize || 0)}</span>
+                          </div>
+                          
+                          {file.compressionRatio !== undefined && file.compressionRatio > 0 && (
+                            <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[9px] font-black h-5 uppercase tracking-tighter">
+                              -{file.compressionRatio}%
+                            </Badge>
+                          )}
+                        </div>
+
+                        {file.dimensions && (
+                          <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-widest">
+                            Output: {file.dimensions.width} × {file.dimensions.height}px
+                          </p>
+                        )}
+                      </div>
+
+                      <Button
+                        onClick={() => handleDownload(file)}
+                        variant="secondary"
+                        size="sm"
+                        className="h-10 px-6 font-black uppercase text-[10px] tracking-widest border-border/50 group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                      >
+                         Download
+                      </Button>
                     </div>
-                  </div>
-
-                  <Button
-                    onClick={() => handleDownload(file)}
-                    size="lg"
-                    className="gap-2 w-full sm:w-auto font-bold px-8 shadow-blue-500/20"
-                  >
-                    <Download className="w-4 h-4" />
-                    Download
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Process Button */}
-      {validFiles.filter(f => f.status === 'pending').length > 0 && (
-        <Button
-          onClick={handleProcess}
-          disabled={isProcessing}
-          size="lg"
-          className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
-        >
-          {isProcessing ? (
-            <>
-              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              {mode === 'compress' ? 'Compressing' : 'Resizing'}...
-            </>
-          ) : (
-            <>
-              {mode === 'compress' ? <Minimize2 className="w-5 h-5 mr-2" /> : <Maximize2 className="w-5 h-5 mr-2" />}
-              {mode === 'compress' ? 'Compress' : 'Resize'} {validFiles.filter(f => f.status === 'pending').length} Image{validFiles.filter(f => f.status === 'pending').length !== 1 ? 's' : ''}
-            </>
+                  </Card>
+                ))}
+              </div>
+            </div>
           )}
-        </Button>
-      )}
+        </div>
+      </div>
     </div>
   )
 }

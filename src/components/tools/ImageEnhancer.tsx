@@ -7,8 +7,9 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { 
   Sparkles, Download, RefreshCw, Copy, Check, ImageIcon, 
-  ZoomIn, ArrowUpRight, Zap, AlertCircle, Cpu
+  ZoomIn, ArrowUpRight, Zap, AlertCircle, Cpu, Loader2
 } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/hooks/use-toast'
 import * as tf from '@tensorflow/tfjs'
 
@@ -133,7 +134,7 @@ export function ImageEnhancer() {
       ], [3, 3, 1, 1])
 
       // Split channels for sharpening
-      const channels = []
+      const channels: tf.Tensor[] = []
       for (let i = 0; i < 3; i++) {
         const channel = resized.slice([0, 0, i], [-1, -1, 1])
         const expanded = channel.expandDims(0) as tf.Tensor4D
@@ -287,207 +288,204 @@ export function ImageEnhancer() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <canvas ref={canvasRef} className="hidden" />
 
-      {/* Tool Header */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <ZoomIn className="w-5 h-5 text-purple-400" />
-            AI Image Upscaler
-          </h2>
-          <p className="text-sm text-slate-400 mt-1">
-            Enhance image resolution with TensorFlow.js AI
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          {tfReady ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/20 rounded-full border border-green-500/30">
-              <Cpu className="w-3.5 h-3.5 text-green-400" />
-              <span className="text-xs text-green-400 font-medium">AI Ready</span>
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start justify-between gap-6">
+          <div className="flex items-start gap-6">
+            <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+              <Sparkles className="w-7 h-7 text-primary" />
             </div>
-          ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-500/20 rounded-full border border-yellow-500/30">
-              <RefreshCw className="w-3.5 h-3.5 text-yellow-400 animate-spin" />
-              <span className="text-xs text-yellow-400 font-medium">Loading AI...</span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* AI Status Card */}
-      <Card className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-purple-500/30">
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-purple-400" />
-            </div>
-            <div className="flex-1">
-              <p className="text-purple-300 font-medium flex items-center gap-2">
-                TensorFlow.js AI Upscaling
-                <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">100% Free</span>
-              </p>
-              <p className="text-slate-400 text-sm mt-1">
-                AI-powered upscaling with edge enhancement. Runs entirely in your browser - no server uploads, no API limits, complete privacy.
+            <div>
+              <h2 className="text-xl font-black text-white uppercase tracking-tight">AI Image Enhancer</h2>
+              <p className="text-sm mt-1 font-medium text-muted-foreground">
+                Enhance resolution and sharpen details using TensorFlow.js AI.
+                Processed locally for 100% privacy.
               </p>
             </div>
           </div>
-        </CardContent>
+          <div className="hidden sm:block">
+            {tfReady ? (
+              <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 font-black uppercase tracking-widest text-[10px] py-1.5 px-3">
+                AI Engine Active
+              </Badge>
+            ) : (
+              <Badge variant="secondary" className="bg-amber-500/10 text-amber-500 border-amber-500/20 font-black uppercase tracking-widest text-[10px] py-1.5 px-3">
+                Waking AI Engine...
+              </Badge>
+            )}
+          </div>
+        </div>
       </Card>
 
-      {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Controls */}
-        <div className="space-y-4">
-          {/* Upload */}
-          {!image ? (
-            <div 
-              className="relative border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer
-                border-slate-600 hover:border-purple-500 bg-slate-800/30"
-            >
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              />
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <ImageIcon className="w-8 h-8 text-purple-400" />
+      {/* Main Configuration Grid */}
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Left: Input & Controls */}
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Source Asset</Label>
+            {!image ? (
+              <div 
+                className="relative group border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300
+                  border-border/50 hover:border-primary/50 hover:bg-primary/5 cursor-pointer bg-muted/20"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                />
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                    <ImageIcon className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black text-white uppercase tracking-widest">Drop images here</p>
+                    <p className="text-[10px] text-muted-foreground mt-1 font-medium uppercase tracking-wider">Supports high-res PNG, JPG, WebP</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-lg font-medium text-white">Drop image to enhance</p>
-                  <p className="text-sm text-slate-400 mt-1">or click to browse</p>
-                </div>
-                <div className="text-xs text-slate-500">Supports: PNG, JPG, WebP, AVIF</div>
               </div>
-            </div>
-          ) : (
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-400">Original Image</span>
+            ) : (
+              <Card className="relative group overflow-hidden bg-black/40 border-border/50 rounded-2xl">
+                <div className="absolute top-3 right-3 z-10">
                   <Button
-                    variant="ghost"
+                    variant="secondary"
                     size="sm"
                     onClick={() => { setImage(null); setProcessedImage(null) }}
-                    className="text-slate-400 hover:text-white"
+                    className="h-8 rounded-lg bg-black/60 backdrop-blur-md border-white/10 hover:bg-black/80 font-black text-[10px] tracking-widest uppercase"
                   >
-                    <RefreshCw className="w-4 h-4 mr-1" />
-                    Change
+                    <RefreshCw className="w-3 h-3 mr-2" />
+                    Reset
                   </Button>
                 </div>
-                <img src={image} alt="Original" className="w-full rounded-lg max-h-48 object-contain bg-slate-900" />
-              </CardContent>
-            </Card>
-          )}
+                <div className="p-4">
+                  <img src={image} alt="Original" className="w-full rounded-xl max-h-64 object-contain" />
+                </div>
+              </Card>
+            )}
+          </div>
 
-          {/* Scale Selection */}
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-4 space-y-4">
-              <Label className="text-slate-300 text-sm font-medium">Enhancement Level</Label>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant={scale === '2x' ? 'default' : 'outline'}
-                  onClick={() => setScale('2x')}
-                  className={`h-auto py-4 flex-col items-center gap-1 ${
-                    scale === '2x' 
-                      ? 'bg-purple-600 border-purple-500 text-white' 
-                      : 'border-slate-600 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <ArrowUpRight className="w-5 h-5" />
-                  <span className="font-bold text-lg">2x</span>
-                  <span className="text-xs opacity-80">Double Size</span>
-                </Button>
-                <Button
-                  variant={scale === '4x' ? 'default' : 'outline'}
-                  onClick={() => setScale('4x')}
-                  className={`h-auto py-4 flex-col items-center gap-1 ${
-                    scale === '4x' 
-                      ? 'bg-purple-600 border-purple-500 text-white' 
-                      : 'border-slate-600 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <ArrowUpRight className="w-5 h-5" />
-                  <ArrowUpRight className="w-5 h-5 -mt-3" />
-                  <span className="font-bold text-lg">4x</span>
-                  <span className="text-xs opacity-80">Quadruple Size</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Upscale Factor</Label>
+            <div className="grid grid-cols-2 gap-4">
+              <Button
+                variant={scale === '2x' ? 'default' : 'secondary'}
+                onClick={() => setScale('2x')}
+                className={`h-24 flex-col gap-2 rounded-2xl relative overflow-hidden transition-all duration-500 ${
+                  scale === '2x' 
+                    ? 'ring-2 ring-primary/20 shadow-lg shadow-primary/20 bg-primary' 
+                    : 'bg-muted/30 border-border/50 hover:bg-muted/50'
+                }`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <ArrowUpRight className="w-4 h-4 opacity-50" />
+                  <span className="text-2xl font-black tracking-tighter">2X</span>
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">High Performance</span>
+              </Button>
+              <Button
+                variant={scale === '4x' ? 'default' : 'secondary'}
+                onClick={() => setScale('4x')}
+                className={`h-24 flex-col gap-2 rounded-2xl relative overflow-hidden transition-all duration-500 ${
+                  scale === '4x' 
+                    ? 'ring-2 ring-primary/20 shadow-lg shadow-primary/20 bg-primary' 
+                    : 'bg-muted/30 border-border/50 hover:bg-muted/50'
+                }`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <ArrowUpRight className="w-4 h-4 opacity-50" />
+                  <ArrowUpRight className="w-4 h-4 -ml-2.5 opacity-50" />
+                  <span className="text-2xl font-black tracking-tighter">4X</span>
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Extreme Detail</span>
+              </Button>
+            </div>
+          </div>
 
-          {/* Enhance Button */}
           <Button
             onClick={handleEnhance}
             disabled={!image || isProcessing || !tfReady}
-            className="w-full h-14 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg"
+            className="w-full h-16 uppercase tracking-[0.2em] font-black text-xs shadow-xl shadow-primary/20 relative overflow-hidden group rounded-2xl"
           >
             {isProcessing ? (
-              <>
-                <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                AI Processing... ({progress}%)
-              </>
+              <div className="flex items-center gap-3">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>AI Processing... {progress}%</span>
+              </div>
             ) : (
-              <>
-                <Sparkles className="w-5 h-5 mr-2" />
-                AI Enhance to {scale}
-              </>
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-4 h-4" />
+                <span>Execute AI Enhancement</span>
+              </div>
+            )}
+            {isProcessing && (
+              <div 
+                className="absolute bottom-0 left-0 h-1 bg-white/20 transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
             )}
           </Button>
         </div>
 
-        {/* Right: Preview */}
-        <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-slate-400">
-                  {processedImage ? 'Enhanced Preview' : 'Preview'}
-                </span>
-                {processedImage && (
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" onClick={copyImage}>
-                      {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+        {/* Right: Preview & Output */}
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">
+              {processedImage ? 'Enhanced Neural Preview' : 'Preview Area'}
+            </Label>
+            <Card className="relative aspect-[4/3] bg-muted/20 border-border/50 rounded-2xl overflow-hidden group">
+              {processedImage ? (
+                <>
+                  <img src={processedImage} alt="Enhanced" className="w-full h-full object-contain p-4" />
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <Button variant="secondary" size="icon" onClick={copyImage} className="h-10 w-10 rounded-xl bg-black/60 backdrop-blur-md border-white/10 hover:bg-black/80">
+                      {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={downloadImage}>
+                    <Button variant="secondary" size="icon" onClick={downloadImage} className="h-10 w-10 rounded-xl bg-black/60 backdrop-blur-md border-white/10 hover:bg-black/80">
                       <Download className="w-4 h-4" />
                     </Button>
                   </div>
-                )}
-              </div>
-              <div className="min-h-[300px] bg-slate-900 rounded-lg flex items-center justify-center overflow-hidden">
-                {processedImage ? (
-                  <img src={processedImage} alt="Enhanced" className="w-full h-auto max-h-[400px] object-contain" />
-                ) : image ? (
-                  <img src={image} alt="Original" className="w-full h-auto max-h-[400px] object-contain opacity-50" />
-                ) : (
-                  <div className="text-center text-slate-500">
-                    <ZoomIn className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                    <p>Upload an image to enhance</p>
+                </>
+              ) : image ? (
+                <div className="relative w-full h-full p-4">
+                  <img src={image} alt="Original" className="w-full h-full object-contain opacity-40 grayscale" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center space-y-3">
+                      <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto border border-primary/20">
+                        <ZoomIn className="w-6 h-6 text-primary" />
+                      </div>
+                      <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">Awaiting Processing</p>
+                    </div>
                   </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground/30 space-y-4">
+                  <ZoomIn className="w-16 h-16" />
+                  <p className="font-black text-[10px] uppercase tracking-[0.2em]">No Data to Display</p>
+                </div>
+              )}
+            </Card>
+          </div>
 
           {processedImage && (
-            <Button onClick={downloadImage} className="w-full bg-green-600 hover:bg-green-700">
-              <Download className="w-4 h-4 mr-2" />
-              Download Enhanced Image ({scale})
+            <Button onClick={downloadImage} className="w-full h-14 rounded-2xl bg-emerald-500 hover:bg-emerald-600 font-black uppercase tracking-[0.2em] text-[10px]">
+              <Download className="w-4 h-4 mr-3" />
+              Download Enhanced Asset ({scale})
             </Button>
           )}
 
-          <Card className="bg-slate-800/30 border-slate-700/50 p-4">
-            <div className="flex items-start gap-3">
-              <Zap className="w-5 h-5 text-yellow-400 mt-0.5" />
-              <div className="text-sm">
-                <p className="text-white font-medium">How it works</p>
-                <p className="text-slate-400 mt-1">
-                  TensorFlow.js uses AI-powered bilinear interpolation with edge sharpening for high-quality upscaling. 
-                  All processing happens in your browser - fast, private, and unlimited.
+          <Card className="p-5 bg-muted/10 border-border/50 rounded-2xl">
+            <div className="flex items-start gap-4">
+              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                <Zap className="w-4 h-4 text-amber-500" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-[11px] font-black text-white uppercase tracking-wider">AI Engine Architecture</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">
+                  Utilizes bilateral interpolation with convolution-based sharpening kernels.
+                  Unlike cloud-based upscalers, this tool maintains zero-trust privacy by executing all mathematical operations within the browser's sandbox.
                 </p>
               </div>
             </div>

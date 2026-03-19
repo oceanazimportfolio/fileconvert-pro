@@ -99,141 +99,165 @@ export function ColorPalette() {
     return luminance > 0.5 ? '#000000' : '#FFFFFF'
   }
 
+  // Keyboard listener for Space key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault()
+      generatePalette()
+    }
+  }, [generatePalette])
+
+  useState(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+  })
+
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-pink-500/10 border-pink-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <Palette className="w-5 h-5 text-pink-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <Palette className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-pink-400 font-medium">Color Palette Generator</p>
-            <p className="text-sm text-slate-400 mt-1">
-              Generate beautiful color palettes for your designs. Lock colors you like 
-              and regenerate the rest. Export as CSS or JSON.
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">Pro Palette Generator</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Generate elite color schemes for your brand and UI.
+              Lock colors to keep them while regenerating the rest.
+              Export to CSS, JSON, or copy HEX.
             </p>
           </div>
         </div>
       </Card>
 
-      {/* Action Buttons */}
-      <div className="flex gap-2">
-        <Button 
-          onClick={generatePalette}
-          className="gap-2 bg-pink-500 hover:bg-pink-600"
-        >
-          <RefreshCw className="w-4 h-4" />
-          Generate New
-        </Button>
-        <Button variant="outline" onClick={copyAll} className="gap-2">
-          {copied === 'all' ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-          {copied === 'all' ? 'Copied!' : 'Copy All'}
-        </Button>
-        <Button variant="outline" onClick={downloadCSS} className="gap-2">
-          <Download className="w-4 h-4" />
-          CSS
-        </Button>
-        <Button variant="outline" onClick={downloadJSON} className="gap-2">
-          <Download className="w-4 h-4" />
-          JSON
-        </Button>
+      {/* Action Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-6">
+        <div className="flex items-center gap-3">
+          <Button 
+            onClick={generatePalette}
+            size="lg"
+            className="h-12 px-8 uppercase tracking-[0.2em] font-black text-[10px] shadow-xl shadow-primary/20 gap-3"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Generate New
+          </Button>
+          <Button variant="secondary" onClick={copyAll} className="h-12 px-6 uppercase tracking-widest font-black text-[10px] border-border/50 gap-3">
+            {copied === 'all' ? <CheckCircle className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+            {copied === 'all' ? 'Copied All' : 'Sync Palette'}
+          </Button>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <Button variant="outline" onClick={downloadCSS} className="h-10 px-5 uppercase tracking-widest font-black text-[9px] border-border/50 gap-2 hover:bg-white/5">
+            <Download className="w-3.5 h-3.5" />
+            CSS Variable
+          </Button>
+          <Button variant="outline" onClick={downloadJSON} className="h-10 px-5 uppercase tracking-widest font-black text-[9px] border-border/50 gap-2 hover:bg-white/5">
+            <Download className="w-3.5 h-3.5" />
+            JSON Export
+          </Button>
+        </div>
       </div>
 
-      {/* Color Palette */}
-      <div className="grid grid-cols-5 gap-2">
+      {/* Main Palette View */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {colors.map((color, index) => (
-          <div
-            key={index}
-            className="group relative"
-            style={{ backgroundColor: color.hex }}
+          <Card 
+            key={index} 
+            className="group relative overflow-hidden border-border/50 bg-muted/20 hover:border-primary/30 transition-all duration-500"
           >
-            <div 
-              className="aspect-[3/4] flex flex-col items-center justify-center cursor-pointer transition-all"
+            <div
+              className="aspect-[4/5] flex flex-col items-center justify-center cursor-pointer relative overflow-hidden active:scale-95 transition-transform duration-300"
+              style={{ backgroundColor: color.hex }}
               onClick={() => copyColor(color.hex)}
             >
-              {/* Lock Button */}
+              {/* Overlay for status */}
+              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+              {/* Lock Control */}
               <Button
-                variant="ghost"
+                variant="secondary"
                 size="icon"
-              onClick={(e) => {
+                onClick={(e) => {
                   e.stopPropagation()
                   toggleLock(index)
                 }}
-                className={`absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity ${
-                  color.locked ? 'opacity-100' : ''
+                className={`absolute top-3 right-3 h-10 w-10 rounded-xl backdrop-blur-md border-white/10 transition-all duration-300 z-20 ${
+                  color.locked 
+                    ? 'bg-black/60 text-white opacity-100' 
+                    : 'bg-black/40 text-white/50 opacity-0 group-hover:opacity-100'
                 }`}
-                style={{ 
-                  backgroundColor: 'rgba(0,0,0,0.3)',
-                  color: getContrastColor(color.hex)
-                }}
               >
                 {color.locked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
               </Button>
 
-              {/* HEX Display */}
-              <div 
-                className="text-lg font-bold font-mono mb-2"
-                style={{ color: getContrastColor(color.hex) }}
-              >
-                {color.hex}
+              {/* HEX Value */}
+              <div className="flex flex-col items-center gap-1 z-10 select-none">
+                <span 
+                  className="text-2xl font-black tracking-tighter drop-shadow-sm"
+                  style={{ color: getContrastColor(color.hex) }}
+                >
+                  {color.hex.replace('#', '')}
+                </span>
+                <span 
+                  className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40"
+                  style={{ color: getContrastColor(color.hex) }}
+                >
+                  HEX CODE
+                </span>
               </div>
 
               {/* Copy Indicator */}
               {copied === color.hex && (
-                <div 
-                  className="absolute inset-0 flex items-center justify-center bg-black/20"
-                >
-                  <CheckCircle 
-                    className="w-8 h-8"
-                    style={{ color: getContrastColor(color.hex) }}
-                  />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+                  <div className="flex flex-col items-center gap-3 scale-110">
+                    <CheckCircle className="w-10 h-10 text-emerald-400" />
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest">Captured!</span>
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* Color Input */}
-            <div className="p-2 bg-black/10">
-              <Input
-                type="text"
-                value={color.hex}
-                onChange={(e) => updateColor(index, e.target.value.toUpperCase())}
-                className="w-full h-8 text-center font-mono text-sm bg-transparent border-0 p-0"
-                style={{ color: getContrastColor(color.hex) }}
-              />
+            {/* Manual Edit Area */}
+            <div className="p-4 bg-black/40 border-t border-white/5 backdrop-blur-sm">
+               <div className="flex items-center gap-3">
+                 <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-white/10 flex-shrink-0">
+                    <input
+                      type="color"
+                      value={color.hex}
+                      onChange={(e) => updateColor(index, e.target.value.toUpperCase())}
+                      className="absolute inset-[-10px] w-[200%] h-[200%] cursor-pointer"
+                    />
+                 </div>
+                 <Input
+                    type="text"
+                    value={color.hex}
+                    onChange={(e) => updateColor(index, e.target.value.toUpperCase())}
+                    className="h-8 bg-transparent border-0 p-0 text-xs font-black uppercase tracking-widest focus-visible:ring-0"
+                    placeholder="#FFFFFF"
+                 />
+               </div>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Color Picker */}
-      <div className="grid grid-cols-5 gap-4">
-        {colors.map((color, index) => (
-          <div key={index} className="space-y-2">
-            <Label className="text-slate-400 text-xs">Color {index + 1}</Label>
-            <div className="flex gap-2">
-              <Input
-                type="color"
-                value={color.hex}
-                onChange={(e) => updateColor(index, e.target.value.toUpperCase())}
-                className="w-10 h-10 p-1 bg-slate-800 border-slate-600"
-              />
-              <Input
-                type="text"
-                value={color.hex}
-                onChange={(e) => updateColor(index, e.target.value.toUpperCase())}
-                className="flex-1 bg-slate-800/50 border-slate-600 text-white font-mono"
-              />
-            </div>
-          </div>
+          </Card>
         ))}
       </div>
 
       {/* Keyboard Hint */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-        <p className="text-sm text-slate-400">
-          <span className="text-white font-medium">Tip:</span> Click on any color to copy its HEX code. 
-          Lock colors to keep them while generating new ones. Press{' '}
-          <Badge variant="secondary" className="mx-1">Space</Badge> to generate a new palette.
-        </p>
+      <Card className="bg-muted/10 border-border/50 p-6 rounded-2xl">
+        <div className="flex items-start gap-4">
+          <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+            <Lock className="w-4 h-4 text-primary" />
+          </div>
+          <div className="space-y-1 mt-0.5">
+            <p className="text-[11px] font-black text-white uppercase tracking-wider">Workflow Optimization</p>
+            <p className="text-[10px] text-muted-foreground leading-relaxed uppercase font-bold tracking-tight">
+              Tap <Badge variant="secondary" className="mx-1 bg-white/5 border-white/10 font-black px-2 mt-[-2px]">SPACEBAR</Badge> to instantly cycle colors. 
+              Click any slab to copy value. Lock items to prevent drift during generation.
+            </p>
+          </div>
+        </div>
       </Card>
     </div>
   )

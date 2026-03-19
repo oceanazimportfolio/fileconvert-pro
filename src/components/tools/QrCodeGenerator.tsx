@@ -91,152 +91,146 @@ export function QrCodeGenerator() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-primary/10 border-primary/30 p-4">
-        <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-            <QrCode className="w-5 h-5 text-primary" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <QrCode className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <p className="text-primary font-bold tracking-tight">Generate QR Codes</p>
-            <p className="text-sm text-slate-400 mt-1 font-medium">
-              Create custom QR codes for URLs, text, email, phone, SMS, and WiFi.
-              Download in high quality PNG format instantly.
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">QR Code Generator</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Create secure, high-quality QR codes for any content.
+              All generation happens in your browser — your data stays private.
             </p>
           </div>
         </div>
       </Card>
 
       {/* Content Type Selection */}
-      <div className="overflow-x-auto pb-2 -mx-2 px-2 scrollbar-none">
-        <Tabs value={contentType} onValueChange={(v) => setContentType(v as typeof contentType)}>
-          <TabsList className="flex w-max sm:grid sm:w-full sm:grid-cols-6 gap-2 bg-transparent h-auto p-0">
-            {[
-              { value: 'url', icon: Link, label: 'URL' },
-              { value: 'text', icon: QrCode, label: 'Text' },
-              { value: 'email', icon: Mail, label: 'Email' },
-              { value: 'phone', icon: Phone, label: 'Phone' },
-              { value: 'sms', icon: MessageSquare, label: 'SMS' },
-              { value: 'wifi', icon: Wifi, label: 'WiFi' },
-            ].map(({ value, icon: Icon, label }) => (
-              <TabsTrigger
-                key={value}
-                value={value}
-                className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary gap-2 text-sm h-11 px-4 font-bold border border-transparent data-[state=active]:border-primary/30"
-              >
-                <Icon className="w-4 h-4 flex-shrink-0" />
-                <span>{label}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+      <div className="space-y-4">
+        <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Content Type</Label>
+        <div className="overflow-x-auto pb-4 custom-scrollbar">
+          <Tabs value={contentType} onValueChange={(v) => setContentType(v as typeof contentType)}>
+            <TabsList className="bg-muted/50 p-1 h-14 rounded-xl inline-flex w-auto border border-border">
+              {[
+                { value: 'url', icon: Link, label: 'URL' },
+                { value: 'text', icon: QrCode, label: 'Text' },
+                { value: 'email', icon: Mail, label: 'Email' },
+                { value: 'phone', icon: Phone, label: 'Phone' },
+                { value: 'sms', icon: MessageSquare, label: 'SMS' },
+                { value: 'wifi', icon: Wifi, label: 'WiFi' },
+              ].map(({ value, icon: Icon, label }) => (
+                <TabsTrigger
+                  key={value}
+                  value={value}
+                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground h-11 px-6 font-bold rounded-lg transition-all"
+                >
+                  <Icon className="w-4 h-4 mr-2" />
+                  {label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
 
       {/* Content Input */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
+      {/* Content Input Area */}
+      <Card className="p-6">
         {contentType === 'url' && (
-          <div>
-            <Label className="text-white mb-2 block">Website URL</Label>
+          <div className="space-y-3">
+            <Label className="text-white font-bold text-xs uppercase tracking-wider">Website URL</Label>
             <Input
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://example.com"
-              className="bg-slate-800/50 border-slate-600 text-white"
             />
           </div>
         )}
 
         {contentType === 'text' && (
-          <div>
-            <Label className="text-white mb-2 block">Text Content</Label>
+          <div className="space-y-3">
+            <Label className="text-white font-bold text-xs uppercase tracking-wider">Text Content</Label>
             <Input
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Enter any text..."
-              className="bg-slate-800/50 border-slate-600 text-white"
             />
           </div>
         )}
 
         {contentType === 'email' && (
-          <div>
-            <Label className="text-white mb-2 block">Email Address</Label>
+          <div className="space-y-3">
+            <Label className="text-white font-bold text-xs uppercase tracking-wider">Email Address</Label>
             <Input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
-              className="bg-slate-800/50 border-slate-600 text-white"
             />
           </div>
         )}
 
         {contentType === 'phone' && (
-          <div>
-            <Label className="text-white mb-2 block">Phone Number</Label>
+          <div className="space-y-3">
+            <Label className="text-white font-bold text-xs uppercase tracking-wider">Phone Number</Label>
             <Input
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+1234567890"
-              className="bg-slate-800/50 border-slate-600 text-white"
             />
           </div>
         )}
 
         {contentType === 'sms' && (
-          <div>
-            <Label className="text-white mb-2 block">Phone Number for SMS</Label>
+          <div className="space-y-3">
+            <Label className="text-white font-bold text-xs uppercase tracking-wider">Phone Number for SMS</Label>
             <Input
               type="tel"
               value={sms}
               onChange={(e) => setSms(e.target.value)}
               placeholder="+1234567890"
-              className="bg-slate-800/50 border-slate-600 text-white"
             />
           </div>
         )}
 
         {contentType === 'wifi' && (
-          <div className="space-y-4">
-            <div>
-              <Label className="text-white mb-2 block">Network Name (SSID)</Label>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <Label className="text-white font-bold text-xs uppercase tracking-wider">Network (SSID)</Label>
               <Input
                 type="text"
                 value={wifiSsid}
                 onChange={(e) => setWifiSsid(e.target.value)}
-                placeholder="Your WiFi name"
-                className="bg-slate-800/50 border-slate-600 text-white"
+                placeholder="WiFi name"
               />
             </div>
-            <div>
-              <Label className="text-white mb-2 block">Password</Label>
+            <div className="space-y-3">
+              <Label className="text-white font-bold text-xs uppercase tracking-wider">Password</Label>
               <Input
                 type="password"
                 value={wifiPassword}
                 onChange={(e) => setWifiPassword(e.target.value)}
-                placeholder="WiFi password"
-                className="bg-slate-800/50 border-slate-600 text-white"
+                placeholder="Network password"
               />
             </div>
-            <div>
-              <Label className="text-white mb-2 block">Security Type</Label>
-              <div className="grid grid-cols-3 gap-2">
+            <div className="md:col-span-2 space-y-3">
+              <Label className="text-white font-bold text-xs uppercase tracking-wider">Security</Label>
+              <div className="flex flex-wrap gap-2">
                 {['WPA', 'WEP', 'nopass'].map((type) => (
                   <Button
                     key={type}
-                    variant="outline"
+                    variant={wifiType === type ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setWifiType(type)}
-                    className={wifiType === type
-                      ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400'
-                      : 'bg-slate-800/50 border-slate-600 text-slate-300'
-                    }
+                    className="flex-1 h-10"
                   >
-                    {type === 'nopass' ? 'None' : type}
+                    {type === 'nopass' ? 'Open' : type}
                   </Button>
                 ))}
               </div>
@@ -245,16 +239,14 @@ export function QrCodeGenerator() {
         )}
       </Card>
 
-      {/* Options & Preview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Options */}
-        <div className="space-y-4">
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <Label className="text-white">Size</Label>
-              <Badge variant="secondary" className="bg-slate-700 text-white">
-                {size}px
-              </Badge>
+      {/* Options Grid */}
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Customization */}
+        <div className="space-y-8">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Resolution</Label>
+              <Badge variant="outline" className="bg-muted px-2 py-0.5">{size}px</Badge>
             </div>
             <Slider
               value={[size]}
@@ -266,122 +258,105 @@ export function QrCodeGenerator() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label className="text-white mb-2 block">Foreground</Label>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <Label className="text-white font-bold text-[10px] uppercase tracking-wider">Foreground</Label>
               <div className="flex gap-2">
                 <Input
                   type="color"
                   value={foregroundColor}
                   onChange={(e) => setForegroundColor(e.target.value)}
-                  className="w-12 h-10 p-1 bg-slate-800/50 border-slate-600"
+                  className="w-14 h-11 p-1 rounded-xl cursor-pointer"
                 />
                 <Input
                   type="text"
                   value={foregroundColor}
                   onChange={(e) => setForegroundColor(e.target.value)}
-                  className="bg-slate-800/50 border-slate-600 text-white"
+                  className="font-mono text-xs"
                 />
               </div>
             </div>
-            <div>
-              <Label className="text-white mb-2 block">Background</Label>
+            <div className="space-y-3">
+              <Label className="text-white font-bold text-[10px] uppercase tracking-wider">Background</Label>
               <div className="flex gap-2">
                 <Input
                   type="color"
                   value={backgroundColor}
                   onChange={(e) => setBackgroundColor(e.target.value)}
-                  className="w-12 h-10 p-1 bg-slate-800/50 border-slate-600"
+                  className="w-14 h-11 p-1 rounded-xl cursor-pointer"
                 />
                 <Input
                   type="text"
                   value={backgroundColor}
                   onChange={(e) => setBackgroundColor(e.target.value)}
-                  className="bg-slate-800/50 border-slate-600 text-white"
+                  className="font-mono text-xs"
                 />
               </div>
             </div>
           </div>
 
-          <div>
-            <Label className="text-white mb-2 block">Error Correction</Label>
-            <div className="grid grid-cols-4 gap-2">
+          <div className="space-y-4">
+            <Label className="text-white font-bold text-[10px] uppercase tracking-wider">Error Correction</Label>
+            <div className="flex gap-2">
               {(['L', 'M', 'Q', 'H'] as const).map((level) => (
                 <Button
                   key={level}
-                  variant="outline"
+                  variant={errorCorrectionLevel === level ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setErrorCorrectionLevel(level)}
-                  className={errorCorrectionLevel === level
-                    ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400'
-                    : 'bg-slate-800/50 border-slate-600 text-slate-300'
-                  }
+                  className="flex-1 h-10"
                 >
                   {level}
                 </Button>
               ))}
             </div>
-            <p className="text-xs text-slate-500 mt-1">
-              Higher = more resilient to damage
+            <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest leading-loose">
+              Higher level = more resilient to damage
             </p>
           </div>
         </div>
 
-        {/* Preview */}
-        <div className="flex flex-col items-center justify-center">
-          <Card className="bg-slate-800/50 border-slate-700/50 p-6 w-full max-w-xs">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-medium">Preview</h3>
-              {qrDataUrl && (
-                <CheckCircle className="w-4 h-4 text-green-400" />
-              )}
-            </div>
-
+        {/* Live Preview */}
+        <Card className="flex flex-col items-center justify-center p-8 bg-black/20 border-dashed border-2">
+          <div className="relative group">
+            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-50 group-hover:scale-100 transition-transform duration-500 opacity-50" />
             <div
-              className="aspect-square rounded-lg flex items-center justify-center overflow-hidden"
-              style={{ backgroundColor }}
+              className={`
+                relative aspect-square w-full max-w-[280px] rounded-3xl p-6 shadow-2xl transition-all duration-300
+                ${qrDataUrl ? 'ring-1 ring-white/10' : 'bg-muted/50'}
+              `}
+              style={{ backgroundColor: qrDataUrl ? backgroundColor : undefined }}
             >
               {qrDataUrl ? (
-                <img
-                  src={qrDataUrl}
-                  alt="QR Code"
-                  className="w-full h-full object-contain"
-                />
+                <img src={qrDataUrl} alt="QR Preview" className="w-full h-full object-contain" />
               ) : (
-                <QrCode className="w-16 h-16 text-slate-600" />
+                <div className="w-full h-full flex items-center justify-center">
+                  <QrCode className="w-16 h-16 text-muted-foreground/30" />
+                </div>
               )}
             </div>
+          </div>
 
-            {/* Download Buttons */}
-            {qrDataUrl && (
-              <div className="mt-6 space-y-3">
-                <Button
-                  onClick={handleDownload}
-                  size="lg"
-                  className="w-full gap-2 bg-primary hover:bg-primary/90 font-bold shadow-lg shadow-primary/20"
-                >
-                  <Download className="w-4 h-4" />
-                  Download PNG
-                </Button>
-                <Button
-                  onClick={handleCopy}
-                  variant="outline"
-                  size="lg"
-                  className="w-full gap-2 font-bold"
-                >
-                  {copied ? (
-                    <>
-                      <CheckCircle className="w-4 h-4 text-emerald-400" />
-                      Copied!
-                    </>
-                  ) : (
-                    'Copy to Clipboard'
-                  )}
-                </Button>
-              </div>
-            )}
-          </Card>
-        </div>
+          {qrDataUrl && (
+            <div className="w-full mt-8 space-y-3">
+              <Button onClick={handleDownload} size="lg" className="w-full gap-2 h-14 uppercase tracking-widest font-black">
+                <Download className="w-4 h-4" />
+                Download PNG
+              </Button>
+              <Button
+                onClick={handleCopy}
+                variant="secondary"
+                className="w-full h-12 font-bold"
+              >
+                {copied ? (
+                  <><CheckCircle className="w-4 h-4 mr-2 text-emerald-400" />Copied!</>
+                ) : (
+                  'Copy to Clipboard'
+                )}
+              </Button>
+            </div>
+          )}
+        </Card>
       </div>
     </div>
   )

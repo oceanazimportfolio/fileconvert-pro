@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Binary, Copy, CheckCircle, ArrowRightLeft, Trash2,
-  Upload, Download
+  Upload, Download, Shield
 } from 'lucide-react'
 
 export function Base64Tool() {
@@ -95,14 +95,16 @@ export function Base64Tool() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-indigo-500/10 border-indigo-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <Binary className="w-5 h-5 text-indigo-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <Binary className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-indigo-400 font-medium">Base64 Encoder & Decoder</p>
-            <p className="text-sm text-slate-400 mt-1">
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">Base64 Encoder & Decoder</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
               Convert text to Base64 format and vice versa. Useful for encoding data,
               creating data URLs, and handling binary data in text format.
             </p>
@@ -111,147 +113,142 @@ export function Base64Tool() {
       </Card>
 
       {/* Mode Selection */}
-      <Tabs value={mode} onValueChange={(v) => {
-        setMode(v as 'encode' | 'decode')
-        setOutput('')
-        setError(null)
-      }}>
-        <TabsList className="bg-slate-800/50">
-          <TabsTrigger value="encode" className="data-[state=active]:bg-indigo-500/20 data-[state=active]:text-indigo-400">
-            Text → Base64
-          </TabsTrigger>
-          <TabsTrigger value="decode" className="data-[state=active]:bg-indigo-500/20 data-[state=active]:text-indigo-400">
-            Base64 → Text
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
+      <div className="space-y-4">
+        <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Operation Mode</Label>
+        <Tabs value={mode} onValueChange={(v) => {
+          setMode(v as 'encode' | 'decode')
+          setOutput('')
+          setError(null)
+        }}>
+          <TabsList className="bg-muted/50 p-1 h-14 rounded-xl w-full border border-border">
+            <TabsTrigger value="encode" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex-1 h-11 font-bold rounded-lg transition-all">
+              Text → Base64
+            </TabsTrigger>
+            <TabsTrigger value="decode" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex-1 h-11 font-bold rounded-lg transition-all">
+              Base64 → Text
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
 
-      {/* Input */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <Label className="text-white">
-            {mode === 'encode' ? 'Plain Text Input' : 'Base64 Input'}
-          </Label>
-          {mode === 'encode' && (
-            <div className="flex gap-2">
+      <div className="grid md:grid-cols-2 gap-8 items-start">
+        {/* Left Column: Input */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Input Area</Label>
+            {mode === 'encode' && (
               <label className="cursor-pointer">
-                <input
-                  type="file"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
-                <Button variant="ghost" size="sm" asChild>
+                <input type="file" onChange={handleFileUpload} className="hidden" />
+                <Button variant="ghost" size="sm" asChild className="h-8 text-muted-foreground hover:text-white">
                   <span className="gap-2">
-                    <Upload className="w-4 h-4" />
+                    <Upload className="w-3.5 h-3.5" />
                     Upload File
                   </span>
                 </Button>
               </label>
-            </div>
+            )}
+          </div>
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={mode === 'encode' ? 'Enter text to encode...' : 'Enter Base64 string to decode...'}
+            className="min-h-48 font-mono text-sm"
+          />
+          <div className="flex flex-wrap gap-3">
+            <Button
+              onClick={handleConvert}
+              className="gap-2 h-12 uppercase tracking-widest font-black flex-1"
+            >
+              {mode === 'encode' ? 'Encode' : 'Decode'}
+              <ArrowRightLeft className="w-4 h-4 ml-1" />
+            </Button>
+            <Button variant="secondary" onClick={handleClear} className="w-12 h-12 rounded-xl text-muted-foreground hover:text-destructive p-0">
+              <Trash2 className="w-5 h-5" />
+            </Button>
+          </div>
+
+          {error && (
+            <Card className="bg-destructive/5 border-destructive/20 p-4">
+              <p className="text-destructive text-xs font-bold uppercase tracking-widest">{error}</p>
+            </Card>
           )}
         </div>
-        <Textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={mode === 'encode'
-            ? 'Enter text to encode...'
-            : 'Enter Base64 string to decode...'
-          }
-          className="min-h-32 bg-slate-800/50 border-slate-600 text-white font-mono"
-        />
-      </div>
 
-      {/* Actions */}
-      <div className="flex flex-wrap gap-2">
-        <Button
-          onClick={handleConvert}
-          className="gap-2 flex-1 sm:flex-none bg-primary hover:bg-primary/90 font-bold"
-        >
-          {mode === 'encode' ? 'Encode' : 'Decode'}
-        </Button>
-        <Button variant="outline" onClick={handleSwap} disabled={!output} className="gap-2 flex-1 sm:flex-none">
-          <ArrowRightLeft className="w-4 h-4" />
-          Swap
-        </Button>
-        <Button variant="outline" onClick={handleClear} className="gap-2 flex-1 sm:flex-none">
-          <Trash2 className="w-4 h-4" />
-          Clear
-        </Button>
-      </div>
+        {/* Right Column: Output */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Output Area</Label>
+            {output && (
+              <div className="flex gap-2">
+                <Button variant="ghost" size="sm" onClick={handleSwap} className="h-8 text-muted-foreground">
+                  <ArrowRightLeft className="w-3.5 h-3.5 mr-2" />
+                  Swap to Input
+                </Button>
+              </div>
+            )}
+          </div>
+          <div className="min-h-48 p-4 rounded-xl bg-muted/30 border border-border font-mono text-sm break-all text-white relative group">
+            <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
+              {output || <span className="text-muted-foreground/50 italic">Output will appear here...</span>}
+            </div>
+            {output && (
+              <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button variant="secondary" size="icon" onClick={handleCopy} className="size-8 rounded-lg">
+                  {copied ? <CheckCircle className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </Button>
+                <Button variant="secondary" size="icon" onClick={handleDownload} className="size-8 rounded-lg">
+                  <Download className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
+          </div>
 
-      {/* Error */}
-      {error && (
-        <Card className="bg-red-500/10 border-red-500/30 p-4">
-          <p className="text-red-400 text-sm">{error}</p>
-        </Card>
-      )}
-
-      {/* Output */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <Label className="text-white">
-            {mode === 'encode' ? 'Base64 Output' : 'Decoded Text'}
-          </Label>
+          {/* Stats Cards */}
           {output && (
-            <div className="flex gap-2">
-              <Button variant="ghost" size="sm" onClick={handleCopy}>
-                {copied ? (
-                  <>
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 mr-2" />
-                    Copy
-                  </>
-                )}
-              </Button>
-              <Button variant="ghost" size="sm" onClick={handleDownload}>
-                <Download className="w-4 h-4 mr-2" />
-                Download
-              </Button>
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="p-4 bg-muted/20 border-dashed">
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Character Count</p>
+                <div className="flex items-end gap-2">
+                  <span className="text-2xl font-black text-white">{output.length}</span>
+                  <span className="text-[10px] text-muted-foreground mb-1.5">
+                    {mode === 'encode'
+                      ? `(+${Math.round((output.length / input.length - 1) * 100)}%)`
+                      : `(-${Math.round((1 - output.length / input.length) * 100)}%)`
+                    }
+                  </span>
+                </div>
+              </Card>
+              <Card className="p-4 bg-primary/5 border-primary/20">
+                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Status</p>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  <span className="text-sm font-black text-white uppercase">{mode}DED</span>
+                </div>
+              </Card>
             </div>
           )}
         </div>
-        <div className="min-h-32 p-4 rounded-lg bg-slate-800/50 border border-slate-600 font-mono text-sm break-all">
-          {output || <span className="text-slate-500">Output will appear here...</span>}
-        </div>
       </div>
 
-      {/* Stats */}
-      {output && (
-        <div className="grid grid-cols-3 gap-4">
-          <Card className="bg-slate-800/30 border-slate-700/30 p-3 text-center">
-            <p className="text-2xl font-bold text-white">{input.length}</p>
-            <p className="text-xs text-slate-400">Input chars</p>
-          </Card>
-          <Card className="bg-slate-800/30 border-slate-700/30 p-3 text-center">
-            <p className="text-2xl font-bold text-white">{output.length}</p>
-            <p className="text-xs text-slate-400">Output chars</p>
-          </Card>
-          <Card className="bg-slate-800/30 border-slate-700/30 p-3 text-center">
-            <p className="text-2xl font-bold text-indigo-400">
-              {mode === 'encode'
-                ? `+${Math.round((output.length / input.length - 1) * 100)}%`
-                : `-${Math.round((1 - output.length / input.length) * 100)}%`
-              }
-            </p>
-            <p className="text-xs text-slate-400">Size change</p>
-          </Card>
-        </div>
-      )}
-
-      {/* Common Use Cases */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-        <p className="text-sm text-white font-medium mb-2">Common Use Cases:</p>
-        <ul className="text-sm text-slate-400 space-y-1 list-disc list-inside">
-          <li>Encode images and files as Data URLs</li>
-          <li>Encode credentials for API authentication</li>
-          <li>Store binary data in JSON/Text format</li>
-          <li>Simple obfuscation of text data</li>
-        </ul>
-      </Card>
+      {/* Use Cases Grid */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Card className="p-5 hover:bg-muted/30 transition-colors group">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+              <Download className="w-5 h-5 text-primary" />
+            </div>
+            <p className="text-xs font-bold text-white uppercase tracking-tight">Encode images for CSS/Data URLs</p>
+          </div>
+        </Card>
+        <Card className="p-5 hover:bg-muted/30 transition-colors group">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+              <Shield className="w-5 h-5 text-primary" />
+            </div>
+            <p className="text-xs font-bold text-white uppercase tracking-tight">API Auth & Header Obfuscation</p>
+          </div>
+        </Card>
+      </div>
     </div>
   )
 }

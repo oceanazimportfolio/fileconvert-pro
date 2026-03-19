@@ -82,46 +82,34 @@ export function WordCounter() {
   ]
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <Hash className="w-5 h-5 text-blue-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <Hash className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-blue-400 font-medium">Word & Character Counter</p>
-            <p className="text-sm text-slate-400 mt-1">
-              Count words, characters, sentences, paragraphs, and get reading time estimates. 
-              Perfect for writers, students, and content creators.
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">Word & Character Counter</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Analyze your text instantly. Get precise counts for words, characters, sentences, 
+              and estimated reading times.
             </p>
           </div>
         </div>
       </Card>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {statCards.slice(0, 8).map((stat, index) => (
-          <Card key={index} className="bg-slate-800/30 border-slate-700/30 p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <stat.icon className={`w-4 h-4 ${stat.color}`} />
-              <span className="text-xs text-slate-400">{stat.label}</span>
-            </div>
-            <p className={`text-2xl font-bold ${stat.color}`}>
-              {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
-            </p>
-          </Card>
-        ))}
-      </div>
-
-      {/* Input */}
-      <div className="space-y-2">
+      {/* Input Section */}
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label className="text-white">Enter Your Text</Label>
+          <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Your Text Content</Label>
           <div className="flex gap-2">
-            <Button variant="ghost" size="sm" onClick={handlePaste}>
+            <Button variant="ghost" size="sm" onClick={handlePaste} className="h-8 text-[10px] font-black uppercase tracking-widest hover:text-primary">
+              <BookOpen className="w-3 h-3 mr-2" />
               Paste
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleClear}>
-              <Trash2 className="w-4 h-4 mr-2" />
+            <Button variant="ghost" size="sm" onClick={handleClear} className="h-8 text-[10px] font-black uppercase tracking-widest hover:text-destructive">
+              <Trash2 className="w-3 h-3 mr-2" />
               Clear
             </Button>
           </div>
@@ -130,76 +118,115 @@ export function WordCounter() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type or paste your text here to see statistics..."
-          className="min-h-64 bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
+          className="min-h-[300px] text-base leading-relaxed"
         />
       </div>
 
-      {/* Additional Info */}
-      {stats.longestWord && stats.longestWord.length > 0 && (
-        <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
-              <p className="text-slate-400 text-sm">Longest word:</p>
-              <p className="text-white font-medium">
-                {stats.longestWord.replace(/[^a-zA-Z]/g, '')} 
-                <span className="text-slate-500 ml-2">
-                  ({stats.longestWord.replace(/[^a-zA-Z]/g, '').length} letters)
-                </span>
-              </p>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {statCards.map((stat, index) => (
+          <Card key={index} className="p-4 bg-muted/20 border-border/50 hover:bg-muted/30 transition-colors">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 rounded-lg bg-black/20 border border-white/5">
+                <stat.icon className="w-4 h-4 text-primary" />
+              </div>
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{stat.label}</span>
+            </div>
+            <p className="text-3xl font-black text-white tracking-tighter">
+              {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
+            </p>
+          </Card>
+        ))}
+      </div>
+
+      {/* Secondary Metrics */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Limits & Longest Word */}
+        <div className="space-y-6">
+          <Card className="p-6">
+            <Label className="text-white font-bold uppercase tracking-wider text-[10px] mb-6 block">Common Limits</Label>
+            <div className="space-y-6">
+              {[
+                { platform: 'Twitter (Tweet)', limit: 280 },
+                { platform: 'SMS Message', limit: 160 },
+                { platform: 'Meta Description', limit: 160 },
+                { platform: 'Title Tag', limit: 60 },
+              ].map((item) => {
+                const percentage = stats.chars > 0 ? Math.min((stats.chars / item.limit) * 100, 100) : 0
+                const isOver = stats.chars > item.limit
+                
+                return (
+                  <div key={item.platform} className="space-y-2">
+                    <div className="flex justify-between items-end">
+                      <span className="text-xs font-bold text-white mb-1 uppercase tracking-tight">{item.platform}</span>
+                      <span className={`text-[10px] font-black ${isOver ? 'text-destructive' : 'text-muted-foreground'}`}>
+                        {stats.chars} / {item.limit}
+                      </span>
+                    </div>
+                    <div className="h-2 bg-black/40 rounded-full overflow-hidden border border-white/5">
+                      <div 
+                        className={`h-full transition-all duration-500 rounded-full ${
+                          isOver ? 'bg-destructive' : percentage > 85 ? 'bg-amber-500' : 'bg-primary'
+                        }`}
+                        style={{ width: `${percentage}%` }}
+                      />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </Card>
+
+          {stats.longestWord && stats.longestWord.length > 0 && (
+            <Card className="p-4 bg-primary/5 border-primary/20">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-xl bg-primary/10">
+                  <Type className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Longest Word</p>
+                  <p className="text-lg font-black text-white tracking-tight break-all">
+                    {stats.longestWord.replace(/[^a-zA-Z]/g, '')}
+                    <span className="ml-2 text-xs font-medium text-muted-foreground opacity-50">
+                      ({stats.longestWord.replace(/[^a-zA-Z]/g, '').length} chars)
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </Card>
+          )}
+        </div>
+
+        {/* Reading Tips */}
+        <Card className="p-6 bg-black/20 border-dashed border-2">
+          <div className="flex items-start gap-4 h-full">
+            <div className="p-3 rounded-xl bg-muted/50">
+              <AlertCircle className="w-6 h-6 text-muted-foreground" />
+            </div>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase tracking-wider mb-2">Analysis Logic</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Our word counter uses standard spacing algorithms to provide accurate results. 
+                  Reading times are calculated based on average speeds.
+                </p>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  { label: 'Standard Reader', rate: '200 words / min' },
+                  { label: 'Standard Speaker', rate: '150 words / min' },
+                  { label: 'Public Speaking', rate: '110-130 words / min' },
+                ].map((spec) => (
+                  <li key={spec.label} className="flex items-center justify-between text-[10px]">
+                    <span className="font-bold text-muted-foreground uppercase tracking-widest">{spec.label}</span>
+                    <span className="font-black text-white bg-muted/50 px-2 py-1 rounded border border-white/5">{spec.rate}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </Card>
-      )}
-
-      {/* Tips */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-        <div className="flex items-start gap-3">
-          <AlertCircle className="w-4 h-4 text-blue-400 mt-0.5" />
-          <div className="text-sm text-slate-400">
-            <p className="text-white font-medium mb-1">Reading Time Estimates</p>
-            <ul className="space-y-1 list-disc list-inside">
-              <li>Average reading speed: 200 words/minute</li>
-              <li>Average speaking speed: 150 words/minute</li>
-              <li>These are estimates - actual time varies by content complexity</li>
-            </ul>
-          </div>
-        </div>
-      </Card>
-
-      {/* Character Limits Reference */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-        <p className="text-white font-medium mb-3">Common Character Limits</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-          {[
-            { platform: 'Tweet', limit: 280 },
-            { platform: 'SMS', limit: 160 },
-            { platform: 'Meta Description', limit: 160 },
-            { platform: 'Title Tag', limit: 60 },
-          ].map((item) => {
-            const percentage = stats.chars > 0 ? Math.min((stats.chars / item.limit) * 100, 100) : 0
-            const isOver = stats.chars > item.limit
-            
-            return (
-              <div key={item.platform}>
-                <div className="flex justify-between text-slate-400 mb-1">
-                  <span>{item.platform}</span>
-                  <span className={isOver ? 'text-red-400' : ''}>
-                    {stats.chars}/{item.limit}
-                  </span>
-                </div>
-                <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-                  <div 
-                    className={`h-full transition-all ${
-                      isOver ? 'bg-red-500' : percentage > 80 ? 'bg-yellow-500' : 'bg-green-500'
-                    }`}
-                    style={{ width: `${percentage}%` }}
-                  />
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </Card>
+      </div>
     </div>
   )
 }

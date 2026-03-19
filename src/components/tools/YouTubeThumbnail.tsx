@@ -114,155 +114,194 @@ export function YouTubeThumbnail() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-red-500/10 border-red-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <Youtube className="w-5 h-5 text-red-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <Youtube className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-red-400 font-medium">Download YouTube Thumbnails</p>
-            <p className="text-sm text-slate-400 mt-1">
-              Enter a YouTube video URL to download its thumbnail in various qualities.
-              Works with youtube.com and youtu.be links.
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">YouTube Thumbnail Downloader</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Grab high-resolution thumbnails from any YouTube video instantly. 
+              Supports multiple qualities and formats.
             </p>
           </div>
         </div>
       </Card>
 
-      {/* URL Input */}
-      <div className="space-y-3">
-        <Label className="text-white">YouTube Video URL</Label>
-        <div className="flex gap-2">
-          <Input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleFetch()}
-            placeholder="https://www.youtube.com/watch?v=..."
-            className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
-          />
+      {/* URL Input Area */}
+      <div className="space-y-4">
+        <Label className="text-white font-bold uppercase tracking-wider text-[10px]">YouTube Video URL</Label>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1 group">
+            <Input
+              type="text"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleFetch()}
+              placeholder="https://www.youtube.com/watch?v=..."
+              className="h-14 pl-12 bg-black/40 border-border/50 text-white placeholder:text-muted-foreground/30 rounded-xl group-hover:border-primary/30 transition-all font-medium"
+            />
+            <Youtube className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/30 group-hover:text-primary/50 transition-colors" />
+          </div>
           <Button
             onClick={handleFetch}
             disabled={isLoading}
-            className="bg-red-500 hover:bg-red-600"
+            className="h-14 px-8 uppercase tracking-[0.2em] font-black text-xs shadow-xl shadow-primary/20"
           >
             {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="w-5 h-5 animate-spin" />
             ) : (
-              'Fetch'
+              'Fetch Thumbnails'
             )}
           </Button>
         </div>
-        <p className="text-xs text-slate-500">
-          Supports: youtube.com/watch?v=..., youtu.be/..., youtube.com/embed/...
-        </p>
+        <div className="flex items-center gap-4 px-2">
+          <span className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-widest">Supports: Watch links, youtu.be, embed, and IDs</span>
+        </div>
       </div>
 
-      {/* Error */}
+      {/* Error State */}
       {error && (
-        <Card className="bg-red-500/10 border-red-500/30 p-4">
-          <div className="flex items-center gap-2 text-red-400">
+        <Card className="bg-destructive/5 border-destructive/20 p-4 border-dashed animate-in fade-in zoom-in-95">
+          <div className="flex items-center gap-3 text-destructive">
             <AlertCircle className="w-5 h-5" />
-            <p>{error}</p>
+            <p className="text-xs font-bold uppercase tracking-wider">{error}</p>
           </div>
         </Card>
       )}
 
-      {/* Video Preview */}
+      {/* Results Section */}
       {videoId && thumbnails.length > 0 && (
-        <Card className="bg-slate-800/50 border-slate-700/50 p-4">
-          <div className="flex items-center gap-3 mb-3">
-            <CheckCircle className="w-5 h-5 text-green-400" />
-            <span className="text-white font-medium">Video Found</span>
-            <a
-              href={`https://www.youtube.com/watch?v=${videoId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1"
-            >
-              Watch <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Main Hero Preview */}
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                   <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Video Preview</Label>
+                   <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 font-black tracking-widest text-[9px] h-6 uppercase">Sync Success</Badge>
+                </div>
+                <a
+                  href={`https://www.youtube.com/watch?v=${videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-black uppercase tracking-widest text-primary hover:text-primary/80 transition-colors flex items-center gap-1.5"
+                >
+                  Watch Video <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              <div className="relative aspect-video rounded-3xl overflow-hidden bg-black/60 border border-white/5 shadow-2xl group">
+                <img
+                  src={thumbnails[0]?.url}
+                  alt="YouTube Thumbnail Preview"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+              </div>
+            </div>
 
-          {/* Main Preview */}
-          <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-900 mb-4">
-            <img
-              src={thumbnails[0]?.url}
-              alt="YouTube Thumbnail"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </Card>
-      )}
-
-      {/* Thumbnails Grid */}
-      {thumbnails.length > 0 && (
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold text-white">
-            Available Thumbnails ({thumbnails.length})
-          </h3>
-
-          <div className="grid gap-4">
-            {thumbnails.map((thumbnail, index) => (
-              <Card key={index} className="bg-slate-800/50 border-slate-700/50 overflow-hidden">
-                <div className="flex flex-col md:flex-row">
-                  {/* Preview */}
-                  <div className="md:w-64 flex-shrink-0 bg-slate-900">
-                    <img
-                      src={thumbnail.url}
-                      alt={thumbnail.quality}
-                      className="w-full h-auto"
-                    />
+            {/* Quick Stats Card */}
+            <div className="space-y-6">
+              <Card className="p-6 bg-muted/20 border-border/50 space-y-4">
+                <h3 className="text-xs font-black text-white uppercase tracking-widest border-b border-white/5 pb-3">Video Details</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Video ID</span>
+                    <code className="text-[10px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded-lg">{videoId}</code>
                   </div>
-
-                  {/* Info */}
-                  <div className="flex-1 p-4 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <ImageIcon className="w-4 h-4 text-red-400" />
-                        <span className="text-white font-medium">{thumbnail.quality}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <Badge variant="secondary" className="bg-slate-700 text-white">
-                          {thumbnail.width} × {thumbnail.height}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row gap-2 mt-4">
-                      <Button
-                        onClick={() => handleDownload(thumbnail)}
-                        className="gap-2 bg-red-500 hover:bg-red-600 w-full sm:w-auto"
-                      >
-                        <Download className="w-4 h-4" />
-                        Download
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => window.open(thumbnail.url, '_blank')}
-                        className="gap-2 w-full sm:w-auto"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Open
-                      </Button>
-                    </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Variations</span>
+                    <span className="text-[10px] font-black text-white">{thumbnails.length} Sizes</span>
                   </div>
                 </div>
               </Card>
-            ))}
+
+              {/* Fast Example Help */}
+              <div className="p-5 rounded-2xl border-2 border-dashed border-border/40 bg-black/20">
+                <p className="text-[10px] text-muted-foreground font-medium italic leading-relaxed">
+                  Tip: Right-click any image in the grid below to save directly, or use our optimized download buttons for original resolution.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Detailed Selection Grid */}
+          <div className="space-y-6 pt-8 border-t border-border/50">
+            <h3 className="text-sm font-black text-white uppercase tracking-widest">Select Resolution</h3>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {thumbnails.map((thumbnail, index) => (
+                <Card key={index} className="group bg-muted/10 border-border/50 overflow-hidden hover:border-primary/40 transition-all duration-300">
+                  <div className="flex flex-col">
+                    <div className="relative aspect-video overflow-hidden bg-black/40 border-b border-border/50">
+                      <img
+                        src={thumbnail.url}
+                        alt={thumbnail.quality}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute top-3 right-3">
+                         <Badge className="bg-black/60 backdrop-blur-md border border-white/10 text-white font-black text-[9px] tracking-widest h-6 uppercase px-2">
+                           {thumbnail.width}×{thumbnail.height}
+                         </Badge>
+                      </div>
+                    </div>
+
+                    <div className="p-5 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <ImageIcon className="w-3.5 h-3.5 text-primary opacity-60" />
+                          <span className="text-xs font-black text-white uppercase tracking-wider">{thumbnail.quality}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={() => handleDownload(thumbnail)}
+                          className="flex-1 h-10 gap-2 uppercase tracking-widest font-black text-[10px] shadow-lg shadow-primary/10"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          Download
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          onClick={() => window.open(thumbnail.url, '_blank')}
+                          className="px-4 h-10 border-border/50"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       )}
 
-      {/* Example URLs */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-        <p className="text-sm text-slate-400 mb-2">Example URLs to try:</p>
-        <div className="space-y-1 text-xs text-slate-500">
-          <p>• https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>
-          <p>• https://youtu.be/dQw4w9WgXcQ</p>
-          <p>• dQw4w9WgXcQ (just the video ID)</p>
-        </div>
-      </Card>
+      {/* Footer Instructions (only when no results) */}
+      {!videoId && (
+        <Card className="p-8 bg-black/20 border-dashed border-2 flex flex-col items-center gap-4 text-center max-w-2xl mx-auto">
+          <div className="p-4 rounded-full bg-muted/50">
+             <Youtube className="w-8 h-8 text-muted-foreground/40" />
+          </div>
+          <div className="space-y-2">
+            <h4 className="text-sm font-black text-white uppercase tracking-widest">How to use</h4>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Copy the URL of your favorite YouTube video and paste it above. We'll automatically identify the video and fetch all available thumbnail sizes including 4K MaxRes (where available), standard HQ, and small previews.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full pt-4">
+             {['Watch URLs', 'Video IDs', 'Mobile Short Links', 'Channel Links'].map(s => (
+               <div key={s} className="px-4 py-2 rounded-lg bg-black/40 border border-white/5 text-[9px] font-black uppercase text-muted-foreground/60 tracking-widest">
+                 {s} Supported
+               </div>
+             ))}
+          </div>
+        </Card>
+      )}
     </div>
   )
 }

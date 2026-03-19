@@ -12,19 +12,12 @@ import {
 import { Footer } from '@/components/Footer'
 
 export default function Home() {
-  // ==========================================
-  // TOOLS CONFIGURATION
-  // Organized by category for better UX and SEO
-  // Each tool links to its own SEO-optimized page
-  // ==========================================
   const tools = [
-    // === IMAGE TOOLS - HIGH TRAFFIC ===
     {
       id: 'image-converter',
       title: 'Image Converter',
       description: 'PNG, JPG, WebP, AVIF',
       icon: ImageIcon,
-      color: 'from-blue-500 to-cyan-500',
       category: 'image',
       keywords: ['png to jpg', 'jpg to png', 'webp converter', 'avif converter', 'image format']
     },
@@ -33,7 +26,6 @@ export default function Home() {
       title: 'Compress & Resize',
       description: 'Optimize images',
       icon: Minimize2,
-      color: 'from-green-500 to-emerald-500',
       category: 'image',
       keywords: ['compress image', 'resize image', 'reduce file size', 'image optimizer']
     },
@@ -42,7 +34,6 @@ export default function Home() {
       title: 'Image Enhancer',
       description: 'Brightness, contrast, sharpen',
       icon: Wand2,
-      color: 'from-purple-500 to-violet-500',
       category: 'image',
       keywords: ['image enhancer', 'photo enhancer', 'enhance image quality', 'sharpen image'],
       isNew: true
@@ -52,19 +43,15 @@ export default function Home() {
       title: 'Background Remover',
       description: 'Remove backgrounds',
       icon: Eraser,
-      color: 'from-pink-500 to-rose-500',
       category: 'image',
       keywords: ['background remover', 'remove background', 'transparent background', 'bg remover'],
       isNew: true
     },
-
-    // === DEVELOPER TOOLS - HIGH CPC ===
     {
       id: 'json-formatter',
       title: 'JSON Formatter',
       description: 'Format & validate JSON',
       icon: Binary,
-      color: 'from-amber-500 to-orange-500',
       category: 'developer',
       keywords: ['json formatter', 'json validator', 'json beautify', 'json minify']
     },
@@ -73,7 +60,6 @@ export default function Home() {
       title: 'Base64 Encoder',
       description: 'Encode & decode',
       icon: Binary,
-      color: 'from-indigo-500 to-blue-500',
       category: 'developer',
       keywords: ['base64 encoder', 'base64 decoder', 'encode decode', 'base64 tool']
     },
@@ -82,18 +68,14 @@ export default function Home() {
       title: 'URL Encoder',
       description: 'Encode & decode URLs',
       icon: LinkIcon,
-      color: 'from-violet-500 to-purple-500',
       category: 'developer',
       keywords: ['url encoder', 'url decoder', 'encode url', 'percent encoding']
     },
-
-    // === TEXT TOOLS ===
     {
       id: 'case-converter',
       title: 'Case Converter',
       description: 'Transform text case',
       icon: CaseSensitive,
-      color: 'from-teal-500 to-cyan-500',
       category: 'text',
       keywords: ['case converter', 'uppercase', 'lowercase', 'title case', 'camel case']
     },
@@ -102,7 +84,6 @@ export default function Home() {
       title: 'Word Counter',
       description: 'Count & analyze text',
       icon: Hash,
-      color: 'from-slate-500 to-gray-500',
       category: 'text',
       keywords: ['word counter', 'character count', 'text analyzer', 'word count tool']
     },
@@ -111,29 +92,22 @@ export default function Home() {
       title: 'Lorem Ipsum',
       description: 'Generate placeholder',
       icon: FileText,
-      color: 'from-stone-500 to-neutral-500',
       category: 'text',
       keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'text generator']
     },
-
-    // === DESIGN TOOLS ===
     {
       id: 'color-palette',
       title: 'Color Palette',
       description: 'Generate palettes',
       icon: Palette,
-      color: 'from-fuchsia-500 to-pink-500',
       category: 'design',
       keywords: ['color palette', 'color generator', 'hex colors', 'design colors']
     },
-
-    // === UTILITY TOOLS ===
     {
       id: 'password-generator',
       title: 'Password Generator',
       description: 'Secure passwords',
       icon: Key,
-      color: 'from-emerald-500 to-green-500',
       category: 'utility',
       keywords: ['password generator', 'secure password', 'random password', 'strong password']
     },
@@ -142,175 +116,143 @@ export default function Home() {
       title: 'QR Generator',
       description: 'Create QR codes',
       icon: QrCode,
-      color: 'from-cyan-500 to-blue-500',
       category: 'utility',
       keywords: ['qr code generator', 'qr creator', 'barcode generator', 'qr code maker']
     },
-
-    // === SOCIAL MEDIA TOOLS ===
     {
       id: 'youtube-thumbnail',
       title: 'YouTube Thumbnail',
       description: 'Download thumbnails',
       icon: Youtube,
-      color: 'from-red-600 to-red-500',
       category: 'social',
       keywords: ['youtube thumbnail', 'thumbnail downloader', 'video thumbnail', 'yt thumbnail']
     },
   ]
 
   const categories = [
-    { id: 'image', name: 'Image Tools', icon: ImageIcon, count: 4 },
-    { id: 'developer', name: 'Developer', icon: Binary, count: 3 },
-    { id: 'text', name: 'Text Tools', icon: FileText, count: 3 },
-    { id: 'design', name: 'Design', icon: Palette, count: 1 },
-    { id: 'utility', name: 'Utilities', icon: Key, count: 2 },
-    { id: 'social', name: 'Social Media', icon: Youtube, count: 1 },
+    { id: 'image', name: 'Image Tools', icon: ImageIcon, count: 4, color: 'text-blue-400' },
+    { id: 'developer', name: 'Developer', icon: Binary, count: 3, color: 'text-amber-400' },
+    { id: 'text', name: 'Text Tools', icon: FileText, count: 3, color: 'text-teal-400' },
+    { id: 'design', name: 'Design', icon: Palette, count: 1, color: 'text-pink-400' },
+    { id: 'utility', name: 'Utilities', icon: Key, count: 2, color: 'text-cyan-400' },
+    { id: 'social', name: 'Social Media', icon: Youtube, count: 1, color: 'text-red-400' },
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* ==========================================
-          HEADER SECTION
-          ========================================== */}
-      <header className="border-b border-slate-700/50 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-3">
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Header */}
+      <header className="border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-50">
+        <div className="container-standard py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
-                <img src="/logo.png" alt="ConvertFiles Logo" className="w-full h-full object-cover" />
+            <Link href="/" className="flex items-center gap-3 group transition-all active:scale-95">
+              <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center bg-primary shadow-lg shadow-primary/20">
+                <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
               </div>
               <div>
-                <div className="text-xl font-bold text-white">ConvertFiles</div>
-                <p className="text-xs text-slate-400">Free Online Tools</p>
+                <div className="text-xl font-black text-white tracking-tight">ConvertFiles</div>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Free Online Tools</p>
               </div>
-            </div>
+            </Link>
 
-            <div className="hidden md:flex items-center gap-4 text-xs text-slate-400">
-              <span className="flex items-center gap-1">
-                <Zap className="w-3.5 h-3.5 text-yellow-400" />
+            <div className="hidden md:flex items-center gap-6 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              <span className="flex items-center gap-1.5 hover:text-white transition-colors">
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
                 Fast & Free
               </span>
-              <span className="flex items-center gap-1">
-                <Shield className="w-3.5 h-3.5 text-green-400" />
+              <span className="flex items-center gap-1.5 hover:text-white transition-colors">
+                <Shield className="w-3.5 h-3.5 text-emerald-400" />
                 Secure
               </span>
-              <span className="flex items-center gap-1">
-                <Globe className="w-3.5 h-3.5 text-blue-400" />
-                Browser-based
+              <span className="flex items-center gap-1.5 hover:text-white transition-colors">
+                <Globe className="w-3.5 h-3.5 text-primary" />
+                No Uploads
               </span>
             </div>
           </div>
         </div>
       </header>
 
-
-
-      {/* ==========================================
-          MAIN CONTENT AREA
-          ========================================== */}
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* ==========================================
-            HERO SECTION - SEO OPTIMIZED H1/H2
-            ========================================== */}
-        <section className="text-center mb-8" aria-labelledby="hero-title">
-          <Badge className="mb-4 bg-blue-500/10 text-blue-400 border-blue-500/20">
-            <Sparkles className="w-3 h-3 mr-1" />
-            100% Browser-based - No Server Uploads
+      <main className="container-standard section-gap">
+        {/* Hero Section */}
+        <section className="text-center mb-16 max-w-4xl mx-auto" aria-labelledby="hero-title">
+          <Badge variant="outline" className="mb-6 py-1 px-4 bg-primary/5 text-primary border-primary/20">
+            <Sparkles className="w-3 h-3 mr-2" />
+            100% Browser-based - Privacy First
           </Badge>
 
-          <h1 id="hero-title" className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Free Online <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">File Converter</span> & Tools
+          <h1 id="hero-title" className="mb-6">
+            Free Online <span className="accent-gradient">File Converter</span> & Tools
           </h1>
 
-          <h2 className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto font-normal">
-            Image converter, enhancer, background remover, JSON formatter, password generator, and more.
-            All processing happens locally in your browser — fast, free, and secure.
-          </h2>
+          <p className="text-lg md:text-xl max-w-2xl mx-auto">
+            Process images, format JSON, generate passwords, and more.
+            Everything happens locally in your browser — fast, private, and secure.
+          </p>
         </section>
 
-        {/* ==========================================
-            TOOL NAVIGATION - CATEGORIZED
-            ========================================== */}
-        <nav aria-label="Tool categories" className="mb-6">
-          <div className="flex flex-wrap gap-2 justify-center mb-4">
+        {/* Category Navigation */}
+        <nav aria-label="Tool categories" className="mb-12">
+          <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((cat) => (
               <Badge
                 key={cat.id}
                 variant="outline"
-                className="cursor-pointer hover:bg-slate-700/50 border-slate-600 text-slate-300"
+                className="cursor-pointer py-2 px-4 hover:bg-muted hover:text-foreground transition-all active:scale-95 text-sm"
               >
-                <cat.icon className="w-3 h-3 mr-1" />
+                <cat.icon className={`w-3.5 h-3.5 mr-2 ${cat.color}`} />
                 {cat.name}
-                <span className="ml-1 text-slate-500">({cat.count})</span>
               </Badge>
             ))}
           </div>
         </nav>
 
-        {/* Tool Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 mb-8">
-          {tools.map((tool) => (
-            <Link key={tool.id} href={`/tools/${tool.id}`}>
-              <Card
-                className="cursor-pointer transition-all duration-200 hover:scale-105 hover:border-blue-500/50 h-full
-                  bg-slate-800/50 border-slate-700/50"
-                role="button"
-              >
-                <CardContent className="p-4 text-center">
-                  <div className="relative inline-block">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center mx-auto mb-3`}>
-                      <tool.icon className="w-6 h-6 text-white" />
-                    </div>
+        {/* Tool Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-24">
+          {tools.map((tool) => {
+            const catColor = categories.find(c => c.id === tool.category)?.color || 'text-primary'
+            return (
+              <Link key={tool.id} href={`/tools/${tool.id}`} className="group h-full">
+                <Card className="h-full hover:border-primary/50 hover:bg-card hover:shadow-xl hover:shadow-primary/5 active:scale-[0.98] transition-all duration-300 overflow-hidden relative">
+                  <div className="absolute top-0 right-0 p-3">
                     {tool.isNew && (
-                      <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                        NEW
-                      </span>
+                      <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[8px] px-1.5 h-4">NEW</Badge>
                     )}
                   </div>
-                  <h3 className="font-medium text-white text-sm">{tool.title}</h3>
-                  <p className="text-xs text-slate-400 mt-1">{tool.description}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-14 h-14 rounded-2xl bg-muted/50 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-300">
+                      <tool.icon className={`w-7 h-7 ${catColor} group-hover:text-primary-foreground transition-colors duration-300`} />
+                    </div>
+                    <h3 className="text-sm font-black text-white group-hover:text-primary transition-colors">{tool.title}</h3>
+                    <p className="text-xs mt-2 line-clamp-2">{tool.description}</p>
+                  </div>
+                </Card>
+              </Link>
+            )
+          })}
         </div>
 
-        {/* ==========================================
-            SEO CONTENT SECTION
-            ========================================== */}
-        <section className="mt-12 py-8 border-t border-slate-700/50" aria-labelledby="seo-content">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Image Tools SEO */}
+        {/* SEO Content Section */}
+        <section className="py-16 border-t border-border" aria-labelledby="seo-content">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <article>
-              <h2 className="text-lg font-semibold text-white mb-3">Free Image Tools</h2>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Convert, compress, enhance, and remove backgrounds from images instantly. Our image tools support
-                PNG, JPG, WebP, AVIF, and more. Batch convert multiple images at once. All processing happens
-                in your browser - no uploads to servers. Perfect for web developers, designers, photographers,
-                and anyone needing quick image editing.
+              <h3 className="text-white mb-4">Fast & Private Processing</h3>
+              <p className="text-sm leading-relaxed">
+                Our tools process your files directly in your browser. Unlike other converters, 
+                your data never leaves your computer, ensuring 100% privacy and lightning-fast results.
               </p>
             </article>
-
-            {/* Developer Tools SEO */}
             <article>
-              <h2 className="text-lg font-semibold text-white mb-3">Developer Utility Tools</h2>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Essential tools for developers: JSON formatter and validator, Base64 encoder/decoder,
-                URL encoder/decoder. Format and validate JSON data instantly, encode strings for
-                web transmission, and handle URL encoding effortlessly. All tools work offline
-                in your browser - no data sent to external servers.
+              <h3 className="text-white mb-4">No Installation Required</h3>
+              <p className="text-sm leading-relaxed">
+                Access a suite of powerful developer, image, and text utilities without downloading bulky software. 
+                Everything is optimized for web performance across all modern browsers.
               </p>
             </article>
-
-            {/* Text Tools SEO */}
             <article>
-              <h2 className="text-lg font-semibold text-white mb-3">Text & Content Tools</h2>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Transform text with our case converter, count words and characters, generate
-                Lorem Ipsum placeholder text. Perfect for writers, students, and content creators.
-                Convert between uppercase, lowercase, title case, camelCase, snake_case, and more.
-                Get detailed text statistics including word count and reading time.
+              <h3 className="text-white mb-4">Modern Workflow</h3>
+              <p className="text-sm leading-relaxed">
+                Designed for efficiency. Batch process images, format complex JSON structures, 
+                and generate secure assets instantly. Perfect for web developers and content creators.
               </p>
             </article>
           </div>

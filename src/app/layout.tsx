@@ -133,7 +133,7 @@ export const metadata: Metadata = {
 
   // Verification - UPDATE WITH YOUR ACTUAL CODES
   verification: {
-    google: "YOUR-GOOGLE-SEARCH-CONSOLE-CODE",
+    // google: "YOUR-GOOGLE-SEARCH-CONSOLE-CODE",
     // yandex: "your-yandex-code",  // For Russia
     // yahoo: "your-yahoo-code",    // For Japan
   },
@@ -259,8 +259,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Canonical URL - UPDATE WITH YOUR DOMAIN */}
-        <link rel="canonical" href="https://convertfiles.qzz.io" />
 
         {/* JSON-LD Structured Data for Rich Snippets */}
         <script

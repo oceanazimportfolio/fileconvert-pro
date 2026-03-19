@@ -103,78 +103,103 @@ export function CaseConverter() {
   const charCount = input.length
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-purple-500/10 border-purple-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <CaseSensitive className="w-5 h-5 text-purple-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <CaseSensitive className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-purple-400 font-medium">Text Case Converter</p>
-            <p className="text-sm text-slate-400 mt-1">
-              Convert text between different cases instantly. Supports UPPERCASE, lowercase, 
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">Case Converter</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Transform text between different cases instantly. Supports UPPERCASE, lowercase, 
               Title Case, camelCase, snake_case, and more.
             </p>
           </div>
         </div>
       </Card>
 
-      {/* Input */}
-      <div className="space-y-2">
+      {/* Input Section */}
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label className="text-white">Enter Text</Label>
-          <div className="flex gap-2 text-xs text-slate-400">
-            <span>{charCount} characters</span>
-            <span>•</span>
-            <span>{wordCount} words</span>
+          <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Input Text</Label>
+          <div className="flex gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+            <span>{charCount} Characters</span>
+            <span className="opacity-30">•</span>
+            <span>{wordCount} Words</span>
           </div>
         </div>
         <Textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type or paste your text here..."
-          className="min-h-32 bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
+          placeholder="Type or paste your text here to transform it..."
+          className="min-h-40 text-sm"
         />
+        <div className="flex flex-wrap gap-2">
+          {['hello world', 'THE QUICK BROWN FOX', 'my_variable_name', 'camelCaseExample'].map((example) => (
+            <Button
+              key={example}
+              variant="secondary"
+              size="sm"
+              onClick={() => setInput(example)}
+              className="text-[10px] h-7 font-bold uppercase tracking-wider"
+            >
+              {example}
+            </Button>
+          ))}
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setInput('')}
+            className="text-[10px] h-7 font-bold uppercase tracking-wider ml-auto text-destructive hover:text-white"
+          >
+            <Trash2 className="w-3 h-3 mr-2" />
+            Clear
+          </Button>
+        </div>
       </div>
 
-      {/* Results Grid */}
-      <div className="space-y-3">
-        <Label className="text-white">Converted Results</Label>
+      {/* Results Section */}
+      <div className="space-y-4">
+        <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Transformation Results</Label>
         <div className="grid gap-3">
           {results.map((item) => (
             <Card 
               key={item.id} 
-              className="bg-slate-800/30 border-slate-700/30 p-4 hover:border-slate-600 transition-colors"
+              className="p-4 hover:bg-muted/30 transition-all border-border/50 group"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4 flex-1 min-w-0">
                   <Badge 
-                    variant="secondary" 
-                    className="bg-purple-500/20 text-purple-400 border-purple-500/30 min-w-28 justify-center"
+                    className="w-32 justify-center font-black uppercase tracking-widest text-[10px] h-8 shrink-0"
                   >
                     {item.label}
                   </Badge>
-                  <p className="text-white font-mono text-sm truncate max-w-md">
-                    {item.result || <span className="text-slate-500">Result will appear here...</span>}
+                  <p className="text-white font-mono text-sm truncate bg-black/20 px-3 py-1.5 rounded-lg border border-white/5 flex-1">
+                    {item.result || <span className="text-muted-foreground/30 italic">Pending input...</span>}
                   </p>
                 </div>
                 <div className="flex gap-2">
                   <Button
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     onClick={() => handleSwap(item.result)}
                     disabled={!item.result}
-                    title="Use as input"
+                    className="size-9 rounded-lg hover:text-primary"
+                    title="Move to input"
                   >
                     <ArrowRightLeft className="w-4 h-4" />
                   </Button>
                   <Button
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     onClick={() => handleCopy(item.result, item.id)}
                     disabled={!item.result}
+                    className="size-9 rounded-lg hover:text-emerald-400"
                   >
                     {copied === item.id ? (
-                      <CheckCircle className="w-4 h-4 text-green-400" />
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -185,29 +210,6 @@ export function CaseConverter() {
           ))}
         </div>
       </div>
-
-      {/* Quick Examples */}
-      <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-        <p className="text-sm text-slate-400 mb-3">Quick Examples:</p>
-        <div className="flex flex-wrap gap-2">
-          {[
-            'hello world',
-            'THE QUICK BROWN FOX',
-            'my_variable_name',
-            'camelCaseExample'
-          ].map((example) => (
-            <Button
-              key={example}
-              variant="outline"
-              size="sm"
-              onClick={() => setInput(example)}
-              className="text-xs"
-            >
-              {example}
-            </Button>
-          ))}
-        </div>
-      </Card>
     </div>
   )
 }

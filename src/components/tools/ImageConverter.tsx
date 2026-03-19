@@ -166,45 +166,50 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
   const currentLabel = CONVERT_OPTIONS.find(o => `${o.from}_${o.to}` === conversionType)?.label ?? conversionType.replace('_', ' → ').toUpperCase()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Locked Mode Banner */}
+      {lockedMode && (
+        <Card className="bg-primary/5 border-primary/20 p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <ImageIcon className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-white font-bold tracking-tight">{currentLabel} Conversion</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Format locked for this page</p>
+            </div>
+          </div>
+        </Card>
+      )}
+
       {/* Conversion Type Selection — hidden in locked mode */}
-      {lockedMode ? (
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-          <ImageIcon className="w-4 h-4 text-blue-400 flex-shrink-0" />
-          <span className="text-sm font-semibold text-blue-300">{currentLabel} Conversion</span>
-          <span className="text-xs text-slate-400 ml-auto">Format locked for this page</span>
-        </div>
-      ) : (
-        <div>
-          <Label className="text-white mb-3 block font-medium">Select Conversion Format</Label>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-            {CONVERT_OPTIONS.map((option) => (
-              <Button
-                key={`${option.from}_${option.to}`}
-                variant="outline"
-                onClick={() => setConversionType(`${option.from}_${option.to}`)}
-                className={`
-                  justify-start text-left h-auto py-2.5 px-3 transition-all duration-150
-                  ${conversionType === `${option.from}_${option.to}`
-                    ? 'bg-blue-500/20 border-blue-500 text-blue-300 shadow-blue-500/10 shadow-sm'
-                    : 'bg-slate-800/50 border-slate-600/60 text-slate-300 hover:bg-slate-700/60 hover:border-slate-500 hover:text-white'
-                  }
-                `}
-              >
-                <ImageIcon className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                <span className="text-xs font-medium">{option.label}</span>
-              </Button>
-            ))}
+      {!lockedMode && (
+        <div className="space-y-4">
+          <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Select Conversion Format</Label>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {CONVERT_OPTIONS.map((option) => {
+              const isActive = conversionType === `${option.from}_${option.to}`
+              return (
+                <Button
+                  key={`${option.from}_${option.to}`}
+                  variant={isActive ? "default" : "outline"}
+                  onClick={() => setConversionType(`${option.from}_${option.to}`)}
+                  className="justify-center h-12"
+                >
+                  <span className="text-xs font-black">{option.label}</span>
+                </Button>
+              )
+            })}
           </div>
         </div>
       )}
 
       {/* Quality Slider (for JPG output) */}
       {conversionType.endsWith('_jpg') && (
-        <div className="bg-slate-800/30 border border-slate-700/40 rounded-lg p-4">
-          <div className="flex items-center justify-between mb-3">
-            <Label className="text-white font-medium">Output Quality</Label>
-            <Badge variant="secondary" className="bg-blue-500/20 text-blue-300 border-blue-500/30 font-mono">
+        <Card className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <Label className="text-white font-bold">Output Quality</Label>
+            <Badge variant="default" className="font-mono">
               {quality}%
             </Badge>
           </div>
@@ -216,12 +221,12 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
             step={1}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-slate-500 mt-2">
-            <span>10% · Smallest file</span>
-            <span className="text-slate-400 font-medium">Recommended: 85–95%</span>
-            <span>100% · Best quality</span>
+          <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest text-muted-foreground mt-4">
+            <span>Compact</span>
+            <span className="text-primary/70">Balanced (85-95%)</span>
+            <span>HD Quality</span>
           </div>
-        </div>
+        </Card>
       )}
 
       {/* File Upload */}
@@ -237,24 +242,24 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
         onFileRemove={handleRemoveFile}
         onClearAll={handleClearAll}
         label={lockedMode
-          ? `Drop your ${fromFmt.toUpperCase()} images here, or click to select`
-          : 'Drop images here, or click to select'}
+          ? `Drop ${fromFmt.toUpperCase()} images here`
+          : 'Drop images here'}
         description={lockedMode
-          ? `Accepts .${fromFmt} files · Up to 30 files · Max 25 MB each`
-          : 'Accepts PNG, JPG, WebP, AVIF · Up to 30 files · Max 25 MB each'}
+          ? `Support .${fromFmt} files up to 25MB`
+          : 'Supports PNG, JPG, WebP, AVIF up to 25MB'}
         icon="image"
       />
 
       {/* Progress */}
       {isProcessing && (
-        <Card className="bg-slate-800/50 border-slate-700/50 p-4">
-          <div className="flex items-center gap-3 mb-2">
-            <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
-            <span className="text-white">Converting images...</span>
+        <Card className="p-6 border-primary/20 bg-primary/5">
+          <div className="flex items-center gap-4 mb-4">
+            <Loader2 className="w-5 h-5 text-primary animate-spin" />
+            <span className="text-white font-bold uppercase tracking-widest text-xs">Processing {progress.toFixed(0)}%</span>
           </div>
-          <div className="w-full bg-slate-700 rounded-full h-2">
+          <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
             <div
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              className="bg-primary h-full transition-all duration-300 shadow-[0_0_10px_rgba(var(--primary),0.5)]"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -263,15 +268,15 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
 
       {/* Results */}
       {doneFiles.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <h3 className="text-xl font-bold text-white tracking-tight">
-              Converted Files ({doneFiles.length})
-            </h3>
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border pb-4">
+            <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+              Ready for Download ({doneFiles.length})
+            </h2>
             {doneFiles.length > 1 && (
-              <Button onClick={handleDownloadAll} variant="secondary" className="gap-2 w-full sm:w-auto font-semibold">
+              <Button onClick={handleDownloadAll} variant="secondary" size="sm" className="gap-2 w-full sm:w-auto">
                 <Download className="w-4 h-4" />
-                Download All (.zip)
+                Download Zip
               </Button>
             )}
           </div>
@@ -283,51 +288,39 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
                 : null
 
               return (
-                <Card key={file.id} className="bg-slate-800/40 border-slate-700/50 p-4 sm:p-5 hover:bg-slate-800/60 transition-colors overflow-hidden">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-                    {/* File Info Area */}
+                <Card key={file.id} className="p-4 hover:border-primary/30 transition-all group">
+                  <div className="flex flex-col sm:flex-row items-center gap-6">
                     <div className="flex items-center gap-4 w-full sm:flex-1 min-w-0">
-                      {file.preview ? (
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 shadow-lg ring-1 ring-white/10 rounded-lg overflow-hidden">
-                          <img
-                            src={file.preview}
-                            alt={file.file.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 border border-slate-700">
-                          <ImageIcon className="w-7 h-7 text-slate-500" />
-                        </div>
-                      )}
+                      <div className="w-16 h-16 rounded-xl overflow-hidden border border-border bg-muted flex-shrink-0">
+                        {file.preview ? (
+                          <img src={file.preview} alt={file.file.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <ImageIcon className="w-6 h-6 text-muted-foreground" />
+                          </div>
+                        )}
+                      </div>
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                          <p className="text-white font-semibold truncate text-sm sm:text-base pr-2">{file.file.name}</p>
+                          <CheckCircle className="w-4 h-4 text-emerald-400" />
+                          <p className="text-white font-black truncate text-sm">{file.file.name}</p>
                         </div>
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm">
-                          <span className="text-slate-400 font-medium">
-                            {formatFileSize(file.file.size)}
-                          </span>
-                          <ArrowRight className="w-3.5 h-3.5 text-slate-600" />
-                          <span className="text-emerald-400 font-bold whitespace-nowrap">
-                            {formatFileSize(file.resultSize || 0)}
-                          </span>
+                        <div className="flex items-center gap-3 text-xs">
+                          <span className="text-muted-foreground font-medium">{formatFileSize(file.file.size)}</span>
+                          <ArrowRight className="w-3 h-3 text-muted-foreground" />
+                          <span className="text-emerald-400 font-bold">{formatFileSize(file.resultSize || 0)}</span>
                           {savedPercent !== null && savedPercent > 0 && (
-                            <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] sm:text-xs font-bold py-0 h-5">
-                              -{savedPercent}%
-                            </Badge>
+                            <Badge variant="outline" className="text-emerald-400 border-emerald-400/20 bg-emerald-400/5 text-[8px] h-4">-{savedPercent}%</Badge>
                           )}
                         </div>
                       </div>
                     </div>
 
-                    {/* Action Area */}
                     <Button
                       onClick={() => handleDownload(file)}
-                      size="lg"
-                      className="gap-2 w-full sm:w-auto font-bold px-8 shadow-blue-500/20"
+                      size="sm"
+                      className="gap-2 w-full sm:w-auto min-w-[140px]"
                     >
                       <Download className="w-4 h-4" />
                       Download
@@ -346,21 +339,12 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
           onClick={handleConvert}
           disabled={isProcessing}
           size="lg"
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 active:scale-[0.99] transition-all duration-150 shadow-lg shadow-blue-500/20"
+          className="w-full h-16 text-lg uppercase tracking-widest font-black transition-all hover:scale-[1.01] active:scale-[0.99]"
         >
           {isProcessing ? (
-            <>
-              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              Converting...
-            </>
+            <><Loader2 className="w-6 h-6 mr-3 animate-spin" />Processing...</>
           ) : (
-            <>
-              <ArrowRight className="w-5 h-5 mr-2" />
-              {lockedMode
-                ? `Convert ${validFiles.filter(f => f.status === 'pending').length} Image${validFiles.filter(f => f.status === 'pending').length !== 1 ? 's' : ''} to ${toFmt.toUpperCase()}`
-                : `Convert ${validFiles.filter(f => f.status === 'pending').length} Image${validFiles.filter(f => f.status === 'pending').length !== 1 ? 's' : ''}`
-              }
-            </>
+            <><ArrowRight className="w-6 h-6 mr-3" />Start Conversion</>
           )}
         </Button>
       )}

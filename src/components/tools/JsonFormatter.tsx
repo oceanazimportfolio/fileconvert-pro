@@ -80,166 +80,149 @@ export function JsonFormatter() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Info Banner */}
-      <Card className="bg-amber-500/10 border-amber-500/30 p-4">
-        <div className="flex items-start gap-3">
-          <Braces className="w-5 h-5 text-amber-400 mt-0.5" />
+    <div className="space-y-8">
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <Braces className="w-7 h-7 text-primary" />
+          </div>
           <div>
-            <p className="text-amber-400 font-medium">JSON Formatter & Validator</p>
-            <p className="text-sm text-slate-400 mt-1">
-              Format, validate, and minify JSON data. Instantly beautify messy JSON
-              or compress it for production use.
+            <h2 className="text-xl font-black text-white uppercase tracking-tight">JSON Formatter & Validator</h2>
+            <p className="text-sm mt-1 font-medium text-muted-foreground">
+              Format, validate, and minify your JSON data instantly. Perfect for 
+              debugging and optimizing your data structures.
             </p>
           </div>
         </div>
       </Card>
 
-      {/* Mode Selection */}
-      <Tabs value={mode} onValueChange={(v) => setMode(v as 'format' | 'minify')}>
-        <TabsList className="bg-slate-800/50">
-          <TabsTrigger value="format" className="gap-2">
-            <Maximize2 className="w-4 h-4" />
-            Format
-          </TabsTrigger>
-          <TabsTrigger value="minify" className="gap-2">
-            <Minimize2 className="w-4 h-4" />
-            Minify
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
-
-      {/* Indent Selection (only for format mode) */}
-      {mode === 'format' && (
-        <div>
-          <Label className="text-white mb-2 block">Indentation</Label>
-          <div className="flex gap-2">
-            {[2, 4, 8].map((size) => (
-              <Button
-                key={size}
-                variant="outline"
-                size="sm"
-                onClick={() => setIndent(size)}
-                className={indent === size
-                  ? 'bg-amber-500/20 border-amber-500 text-amber-400'
-                  : 'bg-slate-800/50 border-slate-600 text-slate-300'
-                }
-              >
-                {size} spaces
-              </Button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Input/Output */}
-      <div className="grid md:grid-cols-2 gap-4">
-        {/* Input */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <Label className="text-white">Input JSON</Label>
-            <div className="flex gap-2">
-              <Button variant="ghost" size="sm" onClick={loadSample} className="text-xs">
-                Sample
-              </Button>
-              <Button variant="ghost" size="sm" onClick={handlePaste} className="text-xs">
-                Paste
-              </Button>
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        {/* Left Column: Input & Controls */}
+        <div className="space-y-6">
+          <div className="flex flex-col gap-6 p-6 rounded-2xl bg-muted/20 border border-border/50">
+            <div className="space-y-4">
+              <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Processing Mode</Label>
+              <Tabs value={mode} onValueChange={(v) => setMode(v as 'format' | 'minify')} className="w-full">
+                <TabsList className="bg-black/20 p-1 h-12 rounded-xl w-full border border-white/5">
+                  <TabsTrigger value="format" className="flex-1 gap-2 font-bold data-[state=active]:bg-primary">
+                    <Maximize2 className="w-4 h-4" />
+                    Format
+                  </TabsTrigger>
+                  <TabsTrigger value="minify" className="flex-1 gap-2 font-bold data-[state=active]:bg-primary">
+                    <Minimize2 className="w-4 h-4" />
+                    Minify
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
             </div>
-          </div>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder='{"key": "value"}'
-            className="w-full h-64 p-4 rounded-lg bg-slate-800/50 border border-slate-600 text-white font-mono text-sm resize-none focus:outline-none focus:border-amber-500"
-          />
-        </div>
 
-        {/* Output */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Label className="text-white">Output</Label>
-              {input && (
-                result.valid ? (
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                    <CheckCircle className="w-3 h-3 mr-1" />
-                    Valid JSON
-                  </Badge>
-                ) : (
-                  <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    Invalid
-                  </Badge>
-                )
-              )}
-            </div>
-            {result.valid && result.output && (
-              <div className="flex gap-2">
-                <Button variant="ghost" size="sm" onClick={handleCopy} className="text-xs">
-                  {copied ? <CheckCircle className="w-3 h-3 mr-1" /> : <Copy className="w-3 h-3 mr-1" />}
-                  {copied ? 'Copied!' : 'Copy'}
-                </Button>
+            {mode === 'format' && (
+              <div className="space-y-4">
+                <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Indentation</Label>
+                <div className="flex gap-2">
+                  {[2, 4, 8].map((size) => (
+                    <Button
+                      key={size}
+                      variant={indent === size ? 'default' : 'secondary'}
+                      size="sm"
+                      onClick={() => setIndent(size)}
+                      className="flex-1 h-10 font-black uppercase text-[10px] tracking-widest"
+                    >
+                      {size} Spaces
+                    </Button>
+                  ))}
+                </div>
               </div>
             )}
           </div>
-          <div
-            className={`w-full h-64 p-4 rounded-lg border font-mono text-sm overflow-auto ${result.valid
-                ? 'bg-slate-800/50 border-slate-600 text-green-400'
-                : 'bg-red-500/10 border-red-500/30 text-red-400'
-              }`}
-          >
-            <pre className="whitespace-pre-wrap break-all">
-              {result.output || 'Formatted JSON will appear here...'}
-            </pre>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Input JSON</Label>
+              <div className="flex gap-2">
+                <Button variant="ghost" size="sm" onClick={loadSample} className="h-7 text-[10px] font-black uppercase tracking-widest hover:text-primary">
+                  Sample
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handlePaste} className="h-7 text-[10px] font-black uppercase tracking-widest hover:text-primary">
+                  Paste
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleClear} className="h-7 text-[10px] font-black uppercase tracking-widest hover:text-destructive">
+                  Clear
+                </Button>
+              </div>
+            </div>
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder='{"key": "value"}'
+              className="w-full h-[400px] p-6 rounded-2xl bg-black/40 border border-border/50 text-white font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/30"
+            />
           </div>
         </div>
-      </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap gap-2">
-        <Button variant="outline" onClick={handleClear} className="gap-2 flex-1 sm:flex-none">
-          <Trash2 className="w-4 h-4" />
-          Clear
-        </Button>
-        {result.valid && result.output && (
-          <Button onClick={handleDownload} className="gap-2 flex-1 sm:flex-none bg-primary hover:bg-primary/90 font-bold">
-            <Download className="w-4 h-4" />
-            Download JSON
-          </Button>
-        )}
-      </div>
-
-      {/* Stats */}
-      {input && result.valid && (
-        <Card className="bg-slate-800/30 border-slate-700/30 p-4">
-          <div className="grid grid-cols-4 gap-4 text-center">
-            <div>
-              <p className="text-2xl font-bold text-white">{input.length}</p>
-              <p className="text-xs text-slate-400">Input Bytes</p>
+        {/* Right Column: Results & Stats */}
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between h-10">
+              <div className="flex items-center gap-3">
+                <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Output Results</Label>
+                {input && (
+                  <Badge className={`font-black uppercase tracking-widest text-[9px] h-6 px-2 ${result.valid ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
+                    {result.valid ? <CheckCircle className="w-3 h-3 mr-1" /> : <AlertCircle className="w-3 h-3 mr-1" />}
+                    {result.valid ? 'Valid JSON' : 'Invalid'}
+                  </Badge>
+                ) as any}
+              </div>
+              {result.valid && result.output && (
+                <div className="flex gap-2">
+                  <Button variant="secondary" size="sm" onClick={handleCopy} className="h-8 text-[10px] font-black uppercase tracking-widest gap-2">
+                    {copied ? <CheckCircle className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    {copied ? 'Copied' : 'Copy'}
+                  </Button>
+                  <Button variant="default" size="sm" onClick={handleDownload} className="h-8 text-[10px] font-black uppercase tracking-widest gap-2">
+                    <Download className="w-3 h-3" />
+                    Download
+                  </Button>
+                </div>
+              )}
             </div>
-            <div>
-              <p className="text-2xl font-bold text-white">{result.output.length}</p>
-              <p className="text-xs text-slate-400">Output Bytes</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-green-400">
-                {mode === 'minify' && input.length > 0
-                  ? `${Math.round((1 - result.output.length / input.length) * 100)}%`
-                  : '-'
-                }
-              </p>
-              <p className="text-xs text-slate-400">Reduced</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">
-                {(input.match(/{/g) || []).length}
-              </p>
-              <p className="text-xs text-slate-400">Objects</p>
+            <div
+              className={`w-full h-[400px] p-6 rounded-2xl border font-mono text-sm overflow-auto transition-colors ${result.valid
+                ? 'bg-muted/10 border-border/50 text-emerald-400/90'
+                : 'bg-destructive/5 border-destructive/20 text-destructive'
+              }`}
+            >
+              <pre className="whitespace-pre-wrap break-all leading-relaxed">
+                {result.output || <span className="text-muted-foreground/20 italic">Validated output will appear here...</span>}
+              </pre>
             </div>
           </div>
-        </Card>
-      )}
+
+          {/* Stats Section */}
+          {input && result.valid && (
+            <Card className="p-6 bg-primary/5 border-primary/10">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { label: 'Input Size', val: `${(input.length / 1024).toFixed(2)} KB` },
+                  { label: 'Output Size', val: `${(result.output.length / 1024).toFixed(2)} KB` },
+                  { 
+                    label: 'Reduction', 
+                    val: mode === 'minify' ? `${Math.round((1 - result.output.length / input.length) * 100)}%` : '0%',
+                    color: 'text-emerald-400' 
+                  },
+                  { label: 'Root Objects', val: (input.match(/{/g) || []).length },
+                ].map((stat, i) => (
+                  <div key={i} className="space-y-1">
+                    <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{stat.label}</p>
+                    <p className={`text-xl font-black ${stat.color || 'text-white'}`}>{stat.val}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

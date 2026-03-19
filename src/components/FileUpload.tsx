@@ -138,7 +138,7 @@ export function FileUpload({
   const IconComponent = icon === 'image' ? Image : icon === 'pdf' ? FileText : File
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Drop Zone */}
       <div
         onClick={onZoneClick}
@@ -146,11 +146,11 @@ export function FileUpload({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`
-          relative border-2 border-dashed rounded-xl p-6 sm:p-10 text-center transition-all duration-300 cursor-pointer
-          active:scale-[0.98] md:active:scale-100 touch-manipulation
+          relative border-2 border-dashed rounded-3xl p-8 sm:p-12 text-center transition-all duration-300 cursor-pointer
+          active:scale-[0.99] touch-manipulation
           ${isDragging
-            ? 'border-primary bg-primary/10 scale-[1.02]'
-            : 'border-slate-600 hover:border-primary/50 bg-slate-800/20 shadow-inner hover:bg-slate-800/30'
+            ? 'border-primary bg-primary/10 scale-[1.01]'
+            : 'border-border hover:border-primary/40 bg-card/30 hover:bg-card/50 shadow-sm'
           }
           ${isProcessing ? 'pointer-events-none opacity-50' : ''}
         `}
@@ -162,27 +162,27 @@ export function FileUpload({
           accept={accept.map(a => `.${a}`).join(',')}
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          style={{ display: 'none' }} // Hidden but triggered via click()
+          style={{ display: 'none' }}
         />
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-6">
           <div className={`
-            w-14 h-14 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-colors
-            ${isDragging ? 'bg-primary/20' : 'bg-slate-700/30'}
+            w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-all duration-300
+            ${isDragging ? 'bg-primary shadow-lg shadow-primary/30' : 'bg-muted/50'}
           `}>
-            <IconComponent className={`w-7 h-7 sm:w-10 sm:h-10 ${isDragging ? 'text-primary' : 'text-slate-400'}`} />
+            <IconComponent className={`w-8 h-8 sm:w-10 h-10 ${isDragging ? 'text-primary-foreground' : 'text-primary'}`} />
           </div>
 
           <div>
-            <p className="text-base sm:text-xl font-bold text-white tracking-tight">{label}</p>
-            <p className="text-sm text-slate-400 mt-1 font-medium">{description}</p>
+            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">{label}</h2>
+            <p className="text-sm text-muted-foreground mt-2 font-medium">{description}</p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[10px] sm:text-xs">
-            <Badge variant="outline" className="text-slate-500 border-slate-700 font-medium">
+          <div className="flex flex-wrap justify-center gap-3">
+            <Badge variant="outline" className="bg-muted/50 border-border">
               {accept.join(', ').toUpperCase()}
             </Badge>
-            <Badge variant="outline" className="text-slate-500 border-slate-700 font-medium">
+            <Badge variant="outline" className="bg-muted/50 border-border">
               MAX {formatFileSize(maxSize)}
             </Badge>
           </div>
@@ -191,31 +191,31 @@ export function FileUpload({
 
       {/* File List */}
       {files.length > 0 && (
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-slate-400">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between px-2">
+            <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
               {files.length} file{files.length !== 1 ? 's' : ''} selected
             </span>
             <Button
               variant="ghost"
               size="sm"
               onClick={onClearAll}
-              className="text-slate-400 hover:text-white"
+              className="text-muted-foreground hover:text-destructive transition-colors h-8"
             >
               Clear all
             </Button>
           </div>
 
-          <div className="grid gap-2 max-h-60 overflow-y-auto pr-2">
+          <div className="grid gap-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
             {files.map((file) => (
               <Card
                 key={file.id}
-                className={`bg-slate-800/50 border-slate-700/50 p-3 ${file.error ? 'border-red-500/50' : ''
+                className={`bg-card/50 border-border p-4 hover:bg-card transition-all ${file.error ? 'border-destructive/50' : ''
                   }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   {/* Preview or Icon */}
-                  <div className="w-10 h-10 rounded-lg bg-slate-700/50 flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden flex-shrink-0 border border-border">
                     {file.preview ? (
                       <img
                         src={file.preview}
@@ -223,29 +223,34 @@ export function FileUpload({
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <File className="w-5 h-5 text-slate-400" />
+                      <File className="w-6 h-6 text-primary" />
                     )}
                   </div>
 
                   {/* File Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-white truncate">
+                    <p className="text-sm font-bold text-white truncate pr-4">
                       {file.file.name}
                     </p>
-                    <p className="text-xs text-slate-400">
-                      {formatFileSize(file.file.size)}
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-xs text-muted-foreground font-medium">
+                        {formatFileSize(file.file.size)}
+                      </span>
+                      {file.error && (
+                        <Badge variant="destructive" className="h-4 py-0 px-1 text-[8px]">ERROR</Badge>
+                      )}
+                    </div>
                     {file.error && (
-                      <p className="text-xs text-red-400">{file.error}</p>
+                      <p className="text-[10px] text-destructive mt-1 font-medium">{file.error}</p>
                     )}
                   </div>
 
                   {/* Remove Button */}
                   <Button
-                    variant="ghost"
+                    variant="secondary"
                     size="icon"
                     onClick={() => onFileRemove(file.id)}
-                    className="text-slate-400 hover:text-red-400 flex-shrink-0"
+                    className="size-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 border-transparent shadow-none"
                   >
                     <X className="w-4 h-4" />
                   </Button>

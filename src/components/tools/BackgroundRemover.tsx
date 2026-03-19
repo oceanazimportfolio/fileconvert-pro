@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { 
   Eraser, Download, RefreshCw, Copy, Check, Image as ImageIcon,
-  Palette, Wand2, Layers, Sparkles, Cpu, User
+  Palette, Wand2, Layers, Sparkles, Cpu, User, ShieldCheck, Loader2
 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import * as tf from '@tensorflow/tfjs'
@@ -296,273 +296,256 @@ export function BackgroundRemover() {
   }, [image, processedImage, showCheckerboard, bgColor])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <canvas ref={canvasRef} className="hidden" />
 
-      {/* Tool Header */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Eraser className="w-5 h-5 text-pink-400" />
-            AI Background Remover
-          </h2>
-          <p className="text-sm text-slate-400 mt-1">
-            Remove backgrounds with TensorFlow.js AI
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          {tfReady ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/20 rounded-full border border-green-500/30">
-              <Cpu className="w-3.5 h-3.5 text-green-400" />
-              <span className="text-xs text-green-400 font-medium">AI Ready</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-500/20 rounded-full border border-yellow-500/30">
-              <RefreshCw className="w-3.5 h-3.5 text-yellow-400 animate-spin" />
-              <span className="text-xs text-yellow-400 font-medium">Loading AI...</span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* AI Status Card */}
-      <Card className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-pink-500/30">
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-pink-400" />
-            </div>
-            <div className="flex-1">
-              <p className="text-pink-300 font-medium flex items-center gap-2">
-                TensorFlow.js BodyPix AI
-                <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">100% Free</span>
-              </p>
-              <p className="text-slate-400 text-sm mt-1">
-                AI-powered background removal. Runs entirely in your browser - no server uploads, no API limits, complete privacy.
-              </p>
+      {/* Banner Card */}
+      <Card className="bg-primary/5 border-primary/20 p-6">
+        <div className="flex items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse">
+            <Eraser className="w-7 h-7 text-primary" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h2 className="text-xl font-black text-white uppercase tracking-tight">AI Background Remover</h2>
+                <p className="text-sm mt-1 font-medium text-muted-foreground">
+                  Remove backgrounds with precision using TensorFlow.js AI. 
+                  Zero server lag, 100% private, locally processed.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                {tfReady ? (
+                  <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 font-black tracking-widest text-[9px] h-7 px-3 uppercase">
+                    <Cpu className="w-3 h-3 mr-1.5" />
+                    Neural Engine Ready
+                  </Badge>
+                ) : (
+                  <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20 font-black tracking-widest text-[9px] h-7 px-3 uppercase">
+                    <RefreshCw className="w-3 h-3 mr-1.5 animate-spin" />
+                    Loading AI...
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
-        </CardContent>
+        </div>
       </Card>
 
-      {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Controls */}
-        <div className="space-y-4">
-          {/* Upload */}
-          {!image ? (
+      {/* Main Grid */}
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        {/* Left Column: Controls */}
+        <div className="space-y-6">
+           {/* Upload Component */}
+           {!image ? (
             <div 
-              className="relative border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer
-                border-slate-600 hover:border-pink-500 bg-slate-800/30"
+              className="relative border-2 border-dashed rounded-3xl p-12 text-center transition-all cursor-pointer
+                border-border/40 hover:border-primary/40 bg-muted/5 group overflow-hidden"
             >
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
               />
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-16 h-16 rounded-full bg-pink-500/20 flex items-center justify-center">
-                  <Eraser className="w-8 h-8 text-pink-400" />
+              <div className="flex flex-col items-center gap-4 relative z-0">
+                <div className="w-20 h-20 rounded-full bg-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                  <Eraser className="w-10 h-10 text-primary opacity-40 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <div>
-                  <p className="text-lg font-medium text-white">Drop image to remove background</p>
-                  <p className="text-sm text-slate-400 mt-1">or click to browse</p>
+                <div className="space-y-1">
+                  <h4 className="text-lg font-black text-white uppercase tracking-tight">Drop Image Here</h4>
+                  <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">or click to browse local files</p>
                 </div>
-                <div className="text-xs text-slate-500">Works best with photos of people or solid backgrounds</div>
+                <p className="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-black/20">
+                  Privacy-First: No images are uploaded to servers
+                </p>
               </div>
+              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             </div>
           ) : (
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4 space-y-3">
+            <Card className="bg-muted/10 border-border/50 overflow-hidden relative group">
+              <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-400">Original Image</span>
-                  <Button
+                   <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Source Image</Label>
+                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => { setImage(null); setProcessedImage(null) }}
-                    className="text-slate-400 hover:text-white"
+                    className="h-7 text-[10px] font-black uppercase tracking-widest hover:text-destructive gap-1.5"
                   >
-                    <RefreshCw className="w-4 h-4 mr-1" />
-                    Change
+                    <RefreshCw className="w-3 h-3" />
+                    Reset
                   </Button>
                 </div>
-                <canvas
-                  ref={displayCanvasRef}
-                  className="w-full rounded-lg"
-                  style={{ maxHeight: '250px' }}
-                />
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Mode Selection */}
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-4 space-y-4">
-              <Label className="text-slate-300 text-sm font-medium">Removal Mode</Label>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant={mode === 'auto' ? 'default' : 'outline'}
-                  onClick={() => setMode('auto')}
-                  className={`h-auto py-4 flex-col items-center gap-1 ${
-                    mode === 'auto' 
-                      ? 'bg-pink-600 border-pink-500 text-white' 
-                      : 'border-slate-600 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <Wand2 className="w-5 h-5" />
-                  <span className="font-medium">Auto</span>
-                  <span className="text-xs opacity-80">Solid backgrounds</span>
-                </Button>
-                <Button
-                  variant={mode === 'person' ? 'default' : 'outline'}
-                  onClick={() => setMode('person')}
-                  className={`h-auto py-4 flex-col items-center gap-1 ${
-                    mode === 'person' 
-                      ? 'bg-pink-600 border-pink-500 text-white' 
-                      : 'border-slate-600 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <User className="w-5 h-5" />
-                  <span className="font-medium">Person AI</span>
-                  <span className="text-xs opacity-80">Portrait photos</span>
-                </Button>
+                <div className="rounded-2xl overflow-hidden border border-white/5 bg-black/40">
+                  <canvas
+                    ref={displayCanvasRef}
+                    className="w-full h-auto"
+                    style={{ maxHeight: '300px' }}
+                  />
+                </div>
               </div>
-              <p className="text-xs text-slate-500">
-                {mode === 'person' 
-                  ? '🧠 Uses AI to detect and keep people, removes everything else'
-                  : '🎨 Detects background color and removes similar colors'}
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Background Preview */}
-          {processedImage && (
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4 space-y-3">
-                <Label className="text-slate-300 text-sm font-medium">Preview Background</Label>
-                <div className="flex gap-2">
-                  <Button
-                    variant={showCheckerboard ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setShowCheckerboard(true)}
-                    className={showCheckerboard ? 'bg-pink-600' : 'border-slate-600'}
-                  >
-                    <Layers className="w-4 h-4 mr-1" />
-                    Transparent
-                  </Button>
-                  <Button
-                    variant={!showCheckerboard ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setShowCheckerboard(false)}
-                    className={!showCheckerboard ? 'bg-pink-600' : 'border-slate-600'}
-                  >
-                    <Palette className="w-4 h-4 mr-1" />
-                    Color
-                  </Button>
-                </div>
-                {!showCheckerboard && (
-                  <div className="flex items-center gap-2 mt-2">
-                    <Input
-                      type="color"
-                      value={bgColor}
-                      onChange={(e) => setBgColor(e.target.value)}
-                      className="w-10 h-10 p-1 bg-slate-800 border-slate-600"
-                    />
-                    <span className="text-sm text-slate-400">{bgColor}</span>
-                  </div>
-                )}
-              </CardContent>
             </Card>
           )}
+
+          {/* Settings Section */}
+          <div className="space-y-4">
+             <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Processing Configuration</Label>
+             <div className="grid grid-cols-2 gap-3">
+                {[
+                  { id: 'auto', label: 'Auto (Object)', sub: 'Sharp Edges', icon: Wand2 },
+                  { id: 'person', label: 'AI Portrait', sub: 'Depth Mapping', icon: User },
+                ].map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => setMode(opt.id as any)}
+                    className={`flex flex-col items-center p-5 rounded-2xl border transition-all text-center ${
+                      mode === opt.id 
+                        ? 'bg-primary/10 border-primary/40' 
+                        : 'bg-muted/10 border-border/50 hover:border-border'
+                    }`}
+                  >
+                    <opt.icon className={`w-6 h-6 mb-3 ${mode === opt.id ? 'text-primary' : 'text-muted-foreground'}`} />
+                    <span className={`text-[11px] font-black uppercase tracking-wider ${mode === opt.id ? 'text-white' : 'text-muted-foreground'}`}>{opt.label}</span>
+                    <span className="text-[9px] font-medium opacity-40 uppercase tracking-widest mt-1">{opt.sub}</span>
+                  </button>
+                ))}
+             </div>
+          </div>
 
           {/* Action Button */}
           <Button
             onClick={() => removeBackgroundAI(mode === 'person')}
             disabled={!image || isProcessing || !tfReady}
-            className="w-full h-14 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-lg"
+            className={`w-full h-16 uppercase tracking-[0.2em] font-black text-sm shadow-xl transition-all ${
+              isProcessing ? 'bg-muted cursor-not-allowed' : 'shadow-primary/20'
+            }`}
           >
             {isProcessing ? (
-              <>
-                <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                AI Processing... ({progress}%)
-              </>
+              <div className="flex items-center gap-3">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>AI Analyzing... {progress}%</span>
+              </div>
             ) : (
-              <>
-                <Sparkles className="w-5 h-5 mr-2" />
-                Remove Background {mode === 'person' ? '(Person AI)' : '(Auto)'}
-              </>
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-5 h-5" />
+                <span>Execute AI Extraction</span>
+              </div>
             )}
           </Button>
+
+          {/* Detailed Options (When Processed) */}
+          {processedImage && (
+            <div className="p-6 rounded-2xl bg-muted/20 border border-border/50 space-y-4 animate-in fade-in zoom-in-95">
+                <Label className="text-white font-bold uppercase tracking-wider text-[10px]">Preview Environment</Label>
+                <div className="flex gap-2">
+                  <Button
+                    variant={showCheckerboard ? 'default' : 'secondary'}
+                    size="sm"
+                    onClick={() => setShowCheckerboard(true)}
+                    className="flex-1 h-10 font-black uppercase text-[10px] tracking-widest gap-2"
+                  >
+                    <Layers className="w-3.5 h-3.5" />
+                    Transparent
+                  </Button>
+                  <Button
+                    variant={!showCheckerboard ? 'default' : 'secondary'}
+                    size="sm"
+                    onClick={() => setShowCheckerboard(false)}
+                    className="flex-1 h-10 font-black uppercase text-[10px] tracking-widest gap-2"
+                  >
+                    <Palette className="w-3.5 h-3.5" />
+                    Solid Color
+                  </Button>
+                </div>
+                {!showCheckerboard && (
+                  <div className="flex items-center gap-4 pt-2 animate-in slide-in-from-top-2">
+                    <Input
+                      type="color"
+                      value={bgColor}
+                      onChange={(e) => setBgColor(e.target.value)}
+                      className="w-12 h-12 p-1 bg-black/40 border-border/50 rounded-lg cursor-pointer flex-shrink-0"
+                    />
+                    <div className="flex-1 px-4 h-12 bg-black/40 border border-border/50 rounded-lg flex items-center">
+                       <code className="text-[11px] font-mono text-white/50">{bgColor.toUpperCase()}</code>
+                    </div>
+                  </div>
+                )}
+            </div>
+          )}
         </div>
 
-        {/* Right: Preview */}
-        <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-slate-400">
-                  {processedImage ? 'Result (Transparent PNG)' : 'Preview'}
-                </span>
-                {processedImage && (
+        {/* Right Column: Preview & Output */}
+        <div className="space-y-6">
+          <Card className="bg-muted/10 border-border/50 overflow-hidden min-h-[500px] flex flex-col">
+            <div className="p-5 border-b border-white/5 flex items-center justify-between">
+               <Label className="text-white font-bold uppercase tracking-wider text-[10px]">
+                 {processedImage ? 'AI Extracted Output' : 'Awaiting Processing'}
+               </Label>
+               {processedImage && (
                   <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" onClick={copyImage}>
-                      {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                    <Button variant="secondary" size="icon" className="size-8" onClick={copyImage}>
+                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={downloadImage}>
-                      <Download className="w-4 h-4" />
+                    <Button variant="secondary" size="icon" className="size-8" onClick={downloadImage}>
+                      <Download className="w-3.5 h-3.5" />
                     </Button>
                   </div>
-                )}
-              </div>
-              <div 
-                className="min-h-[280px] rounded-lg flex items-center justify-center overflow-hidden"
-                style={{
-                  background: processedImage && showCheckerboard 
-                    ? 'repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 20px 20px'
-                    : processedImage && !showCheckerboard 
-                    ? bgColor
-                    : '#0f172a'
-                }}
-              >
-                {processedImage ? (
-                  <img src={processedImage} alt="No Background" className="w-full h-auto max-h-[350px] object-contain" />
-                ) : image ? (
-                  <div className="text-center text-slate-400 p-4">
-                    <Eraser className="w-10 h-10 mx-auto mb-2 opacity-50" />
-                    <p>Click "Remove Background"</p>
-                    <p className="text-xs mt-1">AI will detect and remove the background</p>
-                  </div>
-                ) : (
-                  <div className="text-center text-slate-500">
-                    <ImageIcon className="w-10 h-10 mx-auto mb-2 opacity-50" />
-                    <p>Upload an image</p>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          {processedImage && (
-            <Button onClick={downloadImage} className="w-full bg-green-600 hover:bg-green-700">
-              <Download className="w-4 h-4 mr-2" />
-              Download Transparent PNG
-            </Button>
-          )}
-
-          <Card className="bg-slate-800/30 border-slate-700/50 p-4">
-            <div className="flex items-start gap-3">
-              <Sparkles className="w-5 h-5 text-pink-400 mt-0.5" />
-              <div className="text-sm">
-                <p className="text-white font-medium">AI-Powered Background Removal</p>
-                <p className="text-slate-400 mt-1">
-                  Uses TensorFlow.js BodyPix model for person detection. 
-                  For non-person images, uses smart color detection. 
-                  All processing happens locally in your browser.
-                </p>
-              </div>
+               )}
             </div>
+            <div 
+              className="flex-1 flex items-center justify-center p-8 transition-all duration-500"
+              style={{
+                background: processedImage && showCheckerboard 
+                  ? 'repeating-conic-gradient(rgba(255,255,255,0.05) 0% 25%, transparent 0% 50%) 50% / 40px 40px'
+                  : processedImage && !showCheckerboard 
+                  ? bgColor
+                  : 'transparent'
+              }}
+            >
+              {processedImage ? (
+                <img 
+                  src={processedImage} 
+                  alt="Extracted Result" 
+                  className="w-full h-auto max-h-[450px] object-contain drop-shadow-2xl animate-in zoom-in-95 duration-500" 
+                />
+              ) : image ? (
+                <div className="text-center space-y-4 opacity-40">
+                   <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-6">
+                      <Sparkles className="w-8 h-8" />
+                   </div>
+                   <h5 className="font-black uppercase tracking-[0.2em] text-[10px] text-white">Ready for AI processing</h5>
+                   <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-widest max-w-[200px] mx-auto">Click the execute button to start the neural removal engine</p>
+                </div>
+              ) : (
+                <div className="text-center space-y-4 opacity-20">
+                   <ImageIcon className="w-16 h-16 mx-auto mb-4" />
+                   <p className="text-[10px] font-black uppercase tracking-widest">Awaiting local image upload</p>
+                </div>
+              )}
+            </div>
+            {processedImage && (
+              <div className="p-6 border-t border-white/5 bg-black/20">
+                <Button onClick={downloadImage} className="w-full h-14 bg-primary hover:bg-primary/90 gap-3 shadow-lg shadow-primary/20">
+                  <Download className="w-5 h-5" />
+                  <span className="font-black uppercase tracking-widest text-xs">Download High-Res PNG</span>
+                </Button>
+              </div>
+            )}
           </Card>
+
+          {/* Security Note */}
+          <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 flex items-start gap-5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+               <ShieldCheck className="w-5 h-5 text-primary" />
+            </div>
+            <div className="space-y-1">
+               <p className="text-[11px] font-black text-white uppercase tracking-wider">Privacy & Security Engine</p>
+               <p className="text-[10px] text-muted-foreground leading-relaxed">
+                 Unlike other removers, your photos never hit any cloud. All neural network calculations are performed locally on your GPU/CPU via WebGL/WASM. No data is stored, shared, or collected.
+               </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
