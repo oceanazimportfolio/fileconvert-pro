@@ -7,12 +7,21 @@ import {
   Image as ImageIcon, Minimize2, QrCode, Youtube,
   Sparkles, Zap, Shield, Globe, CaseSensitive,
   Key, Binary, FileText, Hash, Link as LinkIcon, Palette,
-  Eraser, Wand2
+  Eraser, Wand2, Type
 } from 'lucide-react'
 import { Footer } from '@/components/Footer'
 
 export default function Home() {
   const tools = [
+    {
+      id: 'bangla-converter',
+      title: 'Bangla Converter',
+      description: 'Unicode ↔ Bijoy (Avro)',
+      icon: Type,
+      category: 'text',
+      keywords: ['bangla converter', 'unicode to bijoy', 'avro to bijoy', 'bijoy to unicode', 'sutonnymj'],
+      isNew: true
+    },
     {
       id: 'image-converter',
       title: 'Image Converter',
@@ -132,7 +141,7 @@ export default function Home() {
   const categories = [
     { id: 'image', name: 'Image Tools', icon: ImageIcon, count: 4, color: 'text-blue-400' },
     { id: 'developer', name: 'Developer', icon: Binary, count: 3, color: 'text-amber-400' },
-    { id: 'text', name: 'Text Tools', icon: FileText, count: 3, color: 'text-teal-400' },
+    { id: 'text', name: 'Text Tools', icon: FileText, count: 4, color: 'text-teal-400' },
     { id: 'design', name: 'Design', icon: Palette, count: 1, color: 'text-pink-400' },
     { id: 'utility', name: 'Utilities', icon: Key, count: 2, color: 'text-cyan-400' },
     { id: 'social', name: 'Social Media', icon: Youtube, count: 1, color: 'text-red-400' },
@@ -237,21 +246,21 @@ export default function Home() {
             <article>
               <h3 className="text-white mb-4">Fast & Private Processing</h3>
               <p className="text-sm leading-relaxed">
-                Our tools process your files directly in your browser. Unlike other converters, 
+                Our tools process your files directly in your browser. Unlike other converters,
                 your data never leaves your computer, ensuring 100% privacy and lightning-fast results.
               </p>
             </article>
             <article>
               <h3 className="text-white mb-4">No Installation Required</h3>
               <p className="text-sm leading-relaxed">
-                Access a suite of powerful developer, image, and text utilities without downloading bulky software. 
+                Access a suite of powerful developer, image, and text utilities without downloading bulky software.
                 Everything is optimized for web performance across all modern browsers.
               </p>
             </article>
             <article>
               <h3 className="text-white mb-4">Modern Workflow</h3>
               <p className="text-sm leading-relaxed">
-                Designed for efficiency. Batch process images, format complex JSON structures, 
+                Designed for efficiency. Batch process images, format complex JSON structures,
                 and generate secure assets instantly. Perfect for web developers and content creators.
               </p>
             </article>

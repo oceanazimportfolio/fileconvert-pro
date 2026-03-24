@@ -496,6 +496,109 @@ export const toolsConfig: Record<string, {
       { q: 'How large can the AVIF files be?', a: 'Each file can be up to 25 MB, and you can convert up to 30 images in a single batch session. If a file is too large to convert in-browser, try processing fewer files at once.' }
     ]
   },
+  // ==========================================
+  // BANGLA TEXT CONVERSION PAGES
+  // High-intent SEO landing pages for Bangla users.
+  // ==========================================
+  'bangla-converter': {
+    title: 'Bangla Converter - Unicode to Bijoy & Avro Hub',
+    description: 'Free online Bangla converter. Convert Unicode (Avro) to Bijoy and Bijoy to Unicode. 100% browser-based, fast, and completely free.',
+    keywords: ['bangla converter', 'unicode to bijoy', 'bijoy to unicode', 'avro to bijoy', 'bangla font converter', 'bijoy bayanno', 'avro keyboard'],
+    h1: 'Bangla Text Converter Hub',
+    h2: 'Convert text between Unicode (Avro) and Bijoy layouts seamlessly. Designed for Bangladeshi editors and publishers.',
+    component: 'BanglaConverter',
+    category: 'Text Tools',
+    breadcrumb: 'Text Tools',
+    defaultConversionType: 'unicodeToBijoy',
+    relatedToolsOverride: ['unicode-to-bijoy', 'bijoy-to-unicode', 'word-counter', 'case-converter'],
+    schemaData: {
+      name: 'Bangla Converter Hub',
+      description: 'Hub for converting between Unicode (Avro) and Bijoy Bangla text layouts.',
+      category: 'Text Tool'
+    },
+    seoContent: {
+      about: 'The **Bangla Converter** is your comprehensive hub for resolving Bangla font and text format incompatibilities. In Bangladesh, producing professional content often requires bridging the gap between modern Web platforms (which use Unicode, commonly typed via Avro) and legacy printing or government environments (which strictly utilize Bijoy or specific ASCII fonts like SutonnyMJ). Our browser-based tool allows you to convert text accurately in either direction without installing third-party software. Built specifically for publishers, journalists, and designers, it uses a highly-tested mapping algorithm to handle complex conjuncts (juktakkhor). Because the conversion process is fully localized within your browser, your text is completely private and results are generated instantaneously.',
+      features: [
+        'Bidirectional conversion: Unicode to Bijoy & Bijoy to Unicode',
+        'Accolade-level accuracy for complex Juktakkhor (conjuncts)',
+        'Built for both Avro users and traditional Bijoy typists',
+        'Operates fully offline after the first load — zero privacy risk',
+        'Copy-to-clipboard functionality for seamless workflow integration'
+      ],
+      benefits: 'Save time and eliminate font rendering issues when moving text between the internet and print software like Adobe Illustrator or MS Word. Your text never leaves your device, assuring absolute privacy for sensitive communications or manuscripts.'
+    },
+    faq: [
+      { q: 'What is the difference between Unicode and Bijoy?', a: 'Unicode is the universal modern standard, adopted by Google, Facebook, and most mobile apps. Avro Keyboard outputs Unicode. Bijoy uses an older ASCII-based system which maps English letters to Bangla characters, requiring specific fonts like SutonnyMJ to display correctly.' },
+      { q: 'Can I use this to convert Avro to Bijoy?', a: 'Yes! Avro Keyboard uses standard Unicode text. If you need to convert your Avro typing to Bijoy format for use in older software or printing presses, simply use the "Unicode to Bijoy" feature.' },
+      { q: 'Is my data stored on your server?', a: 'No. This tool processes all conversions locally in your web browser using JavaScript. No data is sent to our servers.' }
+    ]
+  },
+  'unicode-to-bijoy': {
+    title: 'Unicode to Bijoy Converter - Convert Avro to Bijoy Free',
+    description: 'Convert Unicode Bangla text (like Avro) to Bijoy online. 100% free, private browser-based converter with accurate juktakkhor support.',
+    keywords: ['unicode to bijoy', 'avro to bijoy', 'unicode to sutonnymj', 'avro to bijoy converter online', 'convert unicode to bijoy'],
+    h1: 'Unicode (Avro) to Bijoy Converter',
+    h2: 'Instantly convert your Unicode or Avro text into Bijoy for use in professional desktop publishing and print software.',
+    component: 'BanglaConverter',
+    category: 'Text Tools',
+    breadcrumb: 'Text Tools',
+    defaultConversionType: 'unicodeToBijoy',
+    lockedMode: true,
+    relatedToolsOverride: ['bijoy-to-unicode', 'bangla-converter', 'word-counter'],
+    schemaData: {
+      name: 'Unicode to Bijoy Converter',
+      description: 'Free online tool to convert Unicode or Avro text to the legacy Bijoy format.',
+      category: 'Text Tool'
+    },
+    seoContent: {
+      about: 'The **Unicode to Bijoy Converter** is specifically engineered to help writers, publishers, and designers who type using modern Unicode layouts (like Avro Keyboard or Google Gboard) but need to export their text into professional desktop publishing applications (such as older versions of Adobe Illustrator, InDesign, or legacy MS Word configurations in Bangladesh) that strictly require Bijoy or SutonnyMJ fonts. We understand the pain of text fracturing or broken juktakkhor (conjuncts) when moving text, which is why our conversion matrix has been stress-tested for maximum accuracy. Best of all, since this processes text entirely within your browser natively, your drafts and articles remain 100% confidential and secure.',
+      features: [
+        'Converts standard Unicode directly into ASCII-based Bijoy',
+        'Works seamlessly with text typed using Avro Keyboard',
+        'Accurate rendering of pre-kars, post-kars, and conjuncts',
+        'Instantaneous local browser processing without server uploads'
+      ],
+      benefits: 'Eliminate the frustration of "garbage text" when pasting into your design tools. Securely convert massive documents rapidly without downloading any dedicated desktop software.'
+    },
+    faq: [
+      { q: 'Is this the same as an "Avro to Bijoy" converter?', a: 'Yes. Avro by default types in standard Unicode. Converting Avro to Bijoy is the exact same technical process as converting Unicode to Bijoy.' },
+      { q: 'Why does the converted text look like English gibberish?', a: 'Bijoy is an ASCII encoding. The converted text will appear as random English letters and symbols (like "Avgvi") until you highlight it and apply a Bijoy-compatible font such as SutonnyMJ in your target application.' },
+      { q: 'Is there a character limit?', a: 'Because the tool runs directly on your computer’s browser, there is practically no limit. It can convert thousands of words in milliseconds.' }
+    ]
+  },
+  'bijoy-to-unicode': {
+    title: 'Bijoy to Unicode Converter - Read Legacy Bangla Text',
+    description: 'Convert legacy Bijoy Bangla text to standard Unicode for use on modern web platforms, social media, and mobile apps. Fast and free.',
+    keywords: ['bijoy to unicode', 'bijoy to avro', 'sutonnymj to unicode', 'bijoy to unicode converter online', 'bangla text converter'],
+    h1: 'Bijoy to Unicode Converter',
+    h2: 'Convert legacy Bijoy text into modern Unicode to read, share, and post on Facebook, Web, and Mobile platforms.',
+    component: 'BanglaConverter',
+    category: 'Text Tools',
+    breadcrumb: 'Text Tools',
+    defaultConversionType: 'bijoyToUnicode',
+    lockedMode: true,
+    relatedToolsOverride: ['unicode-to-bijoy', 'bangla-converter', 'case-converter'],
+    schemaData: {
+      name: 'Bijoy to Unicode Converter',
+      description: 'Free online tool to convert legacy Bijoy text to modern Unicode standard.',
+      category: 'Text Tool'
+    },
+    seoContent: {
+      about: 'Using the **Bijoy to Unicode Converter**, you can effortlessly take documents typed in older Bijoy formats (which rely on ASCII fonts like SutonnyMJ) and translate them into standard Unicode text. Legacy Bijoy text is fantastic for print, but it turns into unreadable English characters (like "Avgvi †mvbvi") when pasted into emails, web platforms, or social media sites like Facebook. Our utility perfectly unravels the complex ASCII encodings—correctly reordering overlapping vowels, linkers, and compound glyphs—and outputs clean, universally readable Bengali. Developed with privacy at the forefront, this script executes totally on your local device for maximum security.',
+      features: [
+        'Converts ASCII-encoded Bijoy (SutonnyMJ) to universal Unicode',
+        'Generates standard Bangla text readable across iPhones, Androids, and Windows',
+        'Complex reordering of pre-base vowels and ligatures is handled flawlessly',
+        'Complete data privacy via 100% offline browser execution'
+      ],
+      benefits: 'Easily transition archive materials, old manuscripts, or print-ready newspaper copy into modern digital formats ready for sharing and archiving on the web without any data escaping your computer.'
+    },
+    faq: [
+      { q: 'Can I post the converted text to Facebook?', a: 'Yes! The converted Unicode output is standard Bengali that will look perfect on Facebook, WhatsApp, websites, and any modern digital application.' },
+      { q: 'What happens if I paste Unicode text into this converter by mistake?', a: 'The converter is strictly designed for Bijoy to Unicode. Pasting Unicode directly may result in unaltered text or unexpected formatting. Use our "Swap" feature to switch to Unicode to Bijoy if needed.' },
+      { q: 'Why is privacy important for conversion?', a: 'Many users convert legal documents, journalistic pieces, or private notes. A browser-based tool like ours ensures your data is never captured or saved to a server.' }
+    ]
+  },
 }
 
 // Generate static paths for all tools

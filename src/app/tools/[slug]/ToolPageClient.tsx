@@ -24,6 +24,7 @@ import { WordCounter } from '@/components/tools/WordCounter'
 import { UrlEncoder } from '@/components/tools/UrlEncoder'
 import { YouTubeThumbnail } from '@/components/tools/YouTubeThumbnail'
 import { QrCodeGenerator } from '@/components/tools/QrCodeGenerator'
+import { BanglaConverter } from '@/components/tools/BanglaConverter'
 import { Footer } from '@/components/Footer'
 
 interface ToolConfig {
@@ -106,6 +107,14 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
         return <YouTubeThumbnail />
       case 'QrCodeGenerator':
         return <QrCodeGenerator />
+      case 'BanglaConverter':
+        return (
+          <BanglaConverter
+            defaultDirection={tool.defaultConversionType as any}
+            title={tool.h1}
+            description={tool.h2}
+          />
+        )
       default:
         return <ImageConverter defaultConversionType="png_jpg" lockedMode={false} toolSlug={slug} />
     }

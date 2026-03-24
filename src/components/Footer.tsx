@@ -36,6 +36,7 @@ export function Footer() {
                         <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Tools</h3>
                         <ul className="space-y-3 text-sm text-slate-400 font-medium">
                             <li><Link href="/tools/image-converter" className="hover:text-blue-400 transition-colors">Image Converter</Link></li>
+                            <li><Link href="/tools/bangla-converter" className="hover:text-blue-400 transition-colors">Bangla Converter</Link></li>
                             <li><Link href="/tools/json-formatter" className="hover:text-blue-400 transition-colors">JSON Formatter</Link></li>
                             <li><Link href="/tools/password-generator" className="hover:text-blue-400 transition-colors">Security Tools</Link></li>
                             <li><Link href="/" className="hover:text-blue-400 transition-colors">All Utilities</Link></li>
