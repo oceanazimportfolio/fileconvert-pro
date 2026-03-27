@@ -10,7 +10,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location (UPDATE WITH YOUR ACTUAL DOMAIN)
-Sitemap: https://convertfiles.qzz.io/sitemap.xml
+Sitemap: https://convertfiles.qzz.io/main-sitemap.xml
 
 # Disallow admin/API routes (not useful for search)
 Disallow: /api/
