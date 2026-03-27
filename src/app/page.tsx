@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Image as ImageIcon, Minimize2, QrCode, Youtube,
   Sparkles, Zap, Shield, Globe, CaseSensitive,
   Key, Binary, FileText, Hash, Link as LinkIcon, Palette,
-  Eraser, Wand2, Type
+  Eraser, Wand2, Type, ArrowRight
 } from 'lucide-react'
 import { Footer } from '@/components/Footer'
 
@@ -215,7 +216,82 @@ export default function Home() {
           </div>
         </nav>
 
+        {/* Popular Conversions */}
+        <section className="mb-12" aria-labelledby="popular-conversions">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+            <div>
+              <h2 id="popular-conversions" className="text-xl font-bold text-white flex items-center gap-2">
+                <ImageIcon className="w-5 h-5 text-blue-400" />
+                Popular Conversions
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">Quick access to the most used image conversions</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/tools/png-to-jpg/">
+              <Button variant="outline" className="bg-card hover:bg-muted hover:text-foreground text-sm h-12 px-6 rounded-xl border-border/50 transition-all hover:scale-105 shadow-sm">
+                PNG <ArrowRight className="w-3.5 h-3.5 mx-2 text-muted-foreground" /> JPG
+              </Button>
+            </Link>
+            <Link href="/tools/webp-to-png/">
+              <Button variant="outline" className="bg-card hover:bg-muted hover:text-foreground text-sm h-12 px-6 rounded-xl border-border/50 transition-all hover:scale-105 shadow-sm">
+                WebP <ArrowRight className="w-3.5 h-3.5 mx-2 text-muted-foreground" /> PNG
+              </Button>
+            </Link>
+            <Link href="/tools/jpg-to-png/">
+              <Button variant="outline" className="bg-card hover:bg-muted hover:text-foreground text-sm h-12 px-6 rounded-xl border-border/50 transition-all hover:scale-105 shadow-sm">
+                JPG <ArrowRight className="w-3.5 h-3.5 mx-2 text-muted-foreground" /> PNG
+              </Button>
+            </Link>
+            <Link href="/tools/webp-to-jpg/">
+              <Button variant="outline" className="bg-card hover:bg-muted hover:text-foreground text-sm h-12 px-6 rounded-xl border-border/50 transition-all hover:scale-105 shadow-sm">
+                WebP <ArrowRight className="w-3.5 h-3.5 mx-2 text-muted-foreground" /> JPG
+              </Button>
+            </Link>
+            <Link href="/tools/avif-to-png/">
+              <Button variant="outline" className="bg-card hover:bg-muted hover:text-foreground text-sm h-12 px-6 rounded-xl border-border/50 transition-all hover:scale-105 shadow-sm">
+                AVIF <ArrowRight className="w-3.5 h-3.5 mx-2 text-muted-foreground" /> PNG
+              </Button>
+            </Link>
+          </div>
+        </section>
+
+        {/* Featured Utilities */}
+        <section className="mb-12 border-t border-border pt-12" aria-labelledby="featured-utilities">
+          <div className="flex items-center gap-2 mb-6">
+            <Sparkles className="w-5 h-5 text-amber-400" />
+            <h2 id="featured-utilities" className="text-xl font-bold text-white">Essential Utilities:</h2>
+            <Badge variant="outline" className="ml-2 border-amber-400/20 text-amber-400 bg-amber-400/5">Prioritized</Badge>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              tools.find(t => t.id === 'image-compress'),
+              tools.find(t => t.id === 'json-formatter'),
+              tools.find(t => t.id === 'password-generator'),
+              tools.find(t => t.id === 'qr-code-generator'),
+              tools.find(t => t.id === 'word-counter'),
+              tools.find(t => t.id === 'color-palette'),
+            ].filter(Boolean).map((tool) => (
+              <Link key={`feat-${tool!.id}`} href={`/tools/${tool!.id}/`} className="group">
+                <Card className="h-full hover:border-amber-400/30 hover:bg-card hover:shadow-xl hover:shadow-amber-400/5 active:scale-[0.98] transition-all duration-300 p-4 flex flex-col items-center text-center">
+                  <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center mb-3 group-hover:bg-amber-400/10 transition-colors">
+                    {tool!.icon && (() => {
+                      const Icon = tool!.icon
+                      return <Icon className="w-5 h-5 text-amber-400" />
+                    })()}
+                  </div>
+                  <h3 className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">{tool!.title}</h3>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Tool Grid */}
+        <div className="flex items-center gap-2 mb-6 mt-12">
+          <Globe className="w-5 h-5 text-primary" />
+          <h2 className="text-xl font-bold text-white">All Utilities Directory</h2>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-24">
           {tools.map((tool) => {
             const catColor = categories.find(c => c.id === tool.category)?.color || 'text-primary'

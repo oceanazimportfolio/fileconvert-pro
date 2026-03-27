@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -200,6 +201,18 @@ export function ImageConverter({ defaultConversionType = 'png_jpg', lockedMode =
                 </Button>
               )
             })}
+          </div>
+
+          {/* ADDED SECTION FOR SEO OUTREACH */}
+          <div className="mt-6 p-4 rounded-xl bg-slate-800/30 border border-slate-700/30">
+            <p className="text-white font-medium text-sm mb-3">Or use dedicated pages for faster conversion</p>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/tools/png-to-jpg/"><Button variant="outline" size="sm" className="bg-card hover:bg-muted font-bold text-xs rounded-full h-8 px-4 border-border/50">PNG → JPG</Button></Link>
+              <Link href="/tools/jpg-to-png/"><Button variant="outline" size="sm" className="bg-card hover:bg-muted font-bold text-xs rounded-full h-8 px-4 border-border/50">JPG → PNG</Button></Link>
+              <Link href="/tools/webp-to-png/"><Button variant="outline" size="sm" className="bg-card hover:bg-muted font-bold text-xs rounded-full h-8 px-4 border-border/50">WebP → PNG</Button></Link>
+              <Link href="/tools/webp-to-jpg/"><Button variant="outline" size="sm" className="bg-card hover:bg-muted font-bold text-xs rounded-full h-8 px-4 border-border/50">WebP → JPG</Button></Link>
+              <Link href="/tools/avif-to-png/"><Button variant="outline" size="sm" className="bg-card hover:bg-muted font-bold text-xs rounded-full h-8 px-4 border-border/50">AVIF → PNG</Button></Link>
+            </div>
           </div>
         </div>
       )}

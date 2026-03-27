@@ -9,7 +9,7 @@ export function Footer() {
     return (
         <footer className="border-t border-slate-700/50 mt-16 bg-slate-900/50 backdrop-blur-sm">
             <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12 border-b border-slate-800 pb-12">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 mb-12 border-b border-slate-800 pb-12">
                     {/* Brand and Mission */}
                     <div className="col-span-2 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-4">
@@ -33,13 +33,25 @@ export function Footer() {
 
                     {/* Navigation - Tools */}
                     <nav aria-label="Tool Categories">
-                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Tools</h3>
+                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Popular Media</h3>
                         <ul className="space-y-3 text-sm text-slate-400 font-medium">
-                            <li><Link href="/tools/image-converter" className="hover:text-blue-400 transition-colors">Image Converter</Link></li>
-                            <li><Link href="/tools/bangla-converter" className="hover:text-blue-400 transition-colors">Bangla Converter</Link></li>
-                            <li><Link href="/tools/json-formatter" className="hover:text-blue-400 transition-colors">JSON Formatter</Link></li>
-                            <li><Link href="/tools/password-generator" className="hover:text-blue-400 transition-colors">Security Tools</Link></li>
-                            <li><Link href="/" className="hover:text-blue-400 transition-colors">All Utilities</Link></li>
+                            <li><Link href="/tools/image-converter/" className="hover:text-blue-400 transition-colors">Image Converter</Link></li>
+                            <li><Link href="/tools/image-compress/" className="hover:text-blue-400 transition-colors">Image Compressor</Link></li>
+                            <li><Link href="/tools/qr-code-generator/" className="hover:text-blue-400 transition-colors">QR Code Generator</Link></li>
+                            <li><Link href="/tools/color-palette/" className="hover:text-blue-400 transition-colors">Color Palette Generator</Link></li>
+                            <li><Link href="/tools/bangla-converter/" className="hover:text-blue-400 transition-colors">Bangla Converter</Link></li>
+                        </ul>
+                    </nav>
+
+                    {/* Developer & Text Tools */}
+                    <nav aria-label="Developer & Content Tools">
+                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Developer & Content</h3>
+                        <ul className="space-y-3 text-sm text-slate-400 font-medium">
+                            <li><Link href="/tools/json-formatter/" className="hover:text-blue-400 transition-colors">JSON Formatter & Validator</Link></li>
+                            <li><Link href="/tools/password-generator/" className="hover:text-blue-400 transition-colors">Secure Password Generator</Link></li>
+                            <li><Link href="/tools/word-counter/" className="hover:text-blue-400 transition-colors">Word & Character Count</Link></li>
+                            <li><Link href="/tools/base64-encoder/" className="hover:text-blue-400 transition-colors">Base64 Encoder</Link></li>
+                            <li><Link href="/all-tools/" className="text-white hover:text-blue-400 transition-colors font-bold mt-2 inline-block">Browse All Tools →</Link></li>
                         </ul>
                     </nav>
 

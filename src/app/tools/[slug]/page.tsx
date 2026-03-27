@@ -40,6 +40,7 @@ export const toolsConfig: Record<string, {
     component: 'ImageConverter',
     category: 'Image Tools',
     breadcrumb: 'Image Tools',
+    relatedToolsOverride: ['png-to-jpg', 'webp-to-png', 'jpg-to-png', 'webp-to-jpg', 'avif-to-png'],
     schemaData: {
       name: 'Image Converter',
       description: 'Free online image converter supporting PNG, JPG, WebP, and AVIF formats. Batch convert multiple images at once.',
@@ -60,6 +61,7 @@ export const toolsConfig: Record<string, {
     component: 'ImageCompressResize',
     category: 'Image Tools',
     breadcrumb: 'Image Tools',
+    relatedToolsOverride: ['png-to-jpg', 'webp-to-png', 'image-converter', 'image-enhancer', 'background-remover', 'color-palette', 'qr-code-generator'],
     schemaData: {
       name: 'Image Compressor & Resizer',
       description: 'Free online image compressor to reduce file size and resize images. Batch processing supported.',
@@ -80,6 +82,7 @@ export const toolsConfig: Record<string, {
     component: 'ImageEnhancer',
     category: 'Image Tools',
     breadcrumb: 'Image Tools',
+    relatedToolsOverride: ['jpg-to-png', 'png-to-jpg', 'image-converter', 'image-compress', 'background-remover'],
     schemaData: {
       name: 'Image Enhancer',
       description: 'Free online image enhancer with brightness, contrast, saturation, and sharpening adjustments.',
@@ -100,6 +103,7 @@ export const toolsConfig: Record<string, {
     component: 'BackgroundRemover',
     category: 'Image Tools',
     breadcrumb: 'Image Tools',
+    relatedToolsOverride: ['webp-to-png', 'png-to-jpg', 'image-converter', 'image-enhancer', 'image-compress'],
     schemaData: {
       name: 'Background Remover',
       description: 'Free online background remover to create transparent PNG images from any photo.',
@@ -120,6 +124,7 @@ export const toolsConfig: Record<string, {
     component: 'JsonFormatter',
     category: 'Developer Tools',
     breadcrumb: 'Developer Tools',
+    relatedToolsOverride: ['base64-encoder', 'url-encoder', 'password-generator', 'color-palette', 'word-counter'],
     schemaData: {
       name: 'JSON Formatter',
       description: 'Free online JSON formatter, validator, and beautifier with syntax highlighting.',
@@ -200,6 +205,7 @@ export const toolsConfig: Record<string, {
     component: 'WordCounter',
     category: 'Text Tools',
     breadcrumb: 'Text Tools',
+    relatedToolsOverride: ['case-converter', 'lorem-ipsum-generator', 'json-formatter', 'qr-code-generator', 'password-generator'],
     schemaData: {
       name: 'Word Counter',
       description: 'Free online word and character counter with reading time estimation.',
@@ -240,6 +246,7 @@ export const toolsConfig: Record<string, {
     component: 'ColorPalette',
     category: 'Design Tools',
     breadcrumb: 'Design Tools',
+    relatedToolsOverride: ['image-compress', 'background-remover', 'image-enhancer', 'json-formatter', 'lorem-ipsum-generator'],
     schemaData: {
       name: 'Color Palette Generator',
       description: 'Free online color palette generator for designers and developers.',
@@ -260,6 +267,7 @@ export const toolsConfig: Record<string, {
     component: 'PasswordGenerator',
     category: 'Utilities',
     breadcrumb: 'Utilities',
+    relatedToolsOverride: ['qr-code-generator', 'json-formatter', 'base64-encoder', 'case-converter', 'word-counter'],
     schemaData: {
       name: 'Password Generator',
       description: 'Free online password generator creating strong, secure passwords.',
@@ -280,6 +288,7 @@ export const toolsConfig: Record<string, {
     component: 'QrCodeGenerator',
     category: 'Utilities',
     breadcrumb: 'Utilities',
+    relatedToolsOverride: ['password-generator', 'url-encoder', 'json-formatter', 'image-compress', 'word-counter'],
     schemaData: {
       name: 'QR Code Generator',
       description: 'Free online QR code generator for URLs, text, and more.',

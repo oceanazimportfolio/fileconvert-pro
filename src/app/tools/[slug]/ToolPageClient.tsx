@@ -286,9 +286,15 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
             <section className="mt-10 py-8 border-t border-slate-700/40">
               <h2 className="text-2xl font-bold text-white mb-5">About this tool</h2>
               <div className="prose prose-invert max-w-none">
-                <p className="text-slate-300 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed">
                   {tool.seoContent?.about || tool.description}
                 </p>
+                {slug === 'image-converter' && (
+                  <p className="text-slate-300 leading-relaxed mt-4 bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                    <Zap className="w-4 h-4 inline-block mr-2 text-blue-400 mb-1" />
+                    <strong>Pro tip:</strong> You can also use our dedicated, format-locked tools like the <Link href="/tools/png-to-jpg/" className="text-blue-400 hover:text-blue-300 font-medium underline decoration-blue-500/30 underline-offset-2">PNG to JPG converter</Link>, the <Link href="/tools/webp-to-png/" className="text-blue-400 hover:text-blue-300 font-medium underline decoration-blue-500/30 underline-offset-2">WebP to PNG converter</Link>, or the <Link href="/tools/avif-to-png/" className="text-blue-400 hover:text-blue-300 font-medium underline decoration-blue-500/30 underline-offset-2">AVIF to PNG converter</Link> for an even faster workflow.
+                  </p>
+                )}
 
                 {tool.seoContent?.features && (
                   <>
