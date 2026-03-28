@@ -52,21 +52,26 @@ export function ConversionOptimizationPanel({
         className
       )}
     >
-      <div className={cn('space-y-4 p-4', compact && 'p-3')}>
+      <div className={cn('space-y-4 p-4 sm:p-5', compact && 'space-y-3 p-3.5')}>
         {onOptimizeOutputChange && (
-          <div className="flex items-center justify-between gap-4 rounded-xl border border-white/5 bg-black/20 p-3">
+          <div className="flex flex-col gap-3 rounded-xl border border-white/5 bg-black/20 p-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <Label className="text-[11px] font-black uppercase tracking-widest text-white">
                 Optimize output size
               </Label>
-              <p className="text-xs text-muted-foreground">
+              <p className="max-w-lg text-sm text-muted-foreground">
                 Browser-safe optimization is on by default to keep downloads smaller when possible.
               </p>
             </div>
-            <Switch
-              checked={optimizeOutput}
-              onCheckedChange={onOptimizeOutputChange}
-            />
+            <div className="flex items-center justify-between gap-3 rounded-lg border border-white/5 bg-black/20 px-3 py-2 sm:min-w-[130px] sm:justify-end">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                {optimizeOutput ? 'On' : 'Off'}
+              </span>
+              <Switch
+                checked={optimizeOutput}
+                onCheckedChange={onOptimizeOutputChange}
+              />
+            </div>
           </div>
         )}
 
@@ -91,27 +96,27 @@ export function ConversionOptimizationPanel({
               </Badge>
             </div>
 
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-sm font-semibold text-white">
+            <div className="space-y-2 rounded-xl border border-white/5 bg-black/20 p-3">
+              <div className="flex items-start gap-2 text-sm font-semibold text-white sm:text-[15px]">
                 {statusTone === 'success' ? (
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-400" />
                 ) : (
                   <AlertCircle className={cn(
-                    'h-4 w-4 text-slate-400',
+                    'mt-0.5 h-4 w-4 flex-shrink-0 text-slate-400',
                     statusTone === 'warning' && 'text-red-400'
                   )} />
                 )}
-                <span>
+                <span className="leading-relaxed">
                   {getFormatLabel(result.sourceFormat)} ({formatFileSize(result.inputSize)}) {'->'} {getFormatLabel(result.outputFormat)} ({formatFileSize(result.outputSize)}, {result.qualityLabel})
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {result.explanation}
               </p>
             </div>
 
             {result.suggestions.length > 0 && (
-              <div className="space-y-2 rounded-xl border border-white/5 bg-black/20 p-3">
+              <div className="space-y-3 rounded-xl border border-white/5 bg-black/20 p-3">
                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white">
                   <Sparkles className="h-3.5 w-3.5 text-primary" />
                   <span>{result.suggestionTitle ?? 'Suggested next step'}</span>
@@ -119,7 +124,7 @@ export function ConversionOptimizationPanel({
                 <div className="flex flex-wrap gap-2">
                   {result.suggestions.map((suggestion) => (
                     <Link key={`${suggestion.href}-${suggestion.label}`} href={suggestion.href}>
-                      <Button variant="outline" size="sm" className="h-8 border-border/60 bg-card/80 text-xs font-bold">
+                      <Button variant="outline" size="sm" className="h-9 border-border/60 bg-card/80 px-3 text-xs font-bold">
                         {suggestion.label}
                         <ArrowRight className="ml-1.5 h-3 w-3" />
                       </Button>

@@ -145,6 +145,21 @@
   .container-standard {
     @apply max-w-7xl mx-auto px-4;
   }
+  .page-shell {
+    @apply min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-foreground;
+  }
+  .tool-surface {
+    @apply rounded-2xl border border-border/60 bg-card/60 shadow-xl shadow-black/20;
+  }
+  .section-stack {
+    @apply space-y-6 md:space-y-8;
+  }
+  .muted-panel {
+    @apply rounded-2xl border border-border/50 bg-muted/15;
+  }
+  .legal-copy {
+    @apply space-y-8 text-slate-300 leading-relaxed;
+  }
   .glass-card {
     @apply bg-card/50 backdrop-blur-sm border border-border rounded-xl;
   }

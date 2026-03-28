@@ -384,10 +384,10 @@ export function BackgroundRemover() {
         </div>
       </Card>
 
-      <div className="grid items-start gap-8 lg:grid-cols-2">
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.9fr)]">
         <div className="space-y-6">
           {!image ? (
-            <div className="relative cursor-pointer overflow-hidden rounded-3xl border-2 border-dashed border-border/40 bg-muted/5 p-12 text-center transition-all hover:border-primary/40 group">
+            <div className="group relative cursor-pointer overflow-hidden rounded-3xl border-2 border-dashed border-border/40 bg-muted/5 p-8 text-center transition-all hover:border-primary/40 sm:p-12">
               <input
                 type="file"
                 accept="image/*"
@@ -441,40 +441,49 @@ export function BackgroundRemover() {
             </Card>
           )}
 
-          <div className="space-y-4">
-            <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
-              Processing configuration
-            </Label>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { id: 'auto', label: 'Auto (Object)', sub: 'Sharp Edges', icon: Wand2 },
-                { id: 'person', label: 'AI Portrait', sub: 'Depth Mapping', icon: User },
-              ].map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => setMode(option.id as 'auto' | 'person')}
-                  className={`flex flex-col items-center rounded-2xl border p-5 text-center transition-all ${
-                    mode === option.id
-                      ? 'border-primary/40 bg-primary/10'
-                      : 'border-border/50 bg-muted/10 hover:border-border'
-                  }`}
-                >
-                  <option.icon className={`mb-3 h-6 w-6 ${mode === option.id ? 'text-primary' : 'text-muted-foreground'}`} />
-                  <span className={`text-[11px] font-black uppercase tracking-wider ${mode === option.id ? 'text-white' : 'text-muted-foreground'}`}>
-                    {option.label}
-                  </span>
-                  <span className="mt-1 text-[9px] font-medium uppercase tracking-widest opacity-40">
-                    {option.sub}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
+          <Card className="border-border/50 bg-muted/15 p-5 sm:p-6">
+            <div className="space-y-5">
+              <div className="space-y-2">
+                <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
+                  Processing configuration
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Choose the extraction mode and output behavior before you run the remover.
+                </p>
+              </div>
 
-          <ConversionOptimizationPanel
-            optimizeOutput={optimizeOutput}
-            onOptimizeOutputChange={setOptimizeOutput}
-          />
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {[
+                  { id: 'auto', label: 'Auto (Object)', sub: 'Sharp Edges', icon: Wand2 },
+                  { id: 'person', label: 'AI Portrait', sub: 'Depth Mapping', icon: User },
+                ].map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => setMode(option.id as 'auto' | 'person')}
+                    className={`flex flex-col items-center rounded-2xl border p-5 text-center transition-all ${
+                      mode === option.id
+                        ? 'border-primary/40 bg-primary/10'
+                        : 'border-border/50 bg-muted/10 hover:border-border'
+                    }`}
+                  >
+                    <option.icon className={`mb-3 h-6 w-6 ${mode === option.id ? 'text-primary' : 'text-muted-foreground'}`} />
+                    <span className={`text-[11px] font-black uppercase tracking-wider ${mode === option.id ? 'text-white' : 'text-muted-foreground'}`}>
+                      {option.label}
+                    </span>
+                    <span className="mt-1 text-[9px] font-medium uppercase tracking-widest opacity-40">
+                      {option.sub}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              <ConversionOptimizationPanel
+                optimizeOutput={optimizeOutput}
+                onOptimizeOutputChange={setOptimizeOutput}
+                className="shadow-none"
+              />
+            </div>
+          </Card>
 
           <Button
             onClick={() => removeBackgroundAI(mode === 'person')}
@@ -540,7 +549,7 @@ export function BackgroundRemover() {
 
         <div className="space-y-6">
           <Card className="flex min-h-[500px] flex-col overflow-hidden border-border/50 bg-muted/10">
-            <div className="flex items-center justify-between border-b border-white/5 p-5">
+            <div className="flex flex-col gap-3 border-b border-white/5 p-5 sm:flex-row sm:items-center sm:justify-between">
               <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
                 {processedImage ? 'AI Extracted Output' : 'Awaiting Processing'}
               </Label>

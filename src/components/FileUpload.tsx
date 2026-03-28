@@ -146,7 +146,7 @@ export function FileUpload({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`
-          relative border-2 border-dashed rounded-3xl p-8 sm:p-12 text-center transition-all duration-300 cursor-pointer
+          relative cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 sm:rounded-3xl sm:p-10
           active:scale-[0.99] touch-manipulation
           ${isDragging
             ? 'border-primary bg-primary/10 scale-[1.01]'
@@ -167,24 +167,29 @@ export function FileUpload({
 
         <div className="flex flex-col items-center gap-6">
           <div className={`
-            w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-all duration-300
+            flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-300 sm:h-20 sm:w-20
             ${isDragging ? 'bg-primary shadow-lg shadow-primary/30' : 'bg-muted/50'}
           `}>
-            <IconComponent className={`w-8 h-8 sm:w-10 h-10 ${isDragging ? 'text-primary-foreground' : 'text-primary'}`} />
+            <IconComponent className={`h-8 w-8 sm:h-10 sm:w-10 ${isDragging ? 'text-primary-foreground' : 'text-primary'}`} />
           </div>
 
-          <div>
-            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">{label}</h2>
-            <p className="text-sm text-muted-foreground mt-2 font-medium">{description}</p>
+          <div className="space-y-2">
+            <h2 className="text-xl font-black tracking-tight text-white sm:text-2xl">{label}</h2>
+            <p className="max-w-xl text-sm font-medium text-muted-foreground">{description}</p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3">
-            <Badge variant="outline" className="bg-muted/50 border-border">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
               {accept.join(', ').toUpperCase()}
             </Badge>
-            <Badge variant="outline" className="bg-muted/50 border-border">
+            <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
               MAX {formatFileSize(maxSize)}
             </Badge>
+            {multiple && (
+              <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
+                Up to {maxFiles} files
+              </Badge>
+            )}
           </div>
         </div>
       </div>
@@ -192,8 +197,8 @@ export function FileUpload({
       {/* File List */}
       {files.length > 0 && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between px-2">
-            <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
+          <div className="flex flex-col gap-3 px-1 sm:flex-row sm:items-center sm:justify-between">
+            <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
               {files.length} file{files.length !== 1 ? 's' : ''} selected
             </span>
             <Button
@@ -206,16 +211,16 @@ export function FileUpload({
             </Button>
           </div>
 
-          <div className="grid gap-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+          <div className="grid max-h-[26rem] gap-3 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
             {files.map((file) => (
               <Card
                 key={file.id}
-                className={`bg-card/50 border-border p-4 hover:bg-card transition-all ${file.error ? 'border-destructive/50' : ''
+                className={`border-border bg-card/50 p-3 transition-all hover:bg-card sm:p-4 ${file.error ? 'border-destructive/50' : ''
                   }`}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-start gap-3 sm:gap-4">
                   {/* Preview or Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden flex-shrink-0 border border-border">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/50">
                     {file.preview ? (
                       <img
                         src={file.preview}
@@ -229,19 +234,22 @@ export function FileUpload({
 
                   {/* File Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-white truncate pr-4">
+                    <p className="truncate pr-4 text-sm font-bold text-white">
                       {file.file.name}
                     </p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-muted-foreground font-medium">
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <span className="text-xs font-medium text-muted-foreground">
                         {formatFileSize(file.file.size)}
                       </span>
+                      <Badge variant="outline" className="border-white/10 bg-black/20 text-[10px] uppercase tracking-wide text-slate-300">
+                        {file.file.name.split('.').pop()?.toUpperCase() || 'FILE'}
+                      </Badge>
                       {file.error && (
                         <Badge variant="destructive" className="h-4 py-0 px-1 text-[8px]">ERROR</Badge>
                       )}
                     </div>
                     {file.error && (
-                      <p className="text-[10px] text-destructive mt-1 font-medium">{file.error}</p>
+                      <p className="mt-2 text-[10px] font-medium text-destructive">{file.error}</p>
                     )}
                   </div>
 

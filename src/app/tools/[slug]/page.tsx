@@ -611,10 +611,49 @@ export const toolsConfig: Record<string, {
 }
 
 // Generate static paths for all tools
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   return Object.keys(toolsConfig).map((slug) => ({
     slug,
   }))
+}
+
+function buildToolMetadata(tool: (typeof toolsConfig)[string], slug: string): Metadata {
+  return {
+    title: tool.title,
+    description: tool.description,
+    keywords: tool.keywords,
+    category: tool.category,
+    robots: {
+      index: true,
+      follow: true,
+    },
+    openGraph: {
+      title: tool.title,
+      description: tool.description,
+      url: `https://convertfiles.qzz.io/tools/${slug}/`,
+      siteName: 'ConvertFiles',
+      type: 'website',
+      images: [
+        {
+          url: '/logo.png',
+          width: 1200,
+          height: 630,
+          alt: tool.schemaData.name,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: tool.title,
+      description: tool.description,
+      images: ['/logo.png'],
+    },
+    alternates: {
+      canonical: `https://convertfiles.qzz.io/tools/${slug}/`,
+    },
+  }
 }
 
 // Generate metadata for each tool page
@@ -632,26 +671,7 @@ export async function generateMetadata({
     }
   }
 
-  return {
-    title: tool.title,
-    description: tool.description,
-    keywords: tool.keywords,
-    openGraph: {
-      title: tool.title,
-      description: tool.description,
-      url: `https://convertfiles.qzz.io/tools/${slug}/`,
-      siteName: 'ConvertFiles',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: tool.title,
-      description: tool.description,
-    },
-    alternates: {
-      canonical: `https://convertfiles.qzz.io/tools/${slug}/`,
-    }
-  }
+  return buildToolMetadata(tool, slug)
 }
 
 export default async function ToolPageWrapper({
@@ -680,7 +700,7 @@ export default async function ToolPageWrapper({
     // Use explicitly curated list for dedicated pages
     relatedSlugs = tool.relatedToolsOverride.filter(
       (s) => s !== slug && toolsConfig[s]
-    ).slice(0, 4)
+    ).slice(0, 5)
   } else {
     const allToolSlugs = Object.keys(toolsConfig).filter((s) => !toolsConfig[s].lockedMode)
     const sameCategorySlugs = allToolSlugs.filter(
@@ -689,7 +709,7 @@ export default async function ToolPageWrapper({
     const otherSlugs = allToolSlugs.filter(
       (s) => s !== slug && toolsConfig[s].category !== tool.category
     )
-    relatedSlugs = [...sameCategorySlugs, ...otherSlugs].slice(0, 4)
+    relatedSlugs = [...sameCategorySlugs, ...otherSlugs].slice(0, 5)
   }
 
   const finalRelatedTools = relatedSlugs.map((s) => ({

@@ -201,9 +201,9 @@ export function ImageCompressResize() {
         </div>
       </Card>
 
-      <div className="grid items-start gap-8 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-1">
-          <Card className="border-border/50 bg-muted/20 p-6">
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
+        <div className="space-y-5">
+          <Card className="border-border/50 bg-muted/20 p-5 sm:p-6">
             <Tabs value={mode} onValueChange={(value) => setMode(value as 'compress' | 'resize')} className="space-y-6">
               <div className="space-y-4">
                 <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
@@ -245,7 +245,7 @@ export function ImageCompressResize() {
                     step={0.1}
                     className="py-4"
                   />
-                  <p className="text-[10px] font-medium italic text-muted-foreground">
+                  <p className="text-xs font-medium italic text-muted-foreground">
                     Recommended: 0.5MB to 1MB for faster web delivery.
                   </p>
                 </div>
@@ -271,7 +271,7 @@ export function ImageCompressResize() {
               </TabsContent>
 
               <TabsContent value="resize" className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-3">
                     <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
                       Width (px)
@@ -325,7 +325,7 @@ export function ImageCompressResize() {
             <Button
               onClick={handleProcess}
               disabled={isProcessing}
-              className="relative h-16 w-full overflow-hidden text-xs font-black uppercase tracking-[0.2em]"
+              className="relative h-15 w-full overflow-hidden text-xs font-black uppercase tracking-[0.2em] sm:h-16"
             >
               {isProcessing ? (
                 <div className="flex items-center gap-3">
@@ -350,7 +350,7 @@ export function ImageCompressResize() {
           )}
         </div>
 
-        <div className="space-y-8 lg:col-span-2">
+        <div className="space-y-8">
           <FileUpload
             accept={['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif']}
             multiple
@@ -367,7 +367,7 @@ export function ImageCompressResize() {
 
           {doneFiles.length > 0 && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="flex flex-col gap-3 border-b border-white/5 pb-4 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-white">
                   Processed queue
                   <Badge className="border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
@@ -385,7 +385,7 @@ export function ImageCompressResize() {
               <div className="grid gap-4">
                 {doneFiles.map((file) => (
                   <Card key={file.id} className="overflow-hidden border-border/50 bg-muted/10">
-                    <div className="flex flex-col gap-4 p-4 lg:flex-row lg:items-start">
+                    <div className="flex flex-col gap-4 p-4 sm:p-5 lg:flex-row lg:items-start lg:justify-between">
                       <div className="flex min-w-0 flex-1 items-start gap-4">
                         <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border border-white/5 bg-black/40">
                           {file.preview ? (
@@ -413,14 +413,16 @@ export function ImageCompressResize() {
                         </div>
                       </div>
 
-                      <Button
-                        onClick={() => handleDownload(file)}
-                        variant="secondary"
-                        size="sm"
-                        className="h-10 px-6 text-[10px] font-black uppercase tracking-widest"
-                      >
-                        Download
-                      </Button>
+                      <div className="flex w-full shrink-0 items-end lg:w-auto">
+                        <Button
+                          onClick={() => handleDownload(file)}
+                          variant="secondary"
+                          size="sm"
+                          className="h-10 w-full px-6 text-[10px] font-black uppercase tracking-widest lg:min-w-[148px]"
+                        >
+                          Download
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 ))}

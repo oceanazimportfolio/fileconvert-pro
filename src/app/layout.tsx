@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     default: "ConvertFiles - Free Online Image Converter & Developer Tools",
     template: "%s | ConvertFiles"
   },
-  description: "Free online tools: Image converter (PNG to JPG, WebP, AVIF), JSON formatter, Base64 encoder, password generator, QR code creator. 100% browser-based, no uploads. Fast, secure, unlimited use.",
+  description: "Free browser-based tools for image conversion, compression, JSON formatting, password generation, QR codes, text workflows, and more. No upload required.",
 
   // Keywords - High-volume, high-CPC keywords
   keywords: [
@@ -94,8 +94,8 @@ export const metadata: Metadata = {
 
   // Open Graph - For Facebook, LinkedIn, etc.
   openGraph: {
-    title: "ConvertFiles - Free Online Image & Developer Tools",
-    description: "Convert images, format JSON, generate passwords - 11+ free tools. 100% browser-based, no server uploads. Fast, secure, unlimited.",
+    title: "ConvertFiles - Free Browser-Based File Converter & Utility Platform",
+    description: "Convert images, compress files, format JSON, generate passwords, and finish common workflows without sending files to a server.",
     url: "https://convertfiles.qzz.io",
     siteName: "ConvertFiles",
     type: "website",
@@ -113,8 +113,8 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "ConvertFiles - Free Online Tools",
-    description: "Convert images, format JSON, generate passwords - 11+ free tools. 100% browser-based, secure.",
+    title: "ConvertFiles - Free Browser-Based Tools",
+    description: "Image conversion, compression, JSON formatting, passwords, QR codes, and more with no upload required.",
     images: ["/logo.png"],
   },
 
@@ -190,18 +190,19 @@ const jsonLdSchema = {
     "Word Counter",
     "Lorem Ipsum Generator"
   ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "1250",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
   "author": {
     "@type": "Organization",
     "name": "ConvertFiles",
     "url": "https://convertfiles.qzz.io"
   }
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ConvertFiles",
+  "url": "https://convertfiles.qzz.io",
+  "description": "Browser-based tool platform for image conversion, compression, formatting, and everyday utility workflows."
 };
 
 // Organization Schema for brand recognition
@@ -211,9 +212,7 @@ const organizationSchema = {
   "name": "ConvertFiles",
   "url": "https://convertfiles.qzz.io",
   "logo": "https://convertfiles.qzz.io/logo.png",
-  "sameAs": [
-    // Add your social profiles here
-  ]
+  "description": "ConvertFiles builds browser-based utilities focused on privacy, speed, and clear user workflows."
 };
 
 // Software Application Schema
@@ -264,6 +263,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <script
           type="application/ld+json"

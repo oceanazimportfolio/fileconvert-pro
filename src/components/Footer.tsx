@@ -1,113 +1,115 @@
 'use client'
 
 import Link from 'next/link'
-import { Zap, Shield } from 'lucide-react'
+import { ArrowUpRight, Github, Shield, Zap } from 'lucide-react'
+
+const repoUrl = 'https://github.com/oceanazimportfolio/fileconvert-pro'
 
 export function Footer() {
-    const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear()
 
-    return (
-        <footer className="border-t border-slate-700/50 mt-16 bg-slate-900/50 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 mb-12 border-b border-slate-800 pb-12">
-                    {/* Brand and Mission */}
-                    <div className="col-span-2 md:col-span-1">
-                        <Link href="/" className="flex items-center gap-2 mb-4">
-                            <span className="text-xl font-bold text-white">ConvertFiles</span>
-                        </Link>
-                        <p className="text-sm text-slate-400 leading-relaxed mb-6">
-                            The ultimate free online toolkit for image conversion, developer utilities, and content creation.
-                            100% browser-based for maximum privacy and speed.
-                        </p>
-                        <div className="flex flex-col gap-3 text-xs text-slate-500">
-                            <span className="flex items-center gap-2">
-                                <Zap className="w-3.5 h-3.5 text-yellow-400" />
-                                No server-side processing
-                            </span>
-                            <span className="flex items-center gap-2">
-                                <Shield className="w-3.5 h-3.5 text-green-400" />
-                                Files never leave your device
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Navigation - Tools */}
-                    <nav aria-label="Tool Categories">
-                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Popular Media</h3>
-                        <ul className="space-y-3 text-sm text-slate-400 font-medium">
-                            <li><Link href="/tools/image-converter/" className="hover:text-blue-400 transition-colors">Image Converter</Link></li>
-                            <li><Link href="/tools/image-compress/" className="hover:text-blue-400 transition-colors">Image Compressor</Link></li>
-                            <li><Link href="/tools/qr-code-generator/" className="hover:text-blue-400 transition-colors">QR Code Generator</Link></li>
-                            <li><Link href="/tools/color-palette/" className="hover:text-blue-400 transition-colors">Color Palette Generator</Link></li>
-                            <li><Link href="/tools/bangla-converter/" className="hover:text-blue-400 transition-colors">Bangla Converter</Link></li>
-                        </ul>
-                    </nav>
-
-                    {/* Developer & Text Tools */}
-                    <nav aria-label="Developer & Content Tools">
-                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Developer & Content</h3>
-                        <ul className="space-y-3 text-sm text-slate-400 font-medium">
-                            <li><Link href="/tools/json-formatter/" className="hover:text-blue-400 transition-colors">JSON Formatter & Validator</Link></li>
-                            <li><Link href="/tools/password-generator/" className="hover:text-blue-400 transition-colors">Secure Password Generator</Link></li>
-                            <li><Link href="/tools/word-counter/" className="hover:text-blue-400 transition-colors">Word & Character Count</Link></li>
-                            <li><Link href="/tools/base64-encoder/" className="hover:text-blue-400 transition-colors">Base64 Encoder</Link></li>
-                            <li><Link href="/all-tools/" className="text-white hover:text-blue-400 transition-colors font-bold mt-2 inline-block">Browse All Tools →</Link></li>
-                        </ul>
-                    </nav>
-
-                    {/* Company/Legal */}
-                    <nav aria-label="Company Information">
-                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Company</h3>
-                        <ul className="space-y-3 text-sm text-slate-400 font-medium">
-                            <li><Link href="/about" className="hover:text-blue-400 transition-colors">About Us</Link></li>
-                            <li><Link href="/contact" className="hover:text-blue-400 transition-colors">Contact</Link></li>
-                            <li><Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
-                        </ul>
-                    </nav>
-
-                    {/* Contact and Trust */}
-                    <nav aria-label="Support">
-                        <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Support</h3>
-                        <p className="text-sm text-slate-400 mb-4">
-                            Have questions or feedback? We'd love to hear from you.
-                        </p>
-                        <Link
-                            href="/contact"
-                            className="inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-white bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 transition-all uppercase tracking-widest"
-                        >
-                            Get in Touch
-                        </Link>
-                    </nav>
-                </div>
-
-                {/* Attribution Section */}
-                <div className="flex flex-col items-center text-center space-y-8">
-                    <div className="flex flex-col items-center gap-4">
-                        <span className="text-slate-500 text-sm font-medium">© {currentYear} ConvertFiles</span>
-
-                        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium">
-                            <Link href="/privacy-policy" className="text-slate-400 hover:text-blue-400 transition-colors">Privacy Policy</Link>
-                            <Link href="/terms" className="text-slate-400 hover:text-blue-400 transition-colors">Terms</Link>
-                            <Link href="/contact" className="text-slate-400 hover:text-blue-400 transition-colors">Contact</Link>
-                            <Link href="/about" className="text-slate-400 hover:text-blue-400 transition-colors">About</Link>
-                        </nav>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-800/50 w-full max-w-xs mx-auto">
-                        <p className="text-slate-500 text-xs tracking-widest uppercase mb-1">Created By</p>
-                        <a
-                            href="https://azimulhaque.qzz.io/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-white font-bold hover:text-blue-400 transition-colors text-base group inline-flex items-center gap-1"
-                        >
-                            Azimul Haque
-                            <span className="inline-block transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
-                        </a>
-                    </div>
-                </div>
+  return (
+    <footer className="mt-16 border-t border-slate-700/50 bg-slate-900/60 backdrop-blur-sm">
+      <div className="container-standard py-12 md:py-14">
+        <div className="grid gap-10 border-b border-slate-800 pb-10 md:grid-cols-2 xl:grid-cols-[1.25fr_1fr_1fr_1fr_1fr]">
+          <div className="md:col-span-2 xl:col-span-1">
+            <Link href="/" className="mb-4 flex items-center gap-2">
+              <span className="text-xl font-bold text-white">ConvertFiles</span>
+            </Link>
+            <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-400">
+              ConvertFiles is a privacy-first tool platform for image conversion, compression, text utilities,
+              and everyday browser-based workflows. No upload required, no installation, and no account needed.
+            </p>
+            <div className="grid gap-3 text-xs text-slate-500">
+              <span className="flex items-center gap-2">
+                <Zap className="h-3.5 w-3.5 text-yellow-400" />
+                Instant results with local browser processing
+              </span>
+              <span className="flex items-center gap-2">
+                <Shield className="h-3.5 w-3.5 text-green-400" />
+                Files stay on your device for stronger privacy
+              </span>
             </div>
-        </footer>
-    )
+          </div>
+
+          <nav aria-label="Image and media tools">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Image Tools</h3>
+            <ul className="space-y-3 text-sm font-medium text-slate-400">
+              <li><Link href="/tools/image-converter/" className="transition-colors hover:text-blue-400">Image Converter</Link></li>
+              <li><Link href="/tools/image-compress/" className="transition-colors hover:text-blue-400">Image Compressor</Link></li>
+              <li><Link href="/tools/background-remover/" className="transition-colors hover:text-blue-400">Background Remover</Link></li>
+              <li><Link href="/tools/png-to-jpg/" className="transition-colors hover:text-blue-400">PNG to JPG Converter</Link></li>
+              <li><Link href="/tools/webp-to-png/" className="transition-colors hover:text-blue-400">WebP to PNG Converter</Link></li>
+            </ul>
+          </nav>
+
+          <nav aria-label="Developer and utility tools">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Popular Utilities</h3>
+            <ul className="space-y-3 text-sm font-medium text-slate-400">
+              <li><Link href="/tools/json-formatter/" className="transition-colors hover:text-blue-400">JSON Formatter and Validator</Link></li>
+              <li><Link href="/tools/password-generator/" className="transition-colors hover:text-blue-400">Password Generator</Link></li>
+              <li><Link href="/tools/qr-code-generator/" className="transition-colors hover:text-blue-400">QR Code Generator</Link></li>
+              <li><Link href="/tools/word-counter/" className="transition-colors hover:text-blue-400">Word Counter</Link></li>
+              <li><Link href="/all-tools/" className="inline-block font-semibold text-white transition-colors hover:text-blue-400">Browse all tools</Link></li>
+            </ul>
+          </nav>
+
+          <nav aria-label="Trust and company">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
+            <ul className="space-y-3 text-sm font-medium text-slate-400">
+              <li><Link href="/about/" className="transition-colors hover:text-blue-400">About ConvertFiles</Link></li>
+              <li><Link href="/privacy-policy/" className="transition-colors hover:text-blue-400">Privacy Policy</Link></li>
+              <li><Link href="/terms/" className="transition-colors hover:text-blue-400">Terms of Service</Link></li>
+              <li><Link href="/contact/" className="transition-colors hover:text-blue-400">Contact</Link></li>
+            </ul>
+          </nav>
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Transparency</h3>
+            <p className="mb-4 text-sm leading-relaxed text-slate-400">
+              Explore the project, review the privacy-first positioning, or get in touch before listing ConvertFiles in
+              directories, tool roundups, or resource pages.
+            </p>
+            <div className="space-y-3">
+              <a
+                href={repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-blue-400"
+              >
+                <Github className="h-4 w-4" />
+                View GitHub repository
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+              <Link
+                href="/about/"
+                className="block text-sm font-medium text-slate-400 transition-colors hover:text-blue-400"
+              >
+                Learn how local processing works
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-6 pt-8 text-center">
+          <p className="max-w-2xl text-sm leading-relaxed text-slate-500">
+            ConvertFiles helps you convert images, clean up data, and generate assets faster with free browser tools
+            built for privacy, speed, and clear results.
+          </p>
+
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium">
+            <Link href="/all-tools/" className="text-slate-400 transition-colors hover:text-blue-400">All Tools</Link>
+            <Link href="/about/" className="text-slate-400 transition-colors hover:text-blue-400">About</Link>
+            <Link href="/privacy-policy/" className="text-slate-400 transition-colors hover:text-blue-400">Privacy Policy</Link>
+            <Link href="/terms/" className="text-slate-400 transition-colors hover:text-blue-400">Terms</Link>
+            <Link href="/contact/" className="text-slate-400 transition-colors hover:text-blue-400">Contact</Link>
+          </nav>
+
+          <div className="w-full border-t border-slate-800/60 pt-4">
+            <p className="text-sm font-medium text-slate-500">© {currentYear} ConvertFiles</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
 }

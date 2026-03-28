@@ -231,27 +231,32 @@ export function ImageConverter({
     ?? conversionType.replace('_', ' -> ').toUpperCase()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {lockedMode && (
-        <Card className="border-primary/20 bg-primary/5 p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10">
+        <Card className="border-primary/20 bg-primary/5 p-5">
+          <div className="flex items-start gap-4">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10">
               <ImageIcon className="h-5 w-5 text-primary" />
             </div>
-            <div>
+            <div className="space-y-1">
               <p className="font-bold tracking-tight text-white">{currentLabel} Conversion</p>
-              <p className="mt-0.5 text-xs text-muted-foreground">Format locked for this page</p>
+              <p className="text-sm text-muted-foreground">Format locked for this page so you can drop files and convert right away.</p>
             </div>
           </div>
         </Card>
       )}
 
       {!lockedMode && (
-        <div className="space-y-4">
-          <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
-            Select conversion format
-          </Label>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
+        <Card className="space-y-5 border-border/60 bg-muted/15 p-5 sm:p-6">
+          <div className="space-y-2">
+            <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
+              Select conversion format
+            </Label>
+            <p className="text-sm text-muted-foreground">
+              Choose the output type first, then upload one or more images to convert in a single batch.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {CONVERT_OPTIONS.map((option) => {
               const optionValue = `${option.from}_${option.to}`
               const isActive = conversionType === optionValue
@@ -261,7 +266,7 @@ export function ImageConverter({
                   key={optionValue}
                   variant={isActive ? 'default' : 'outline'}
                   onClick={() => handleConversionTypeChange(optionValue)}
-                  className="h-12 justify-center"
+                  className="h-12 justify-center px-4 text-left"
                 >
                   <span className="text-xs font-black">{option.label}</span>
                 </Button>
@@ -291,37 +296,39 @@ export function ImageConverter({
               </Link>
             </div>
           </div>
-        </div>
-      )}
-
-      {isQualityControlled(conversionType) && (
-        <Card className="p-6">
-          <div className="mb-6 flex items-center justify-between">
-            <Label className="font-bold text-white">Output Quality</Label>
-            <Badge variant="default" className="font-mono">
-              {quality}%
-            </Badge>
-          </div>
-          <Slider
-            value={[quality]}
-            onValueChange={([value]) => setQuality(value)}
-            min={10}
-            max={100}
-            step={1}
-            className="w-full"
-          />
-          <div className="mt-4 flex justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            <span>Compact</span>
-            <span className="text-primary/70">Balanced (80-85%)</span>
-            <span>High quality</span>
-          </div>
         </Card>
       )}
 
-      <ConversionOptimizationPanel
-        optimizeOutput={optimizeOutput}
-        onOptimizeOutputChange={setOptimizeOutput}
-      />
+      <div className={`grid gap-4 ${isQualityControlled(conversionType) ? 'xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]' : ''}`}>
+        {isQualityControlled(conversionType) && (
+          <Card className="p-5 sm:p-6">
+            <div className="mb-5 flex items-center justify-between">
+              <Label className="font-bold text-white">Output Quality</Label>
+              <Badge variant="default" className="font-mono">
+                {quality}%
+              </Badge>
+            </div>
+            <Slider
+              value={[quality]}
+              onValueChange={([value]) => setQuality(value)}
+              min={10}
+              max={100}
+              step={1}
+              className="w-full"
+            />
+            <div className="mt-4 flex justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              <span>Compact</span>
+              <span className="text-primary/70">Balanced (80-85%)</span>
+              <span>High quality</span>
+            </div>
+          </Card>
+        )}
+
+        <ConversionOptimizationPanel
+          optimizeOutput={optimizeOutput}
+          onOptimizeOutputChange={setOptimizeOutput}
+        />
+      </div>
 
       <FileUpload
         accept={lockedMode
@@ -372,8 +379,8 @@ export function ImageConverter({
 
           <div className="grid gap-4">
             {doneFiles.map((file) => (
-              <Card key={file.id} className="border-border/60 p-4 transition-all hover:border-primary/30">
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+              <Card key={file.id} className="border-border/60 p-4 transition-all hover:border-primary/30 sm:p-5">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div className="flex min-w-0 flex-1 items-start gap-4">
                     <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
                       {file.preview ? (
@@ -397,14 +404,14 @@ export function ImageConverter({
                     </div>
                   </div>
 
-                  <div className="flex shrink-0 flex-col gap-2 lg:min-w-[150px]">
-                    <div className="text-right text-xs text-muted-foreground">
+                  <div className="flex shrink-0 flex-col gap-2 lg:min-w-[170px]">
+                    <div className="text-left text-xs text-muted-foreground lg:text-right">
                       Original: {formatFileSize(file.file.size)}
                     </div>
                     <Button
                       onClick={() => handleDownload(file)}
                       size="sm"
-                      className="w-full gap-2"
+                      className="h-10 w-full gap-2"
                     >
                       <Download className="h-4 w-4" />
                       Download
