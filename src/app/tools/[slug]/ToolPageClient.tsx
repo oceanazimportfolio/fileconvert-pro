@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -246,7 +246,13 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
           <div className="lg:col-span-3">
             <Card className="bg-slate-800/50 border-slate-700/50 shadow-xl shadow-black/20">
               <CardContent className="p-4 md:p-6">
-                {renderTool()}
+                <Suspense fallback={
+                  <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-700/40 bg-slate-900/30 text-sm text-slate-400">
+                    Loading tool...
+                  </div>
+                }>
+                  {renderTool()}
+                </Suspense>
               </CardContent>
             </Card>
 
