@@ -124,7 +124,7 @@ export function ConversionOptimizationPanel({
                 <div className="flex flex-wrap gap-2">
                   {result.suggestions.map((suggestion) => (
                     <Link key={`${suggestion.href}-${suggestion.label}`} href={suggestion.href}>
-                      <Button variant="outline" size="sm" className="h-9 border-border/60 bg-card/80 px-3 text-xs font-bold">
+                      <Button variant="outline" size="sm" className="h-10 w-full justify-between border-border/60 bg-card/80 px-3 text-xs font-bold sm:w-auto sm:justify-center">
                         {suggestion.label}
                         <ArrowRight className="ml-1.5 h-3 w-3" />
                       </Button>

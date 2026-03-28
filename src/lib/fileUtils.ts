@@ -1,6 +1,27 @@
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 
+function fallbackDownload(blob: Blob, filename: string): boolean {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  try {
+    const objectUrl = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = objectUrl
+    anchor.download = filename
+    anchor.rel = 'noopener noreferrer'
+    document.body.appendChild(anchor)
+    anchor.click()
+    document.body.removeChild(anchor)
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000)
+    return true
+  } catch {
+    return false
+  }
+}
+
 // Format file size to human readable format
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes'
@@ -51,15 +72,20 @@ export function readFileAsText(file: File): Promise<string> {
 }
 
 // Download single file
-export function downloadFile(blob: Blob, filename: string): void {
-  saveAs(blob, filename)
+export function downloadFile(blob: Blob, filename: string): boolean {
+  try {
+    saveAs(blob, filename)
+    return true
+  } catch {
+    return fallbackDownload(blob, filename)
+  }
 }
 
 // Download multiple files as ZIP
 export async function downloadAsZip(
   files: { blob: Blob; name: string }[],
   zipName: string = 'converted_files.zip'
-): Promise<void> {
+): Promise<boolean> {
   const zip = new JSZip()
   
   files.forEach(({ blob, name }) => {
@@ -67,7 +93,13 @@ export async function downloadAsZip(
   })
   
   const zipBlob = await zip.generateAsync({ type: 'blob' })
-  saveAs(zipBlob, zipName)
+
+  try {
+    saveAs(zipBlob, zipName)
+    return true
+  } catch {
+    return fallbackDownload(zipBlob, zipName)
+  }
 }
 
 // Validate file type

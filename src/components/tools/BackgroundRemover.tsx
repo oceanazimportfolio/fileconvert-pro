@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { EmbeddedBrowserNotice } from '@/components/EmbeddedBrowserNotice'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -26,6 +27,7 @@ import {
 import { useToast } from '@/hooks/use-toast'
 import * as tf from '@tensorflow/tfjs'
 import * as bodyPix from '@tensorflow-models/body-pix'
+import { downloadFile } from '@/lib/fileUtils'
 import {
   getFormatFromFile,
   optimizeCanvasOutput,
@@ -284,11 +286,7 @@ export function BackgroundRemover() {
       return
     }
 
-    const link = document.createElement('a')
-    link.download = `${fileName}-no-bg.png`
-    link.href = URL.createObjectURL(processedResult.blob)
-    link.click()
-    window.setTimeout(() => URL.revokeObjectURL(link.href), 0)
+    downloadFile(processedResult.blob, `${fileName}-no-bg.png`)
   }
 
   const copyImage = async () => {
@@ -384,10 +382,12 @@ export function BackgroundRemover() {
         </div>
       </Card>
 
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.9fr)]">
+      <div className="grid items-start gap-6 2xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.9fr)]">
         <div className="space-y-6">
+          <EmbeddedBrowserNotice context="processing" />
+
           {!image ? (
-            <div className="group relative cursor-pointer overflow-hidden rounded-3xl border-2 border-dashed border-border/40 bg-muted/5 p-8 text-center transition-all hover:border-primary/40 sm:p-12">
+            <div className="group relative cursor-pointer overflow-hidden rounded-3xl border-2 border-dashed border-border/40 bg-muted/5 p-6 text-center transition-all hover:border-primary/40 sm:p-12">
               <input
                 type="file"
                 accept="image/*"
@@ -507,10 +507,12 @@ export function BackgroundRemover() {
 
           {processedImage && (
             <div className="space-y-4 rounded-2xl border border-border/50 bg-muted/20 p-6">
+              <EmbeddedBrowserNotice context="download" />
+
               <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
                 Preview environment
               </Label>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 <Button
                   variant={showCheckerboard ? 'default' : 'secondary'}
                   size="sm"
@@ -548,19 +550,19 @@ export function BackgroundRemover() {
         </div>
 
         <div className="space-y-6">
-          <Card className="flex min-h-[500px] flex-col overflow-hidden border-border/50 bg-muted/10">
+          <Card className="flex min-h-[420px] flex-col overflow-hidden border-border/50 bg-muted/10 sm:min-h-[500px]">
             <div className="flex flex-col gap-3 border-b border-white/5 p-5 sm:flex-row sm:items-center sm:justify-between">
               <Label className="text-[10px] font-bold uppercase tracking-wider text-white">
                 {processedImage ? 'AI Extracted Output' : 'Awaiting Processing'}
               </Label>
               {processedImage && (
                 <div className="flex gap-2">
-                  <Button variant="secondary" size="icon" className="size-8" onClick={copyImage}>
+                  <Button variant="secondary" size="icon" className="size-10" onClick={copyImage}>
                     {copied
                       ? <Check className="h-3.5 w-3.5 text-emerald-400" />
                       : <Copy className="h-3.5 w-3.5" />}
                   </Button>
-                  <Button variant="secondary" size="icon" className="size-8" onClick={downloadImage}>
+                  <Button variant="secondary" size="icon" className="size-10" onClick={downloadImage}>
                     <Download className="h-3.5 w-3.5" />
                   </Button>
                 </div>

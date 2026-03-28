@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import { EmbeddedBrowserNotice } from '@/components/EmbeddedBrowserNotice'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -201,7 +202,7 @@ export function ImageCompressResize() {
         </div>
       </Card>
 
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
+      <div className="grid items-start gap-6 2xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
         <div className="space-y-5">
           <Card className="border-border/50 bg-muted/20 p-5 sm:p-6">
             <Tabs value={mode} onValueChange={(value) => setMode(value as 'compress' | 'resize')} className="space-y-6">
@@ -367,6 +368,8 @@ export function ImageCompressResize() {
 
           {doneFiles.length > 0 && (
             <div className="space-y-6">
+              <EmbeddedBrowserNotice context="download" />
+
               <div className="flex flex-col gap-3 border-b border-white/5 pb-4 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-white">
                   Processed queue
@@ -385,7 +388,7 @@ export function ImageCompressResize() {
               <div className="grid gap-4">
                 {doneFiles.map((file) => (
                   <Card key={file.id} className="overflow-hidden border-border/50 bg-muted/10">
-                    <div className="flex flex-col gap-4 p-4 sm:p-5 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="flex flex-col gap-4 p-4 sm:p-5 xl:flex-row xl:items-start xl:justify-between">
                       <div className="flex min-w-0 flex-1 items-start gap-4">
                         <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border border-white/5 bg-black/40">
                           {file.preview ? (
@@ -413,12 +416,12 @@ export function ImageCompressResize() {
                         </div>
                       </div>
 
-                      <div className="flex w-full shrink-0 items-end lg:w-auto">
+                      <div className="flex w-full shrink-0 items-end xl:w-auto">
                         <Button
                           onClick={() => handleDownload(file)}
                           variant="secondary"
                           size="sm"
-                          className="h-10 w-full px-6 text-[10px] font-black uppercase tracking-widest lg:min-w-[148px]"
+                          className="h-10 w-full px-6 text-[10px] font-black uppercase tracking-widest xl:min-w-[148px]"
                         >
                           Download
                         </Button>

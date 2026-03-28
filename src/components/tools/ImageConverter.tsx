@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { EmbeddedBrowserNotice } from '@/components/EmbeddedBrowserNotice'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -266,7 +267,7 @@ export function ImageConverter({
                   key={optionValue}
                   variant={isActive ? 'default' : 'outline'}
                   onClick={() => handleConversionTypeChange(optionValue)}
-                  className="h-12 justify-center px-4 text-left"
+                  className="min-h-[3.25rem] whitespace-normal px-4 text-center leading-tight sm:text-left"
                 >
                   <span className="text-xs font-black">{option.label}</span>
                 </Button>
@@ -299,7 +300,7 @@ export function ImageConverter({
         </Card>
       )}
 
-      <div className={`grid gap-4 ${isQualityControlled(conversionType) ? 'xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]' : ''}`}>
+      <div className={`grid gap-4 ${isQualityControlled(conversionType) ? '2xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]' : ''}`}>
         {isQualityControlled(conversionType) && (
           <Card className="p-5 sm:p-6">
             <div className="mb-5 flex items-center justify-between">
@@ -365,6 +366,8 @@ export function ImageConverter({
 
       {doneFiles.length > 0 && (
         <div className="space-y-6">
+          <EmbeddedBrowserNotice context="download" />
+
           <div className="flex flex-col items-start justify-between gap-4 border-b border-border pb-4 sm:flex-row sm:items-center">
             <h2 className="text-xl font-black uppercase tracking-tighter text-white">
               Ready for download ({doneFiles.length})
@@ -380,7 +383,7 @@ export function ImageConverter({
           <div className="grid gap-4">
             {doneFiles.map((file) => (
               <Card key={file.id} className="border-border/60 p-4 transition-all hover:border-primary/30 sm:p-5">
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
                   <div className="flex min-w-0 flex-1 items-start gap-4">
                     <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
                       {file.preview ? (
@@ -404,8 +407,8 @@ export function ImageConverter({
                     </div>
                   </div>
 
-                  <div className="flex shrink-0 flex-col gap-2 lg:min-w-[170px]">
-                    <div className="text-left text-xs text-muted-foreground lg:text-right">
+                  <div className="flex shrink-0 flex-col gap-2 xl:min-w-[170px]">
+                    <div className="text-left text-xs text-muted-foreground xl:text-right">
                       Original: {formatFileSize(file.file.size)}
                     </div>
                     <Button

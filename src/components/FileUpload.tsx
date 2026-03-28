@@ -1,11 +1,11 @@
 'use client'
 
-import { useCallback, useState, useEffect } from 'react'
-import { Upload, X, File, Image, FileText } from 'lucide-react'
+import { useCallback, useState, useEffect, useId } from 'react'
+import { X, File, Image, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
+import { EmbeddedBrowserNotice } from '@/components/EmbeddedBrowserNotice'
 import { formatFileSize, generateId, isValidFileType } from '@/lib/fileUtils'
 export interface UploadedFile {
   id: string
@@ -41,6 +41,7 @@ export function FileUpload({
   description = 'or click to browse',
   icon = 'file'
 }: FileUploadProps) {
+  const inputId = useId()
   const [isDragging, setIsDragging] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
 
@@ -121,32 +122,30 @@ export function FileUpload({
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       processFiles(e.target.files)
+      e.target.value = ''
     }
   }, [processFiles])
-
-  const fileInputRef = useCallback((node: HTMLInputElement | null) => {
-    if (node) {
-      // Focus ref can go here if needed
-    }
-  }, [])
-
-  const onZoneClick = () => {
-    const input = document.getElementById('file-upload-input') as HTMLInputElement
-    if (input) input.click()
-  }
 
   const IconComponent = icon === 'image' ? Image : icon === 'pdf' ? FileText : File
 
   return (
     <div className="space-y-6">
       {/* Drop Zone */}
-      <div
-        onClick={onZoneClick}
+      <input
+        id={inputId}
+        type="file"
+        multiple={multiple}
+        accept={accept.map(a => `.${a}`).join(',')}
+        onChange={handleFileInput}
+        className="sr-only"
+      />
+      <label
+        htmlFor={inputId}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`
-          relative cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 sm:rounded-3xl sm:p-10
+          relative block cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition-all duration-300 sm:rounded-3xl sm:p-8 lg:p-10
           active:scale-[0.99] touch-manipulation
           ${isDragging
             ? 'border-primary bg-primary/10 scale-[1.01]'
@@ -155,17 +154,7 @@ export function FileUpload({
           ${isProcessing ? 'pointer-events-none opacity-50' : ''}
         `}
       >
-        <input
-          id="file-upload-input"
-          type="file"
-          multiple={multiple}
-          accept={accept.map(a => `.${a}`).join(',')}
-          onChange={handleFileInput}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          style={{ display: 'none' }}
-        />
-
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-5 sm:gap-6">
           <div className={`
             flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-300 sm:h-20 sm:w-20
             ${isDragging ? 'bg-primary shadow-lg shadow-primary/30' : 'bg-muted/50'}
@@ -174,25 +163,31 @@ export function FileUpload({
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-xl font-black tracking-tight text-white sm:text-2xl">{label}</h2>
-            <p className="max-w-xl text-sm font-medium text-muted-foreground">{description}</p>
+            <h2 className="text-lg font-black tracking-tight text-white sm:text-2xl">{label}</h2>
+            <p className="max-w-xl text-sm font-medium text-muted-foreground sm:text-[15px]">{description}</p>
           </div>
 
+          <span className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-3 text-sm font-black text-primary-foreground shadow-lg shadow-primary/20">
+            Choose files
+          </span>
+
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-            <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
+            <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
               {accept.join(', ').toUpperCase()}
             </Badge>
-            <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
+            <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
               MAX {formatFileSize(maxSize)}
             </Badge>
             {multiple && (
-              <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
+              <Badge variant="outline" className="border-border bg-muted/50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
                 Up to {maxFiles} files
               </Badge>
             )}
           </div>
         </div>
-      </div>
+      </label>
+
+      <EmbeddedBrowserNotice context="upload" />
 
       {/* File List */}
       {files.length > 0 && (
@@ -211,7 +206,7 @@ export function FileUpload({
             </Button>
           </div>
 
-          <div className="grid max-h-[26rem] gap-3 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
+          <div className="grid max-h-[20rem] gap-3 overflow-y-auto pr-1 sm:max-h-[26rem] sm:pr-2 custom-scrollbar">
             {files.map((file) => (
               <Card
                 key={file.id}
@@ -233,8 +228,8 @@ export function FileUpload({
                   </div>
 
                   {/* File Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="truncate pr-4 text-sm font-bold text-white">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-bold text-white sm:pr-4">
                       {file.file.name}
                     </p>
                     <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -258,7 +253,7 @@ export function FileUpload({
                     variant="secondary"
                     size="icon"
                     onClick={() => onFileRemove(file.id)}
-                    className="size-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 border-transparent shadow-none"
+                    className="size-9 self-start rounded-lg border-transparent text-muted-foreground shadow-none hover:bg-destructive/10 hover:text-destructive sm:self-center"
                   >
                     <X className="w-4 h-4" />
                   </Button>
