@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { ADSENSE_SCRIPT_SRC } from "@/lib/adsense";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -277,6 +276,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3379852787762258"
+          crossOrigin="anonymous"
+        />
         {/* Google Analytics Placeholder */}
         {/*
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-GA-ID"></script>
@@ -294,13 +298,6 @@ export default function RootLayout({
       >
         {children}
         <Toaster />
-
-        <Script
-          id="google-adsense"
-          src={ADSENSE_SCRIPT_SRC}
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
 
         {/* Google Analytics 4 */}
         {gaId && (
