@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { AdsenseAd } from '@/components/AdsenseAd'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { toolsConfig } from '@/app/tools/[slug]/page'
+import { getAdPlacement } from '@/lib/adsense'
 import {
   ArrowLeft,
   Binary,
@@ -63,6 +65,7 @@ const itemListSchema = {
 }
 
 export default function AllToolsPage() {
+  const allToolsAd = getAdPlacement('all_tools_in_content')
   const categorizedTools = Object.entries(toolsConfig).reduce((acc, [slug, tool]) => {
     if (!acc[tool.category]) {
       acc[tool.category] = []
@@ -213,6 +216,15 @@ export default function AllToolsPage() {
             })}
           </div>
         </section>
+
+        {allToolsAd && (
+          <AdsenseAd
+            slot={allToolsAd.slot}
+            format={allToolsAd.format}
+            fullWidthResponsive={allToolsAd.fullWidthResponsive}
+            minHeight={allToolsAd.minHeight}
+          />
+        )}
 
         <div className="space-y-14">
           {categoryOrder.map((categoryName) => {

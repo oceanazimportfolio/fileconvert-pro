@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { AdsenseAd } from '@/components/AdsenseAd'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { getAdPlacement } from '@/lib/adsense'
 import {
   ArrowRight,
   Binary,
@@ -176,6 +178,8 @@ const websiteSchema = {
 }
 
 export default function Home() {
+  const homepageAd = getAdPlacement('homepage_in_content')
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <script
@@ -385,6 +389,15 @@ export default function Home() {
             })}
           </div>
         </section>
+
+        {homepageAd && (
+          <AdsenseAd
+            slot={homepageAd.slot}
+            format={homepageAd.format}
+            fullWidthResponsive={homepageAd.fullWidthResponsive}
+            minHeight={homepageAd.minHeight}
+          />
+        )}
 
         <section className="grid gap-12 border-t border-border py-16 md:grid-cols-3" aria-labelledby="platform-benefits">
           <article>

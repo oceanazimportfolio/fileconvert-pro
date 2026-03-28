@@ -2,11 +2,13 @@
 
 import { Suspense, useEffect } from 'react'
 import Link from 'next/link'
+import { AdsenseAd } from '@/components/AdsenseAd'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, Globe, Home, ListChecks, Shield, Sparkles, Zap } from 'lucide-react'
 import { Footer } from '@/components/Footer'
+import { getAdPlacement, shouldRenderToolPageAd } from '@/lib/adsense'
 import { trackToolUsage } from '@/lib/analytics'
 import { BackgroundRemover } from '@/components/tools/BackgroundRemover'
 import { BanglaConverter } from '@/components/tools/BanglaConverter'
@@ -165,6 +167,13 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
   const aboutCopy = stripMarkdown(tool.seoContent?.about || tool.description)
   const benefitsCopy = stripMarkdown(tool.seoContent?.benefits || getFallbackBenefits(tool))
   const isConversionPage = tool.category === 'Image Conversion'
+  const toolPageAd = getAdPlacement('tool_page_in_content')
+  const shouldShowToolPageAd = shouldRenderToolPageAd({
+    slug,
+    component: tool.component,
+    featureCount: tool.seoContent?.features.length ?? 0,
+    relatedToolsCount: relatedTools.length,
+  })
 
   const renderTool = () => {
     switch (tool.component) {
@@ -319,6 +328,16 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                   ))}
                 </div>
               </div>
+            )}
+
+            {toolPageAd && shouldShowToolPageAd && (
+              <AdsenseAd
+                slot={toolPageAd.slot}
+                format={toolPageAd.format}
+                fullWidthResponsive={toolPageAd.fullWidthResponsive}
+                minHeight={toolPageAd.minHeight}
+                className="mt-8"
+              />
             )}
 
             <section className="mt-10 border-t border-slate-700/40 py-8">
