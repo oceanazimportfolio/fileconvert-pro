@@ -169,3 +169,4 @@ prompt
 upload/
 download/
 db/
+*.code-workspace

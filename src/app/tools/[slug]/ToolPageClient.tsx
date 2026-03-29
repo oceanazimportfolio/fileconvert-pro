@@ -3,13 +3,17 @@
 import { Suspense, useEffect } from 'react'
 import Link from 'next/link'
 import { AdsenseAd } from '@/components/AdsenseAd'
+import { CopyPageLinkButton } from '@/components/landing/CopyPageLinkButton'
+import { TrackedLink } from '@/components/TrackedLink'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, Globe, Home, ListChecks, Shield, Sparkles, Zap } from 'lucide-react'
 import { Footer } from '@/components/Footer'
 import { getAdPlacement, shouldRenderToolPageAd } from '@/lib/adsense'
-import { trackToolUsage } from '@/lib/analytics'
+import { trackLandingClick, trackNextToolClick, trackToolUsage } from '@/lib/analytics'
+import { absoluteUrl } from '@/lib/site'
+import { toolEnhancements } from '@/lib/toolEnhancements'
 import { BackgroundRemover } from '@/components/tools/BackgroundRemover'
 import { BanglaConverter } from '@/components/tools/BanglaConverter'
 import { Base64Tool } from '@/components/tools/Base64Tool'
@@ -153,17 +157,100 @@ function getNextStepLinks(slug: string, tool: ToolConfig, relatedTools: ToolPage
   return links.filter((item, index, array) => item.href !== `/tools/${slug}/` && array.findIndex((entry) => entry.href === item.href) === index).slice(0, 6)
 }
 
+const editorialLinksBySlug: Record<string, LinkItem[]> = {
+  'webp-to-png': [
+    { href: '/guides/how-to-convert-webp-to-png/', label: 'WebP to PNG guide', description: 'Follow the task-focused workflow for transparent or compatibility-safe exports.' },
+    { href: '/compare/webp-vs-png/', label: 'WebP vs PNG', description: 'Compare the formats before deciding which one should stay in the workflow.' },
+    { href: '/categories/image-tools/', label: 'Image tools hub', description: 'Browse the broader image conversion and optimization cluster.' },
+  ],
+  'png-to-jpg': [
+    { href: '/guides/how-to-convert-png-to-jpg/', label: 'PNG to JPG guide', description: 'Use the practical workflow page when size reduction is the main reason to convert.' },
+    { href: '/compare/png-vs-jpg/', label: 'PNG vs JPG', description: 'Compare file size, transparency, and general website use before exporting.' },
+    { href: '/guides/reduce-image-size-for-website/', label: 'Reduce image size for website', description: 'Move from format change into page-speed optimization.' },
+  ],
+  'jpg-to-png': [
+    { href: '/guides/how-to-convert-jpg-to-png/', label: 'JPG to PNG guide', description: 'Use the conversion path built for editing-friendly output and compatibility.' },
+    { href: '/compare/png-vs-jpg/', label: 'PNG vs JPG', description: 'See when PNG is worth the larger file size.' },
+    { href: '/categories/image-tools/', label: 'Image tools hub', description: 'Continue into related image cleanup and conversion workflows.' },
+  ],
+  'background-remover': [
+    { href: '/guides/remove-background-from-product-photo/', label: 'Product photo background guide', description: 'A task-focused path for ecommerce and catalog cleanup.' },
+    { href: '/guides/how-to-make-a-transparent-png/', label: 'Make a transparent PNG', description: 'Understand the wider transparent-image workflow after extraction.' },
+    { href: '/categories/image-tools/', label: 'Image tools hub', description: 'Pair background cleanup with conversion and compression tools.' },
+  ],
+  'image-compress': [
+    { href: '/guides/reduce-image-size-for-website/', label: 'Reduce image size for website', description: 'A strong search-intent page for performance-focused image optimization.' },
+    { href: '/guides/reduce-image-size-for-email/', label: 'Reduce image size for email', description: 'Use the email-specific path when attachment size matters.' },
+    { href: '/categories/image-tools/', label: 'Image tools hub', description: 'Jump into the broader image workflow cluster.' },
+  ],
+  'bijoy-to-unicode': [
+    { href: '/guides/bijoy-to-unicode-online/', label: 'Bijoy to Unicode online', description: 'Use the search-focused workflow guide for legacy Bangla text cleanup.' },
+    { href: '/compare/bijoy-vs-unicode/', label: 'Bijoy vs Unicode', description: 'Compare the standards before deciding how to handle the next document.' },
+    { href: '/categories/bangla-tools/', label: 'Bangla tools hub', description: 'See the full Bangla conversion and compatibility cluster.' },
+  ],
+  'unicode-to-bijoy': [
+    { href: '/guides/unicode-to-bijoy-online/', label: 'Unicode to Bijoy online', description: 'A practical workflow page for legacy publishing requirements.' },
+    { href: '/guides/fix-broken-bangla-font-conversion/', label: 'Fix broken Bangla conversion', description: 'Troubleshoot destination-font and legacy workflow issues after conversion.' },
+    { href: '/categories/bangla-tools/', label: 'Bangla tools hub', description: 'Browse the broader Bangladesh-focused compatibility cluster.' },
+  ],
+  'json-formatter': [
+    { href: '/compare/json-formatter-vs-json-validator/', label: 'Formatter vs validator', description: 'Clarify the developer workflow before you clean the payload.' },
+    { href: '/categories/developer-tools/', label: 'Developer tools hub', description: 'Continue into encoding and utility workflows for technical tasks.' },
+    { href: '/all-tools/', label: 'Browse all tools', description: 'Move beyond JSON into text, utility, and image workflows as needed.' },
+  ],
+}
+
+function getEditorialLinks(slug: string, tool: ToolConfig) {
+  if (editorialLinksBySlug[slug]) return editorialLinksBySlug[slug]
+
+  if (tool.category.includes('Image')) {
+    return [
+      { href: '/categories/image-tools/', label: 'Image tools hub', description: 'Explore the broader image workflow cluster.' },
+      { href: '/guides/best-format-for-website-images/', label: 'Best format for website images', description: 'Use the decision guide before the next export.' },
+      { href: '/compare/png-vs-jpg/', label: 'PNG vs JPG', description: 'Compare the two most common web image choices.' },
+    ]
+  }
+
+  if (slug.includes('bijoy') || slug.includes('unicode') || slug.includes('bangla')) {
+    return [
+      { href: '/categories/bangla-tools/', label: 'Bangla tools hub', description: 'See Bangla conversion and compatibility pages in one place.' },
+      { href: '/compare/bijoy-vs-unicode/', label: 'Bijoy vs Unicode', description: 'Compare the two standards before converting.' },
+      { href: '/guides/fix-broken-bangla-font-conversion/', label: 'Fix broken Bangla conversion', description: 'Troubleshoot messy legacy text and font workflows.' },
+    ]
+  }
+
+  if (tool.category.includes('Developer')) {
+    return [
+      { href: '/categories/developer-tools/', label: 'Developer tools hub', description: 'Continue into browser-based technical utilities.' },
+      { href: '/compare/json-formatter-vs-json-validator/', label: 'Formatter vs validator', description: 'Use the comparison page when the JSON workflow is still unclear.' },
+      { href: '/all-tools/', label: 'Browse all tools', description: 'Move into the wider utility mix when the next task changes.' },
+    ]
+  }
+
+  return []
+}
+
 export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps) {
   useEffect(() => {
     window.scrollTo(0, 0)
     trackToolUsage(slug, tool.category, tool.schemaData.name)
+    try {
+      const storageKey = 'convertfiles_recent_tools'
+      const previous = JSON.parse(window.localStorage.getItem(storageKey) || '[]') as string[]
+      const next = [slug, ...previous.filter((entry) => entry !== slug)].slice(0, 6)
+      window.localStorage.setItem(storageKey, JSON.stringify(next))
+    } catch {
+      // Ignore storage issues in privacy or embedded-browser contexts.
+    }
   }, [slug, tool.category, tool.schemaData.name])
 
-  const toolUrl = `https://convertfiles.qzz.io/tools/${slug}/`
+  const toolUrl = absoluteUrl(`/tools/${slug}/`)
   const faqItems = tool.faq && tool.faq.length > 0 ? tool.faq : []
   const howToSteps = getHowToSteps(tool)
   const workflowNotes = getWorkflowNotes(tool)
   const nextStepLinks = getNextStepLinks(slug, tool, relatedTools)
+  const enhancement = toolEnhancements[slug]
+  const editorialLinks = getEditorialLinks(slug, tool)
   const aboutCopy = stripMarkdown(tool.seoContent?.about || tool.description)
   const benefitsCopy = stripMarkdown(tool.seoContent?.benefits || getFallbackBenefits(tool))
   const isConversionPage = tool.category === 'Image Conversion'
@@ -302,6 +389,18 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
             <Badge variant="outline" className="border-blue-500/20 bg-blue-500/10 text-blue-300">No upload required</Badge>
             <Badge variant="outline" className="border-amber-500/20 bg-amber-500/10 text-amber-300">Instant browser workflow</Badge>
           </div>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <TrackedLink
+              href="/all-tools/"
+              eventName="search_click_landing"
+              eventParams={{ slug, destination_group: 'all_tools' }}
+            >
+              <Button variant="outline" className="border-slate-700 text-slate-200 hover:text-white">
+                Browse all tools
+              </Button>
+            </TrackedLink>
+            <CopyPageLinkButton url={toolUrl} pageType="tool" slug={slug} />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8">
@@ -338,6 +437,44 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                 minHeight={toolPageAd.minHeight}
                 className="mt-8"
               />
+            )}
+
+            {enhancement && (
+              <section className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+                <Card className="border-slate-700/40 bg-slate-800/35">
+                  <CardContent className="p-5">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-slate-500">
+                      {enhancement.heroExample.label}
+                    </p>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div>
+                        <p className="mb-2 text-sm font-semibold text-white">Example input</p>
+                        <p className="text-sm leading-relaxed text-slate-300">{enhancement.heroExample.input}</p>
+                      </div>
+                      <div>
+                        <p className="mb-2 text-sm font-semibold text-white">Expected output</p>
+                        <p className="text-sm leading-relaxed text-slate-300">{enhancement.heroExample.output}</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 text-sm leading-relaxed text-slate-400">
+                      {enhancement.heroExample.note}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-slate-700/40 bg-slate-800/35">
+                  <CardContent className="p-5">
+                    <h2 className="mb-4 text-xl font-bold text-white">Common use cases</h2>
+                    <div className="space-y-3">
+                      {enhancement.useCases.map((item) => (
+                        <div key={item} className="rounded-2xl border border-slate-700/35 bg-slate-900/40 p-4">
+                          <p className="text-sm leading-relaxed text-slate-300">{item}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
             )}
 
             <section className="mt-10 border-t border-slate-700/40 py-8">
@@ -377,6 +514,55 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
               )}
             </section>
 
+            {enhancement && (
+              <section className="border-t border-slate-700/40 py-7">
+                <h2 className="mb-5 text-2xl font-bold text-white">Best for, limitations, and fit</h2>
+                <div className="grid gap-4 md:grid-cols-3">
+                  <Card className="border-slate-700/35 bg-slate-800/30">
+                    <CardContent className="p-5">
+                      <h3 className="mb-4 text-base font-semibold text-white">Best for</h3>
+                      <ul className="space-y-3">
+                        {enhancement.bestFor.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-400" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-slate-700/35 bg-slate-800/30">
+                    <CardContent className="p-5">
+                      <h3 className="mb-4 text-base font-semibold text-white">Not best for</h3>
+                      <ul className="space-y-3">
+                        {enhancement.notBestFor.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-400" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-slate-700/35 bg-slate-800/30">
+                    <CardContent className="p-5">
+                      <h3 className="mb-4 text-base font-semibold text-white">Limitations</h3>
+                      <ul className="space-y-3">
+                        {enhancement.limitations.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-400" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </div>
+              </section>
+            )}
+
             <section className="border-t border-slate-700/40 py-7">
               <h2 className="mb-5 text-2xl font-bold text-white">Supported formats and workflows</h2>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -390,11 +576,50 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
               </div>
             </section>
 
+            {editorialLinks.length > 0 && (
+              <section className="border-t border-slate-700/40 py-7">
+                <h2 className="mb-5 text-2xl font-bold text-white">Guides and comparisons for this workflow</h2>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {editorialLinks.map((item) => (
+                    <TrackedLink
+                      key={item.href}
+                      href={item.href}
+                      eventName="search_click_landing"
+                      eventParams={{ slug, destination_group: 'editorial_link' }}
+                      className="group h-full"
+                    >
+                      <Card className="h-full border-slate-700/35 bg-slate-800/30 transition-colors hover:border-blue-500/35 hover:bg-slate-800/55">
+                        <CardContent className="p-4">
+                          <h3 className="mb-1 text-sm font-semibold text-white transition-colors group-hover:text-blue-300">{item.label}</h3>
+                          <p className="text-xs leading-relaxed text-slate-400">{item.description}</p>
+                        </CardContent>
+                      </Card>
+                    </TrackedLink>
+                  ))}
+                </div>
+              </section>
+            )}
+
             <section className="border-t border-slate-700/40 py-7">
               <h2 className="mb-5 text-2xl font-bold text-white">Useful next steps</h2>
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                 {nextStepLinks.map((item) => (
-                  <Link key={item.href} href={item.href} className="group">
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="group"
+                    onClick={() => {
+                      if (item.href.startsWith('/tools/')) {
+                        const nextToolId = item.href.split('/')[2]
+                        if (nextToolId) {
+                          trackNextToolClick(slug, nextToolId, 'tool_page')
+                        }
+                        return
+                      }
+
+                      trackLandingClick('search_click_landing', slug, item.href)
+                    }}
+                  >
                     <Card className="h-full border-slate-700/35 bg-slate-800/30 transition-colors hover:border-blue-500/40 hover:bg-slate-800/55">
                       <CardContent className="p-4">
                         <h3 className="mb-1 text-sm font-semibold text-white transition-colors group-hover:text-blue-300">{item.label}</h3>

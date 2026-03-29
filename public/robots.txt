@@ -1,43 +1,6 @@
-# ==========================================
-# robots.txt for ConvertFiles.qzz.io
-# Target: US, Europe, Worldwide audience
-# ==========================================
-
-# Allow all crawlers
 User-agent: *
-
-# Allow all pages
 Allow: /
-
-# Sitemap location (UPDATE WITH YOUR ACTUAL DOMAIN)
-Sitemap: https://convertfiles.qzz.io/main-sitemap.xml
-
-# Disallow admin/API routes (not useful for search)
 Disallow: /api/
-
-# Allow static assets
 Allow: /logo.png
 Allow: /logo.svg
-
-# ==========================================
-# SEO NOTES:
-# - This file tells search engines what to crawl
-# - Update the Sitemap URL with your actual domain
-# - For Google Search Console, verify ownership
-# - Add your site to: Google, Bing, DuckDuckGo
-# ==========================================
-
-# Google specific
-User-agent: Googlebot
-Allow: /
-
-# Bing specific  
-User-agent: Bingbot
-Allow: /
-
-# DuckDuckGo
-User-agent: DuckDuckBot
-Allow: /
-
-# Crawl delay for polite crawling (optional)
-# Crawl-delay: 1
+Sitemap: https://convertfiles.qzz.io/sitemap.xml

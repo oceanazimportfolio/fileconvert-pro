@@ -7,8 +7,10 @@ import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { toolsConfig } from '@/app/tools/[slug]/page'
 import { getAdPlacement } from '@/lib/adsense'
+import { TrackedLink } from '@/components/TrackedLink'
 import {
   ArrowLeft,
+  ArrowRight,
   Binary,
   FileText,
   Image as ImageIcon,
@@ -19,6 +21,33 @@ import {
   Youtube,
   Zap,
 } from 'lucide-react'
+
+const discoveryHighlights = [
+  {
+    slug: 'image-tools',
+    title: 'Image tools hub',
+    description: 'The best place to start if you need conversion, compression, or transparent PNG workflows.',
+    href: '/categories/image-tools/',
+  },
+  {
+    slug: 'bangla-tools',
+    title: 'Bangla tools hub',
+    description: 'Focused entry point for Bijoy, Unicode, and publishing compatibility tasks.',
+    href: '/categories/bangla-tools/',
+  },
+  {
+    slug: 'guides',
+    title: 'Workflow guides',
+    description: 'Problem-first pages for searchers who need task help, not only a tool name.',
+    href: '/guides/',
+  },
+  {
+    slug: 'compare',
+    title: 'Comparison library',
+    description: 'Decision-stage pages for choosing the right format before converting.',
+    href: '/compare/',
+  },
+]
 
 const getCategoryIcon = (category: string) => {
   if (category.includes('Image')) return ImageIcon
@@ -148,6 +177,16 @@ export default function AllToolsPage() {
                 Start with image conversion
               </Button>
             </Link>
+            <Link href="/guides/">
+              <Button variant="outline" className="border-border px-6 text-foreground hover:text-white">
+                Browse guides
+              </Button>
+            </Link>
+            <Link href="/compare/">
+              <Button variant="outline" className="border-border px-6 text-foreground hover:text-white">
+                Compare formats
+              </Button>
+            </Link>
             <Link href="/about/">
               <Button variant="outline" className="border-border px-6 text-foreground hover:text-white">
                 Why ConvertFiles?
@@ -184,6 +223,39 @@ export default function AllToolsPage() {
               </CardContent>
             </Card>
           ))}
+        </section>
+
+        <section className="mb-14">
+          <div className="mb-6 flex items-center gap-3 border-b border-border pb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10">
+              <Sparkles className="h-5 w-5 text-blue-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black text-white">More ways to explore</h2>
+              <p className="text-sm text-muted-foreground">
+                Use the directory, or jump into a stronger topical entry point.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {discoveryHighlights.map((item) => (
+              <TrackedLink
+                key={item.slug}
+                href={item.href}
+                eventName="search_click_landing"
+                eventParams={{ slug: item.slug, destination_group: 'all_tools_discovery' }}
+                className="group h-full"
+              >
+                <Card className="h-full overflow-hidden border-slate-700/40 bg-slate-800/35 p-5 transition-all hover:border-blue-500/35 hover:bg-slate-800/55">
+                  <h3 className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-blue-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                </Card>
+              </TrackedLink>
+            ))}
+          </div>
         </section>
 
         <section className="mb-14" aria-labelledby="featured-tools">
@@ -281,6 +353,14 @@ export default function AllToolsPage() {
                 <h3 className="text-base font-semibold text-white">Need smaller image files?</h3>
                 <p className="mt-1 text-sm leading-relaxed text-slate-400">Use Image Compressor and Resizer for faster pages and lighter downloads.</p>
               </Link>
+              <Link href="/guides/reduce-image-size-for-website/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
+                <h3 className="text-base font-semibold text-white">Need the workflow, not just the tool?</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">Use the website image-size guide for a task-oriented path into compression.</p>
+              </Link>
+              <Link href="/compare/png-vs-jpg/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
+                <h3 className="text-base font-semibold text-white">Still deciding between formats?</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">Compare PNG vs JPG before you commit to the next export path.</p>
+              </Link>
               <Link href="/tools/json-formatter/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
                 <h3 className="text-base font-semibold text-white">Cleaning API or config data?</h3>
                 <p className="mt-1 text-sm leading-relaxed text-slate-400">JSON Formatter helps you validate and read complex payloads quickly.</p>
@@ -291,6 +371,16 @@ export default function AllToolsPage() {
               </Link>
             </div>
           </div>
+
+          <TrackedLink
+            href="/categories/"
+            eventName="search_click_landing"
+            eventParams={{ slug: 'all-tools-categories', destination_group: 'categories_index' }}
+            className="mt-6 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+          >
+            Explore the category hubs
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </TrackedLink>
         </section>
       </main>
 

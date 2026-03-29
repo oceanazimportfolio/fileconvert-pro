@@ -54,6 +54,17 @@ export function Footer() {
             </ul>
           </nav>
 
+          <nav aria-label="Guides and discovery pages">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Discover</h3>
+            <ul className="space-y-3 text-sm font-medium text-slate-400">
+              <li><Link href="/guides/" className="transition-colors hover:text-blue-400">Workflow Guides</Link></li>
+              <li><Link href="/compare/" className="transition-colors hover:text-blue-400">Compare Formats</Link></li>
+              <li><Link href="/categories/image-tools/" className="transition-colors hover:text-blue-400">Image Tools Hub</Link></li>
+              <li><Link href="/categories/bangla-tools/" className="transition-colors hover:text-blue-400">Bangla Tools Hub</Link></li>
+              <li><Link href="/categories/" className="inline-block font-semibold text-white transition-colors hover:text-blue-400">All categories</Link></li>
+            </ul>
+          </nav>
+
           <nav aria-label="Trust and company">
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
             <ul className="space-y-3 text-sm font-medium text-slate-400">
@@ -99,6 +110,9 @@ export function Footer() {
 
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium">
             <Link href="/all-tools/" className="text-slate-400 transition-colors hover:text-blue-400">All Tools</Link>
+            <Link href="/guides/" className="text-slate-400 transition-colors hover:text-blue-400">Guides</Link>
+            <Link href="/compare/" className="text-slate-400 transition-colors hover:text-blue-400">Compare</Link>
+            <Link href="/categories/" className="text-slate-400 transition-colors hover:text-blue-400">Categories</Link>
             <Link href="/about/" className="text-slate-400 transition-colors hover:text-blue-400">About</Link>
             <Link href="/privacy-policy/" className="text-slate-400 transition-colors hover:text-blue-400">Privacy Policy</Link>
             <Link href="/terms/" className="text-slate-400 transition-colors hover:text-blue-400">Terms</Link>

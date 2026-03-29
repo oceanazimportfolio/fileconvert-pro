@@ -5,6 +5,8 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { getAdPlacement } from '@/lib/adsense'
+import { TrackedLink } from '@/components/TrackedLink'
+import { RecentlyUsedTools } from '@/components/landing/RecentlyUsedTools'
 import {
   ArrowRight,
   Binary,
@@ -168,6 +170,82 @@ const categories = [
   { id: 'social', name: 'Social Media', count: 1 },
 ]
 
+const workflowHighlights = [
+  {
+    slug: 'how-to-convert-webp-to-png',
+    title: 'How to convert WebP to PNG',
+    description: 'A compatibility-first guide for transparent assets and older workflows.',
+    href: '/guides/how-to-convert-webp-to-png/',
+  },
+  {
+    slug: 'reduce-image-size-for-website',
+    title: 'Reduce image size for website speed',
+    description: 'A problem-first page for performance-focused image cleanup.',
+    href: '/guides/reduce-image-size-for-website/',
+  },
+  {
+    slug: 'remove-background-from-product-photo',
+    title: 'Remove background from product photos',
+    description: 'A strong ecommerce workflow page tied to one of the highest-intent tools.',
+    href: '/guides/remove-background-from-product-photo/',
+  },
+]
+
+const banglaHighlights = [
+  {
+    slug: 'bijoy-to-unicode-online',
+    title: 'Bijoy to Unicode online',
+    description: 'Move legacy Bangla text into a modern, shareable format.',
+    href: '/guides/bijoy-to-unicode-online/',
+  },
+  {
+    slug: 'unicode-to-bijoy-online',
+    title: 'Unicode to Bijoy online',
+    description: 'Bridge modern Bangla typing back into older publishing workflows.',
+    href: '/guides/unicode-to-bijoy-online/',
+  },
+  {
+    slug: 'bijoy-vs-unicode',
+    title: 'Bijoy vs Unicode',
+    description: 'Compare standards before deciding which direction to convert.',
+    href: '/compare/bijoy-vs-unicode/',
+  },
+]
+
+const categoryHighlights = [
+  {
+    slug: 'image-tools',
+    title: 'Image tools hub',
+    description: 'The main growth cluster for conversion, compression, and asset cleanup.',
+    href: '/categories/image-tools/',
+  },
+  {
+    slug: 'bangla-tools',
+    title: 'Bangla tools hub',
+    description: 'The strongest lower-competition cluster for Bangladesh-focused search intent.',
+    href: '/categories/bangla-tools/',
+  },
+  {
+    slug: 'developer-tools',
+    title: 'Developer tools hub',
+    description: 'A smaller cluster with strong community-sharing potential.',
+    href: '/categories/developer-tools/',
+  },
+]
+
+const comparisonHighlights = [
+  ['PNG vs JPG', '/compare/png-vs-jpg/'],
+  ['WebP vs PNG', '/compare/webp-vs-png/'],
+  ['JSON Formatter vs JSON Validator', '/compare/json-formatter-vs-json-validator/'],
+  ['Bijoy vs Unicode', '/compare/bijoy-vs-unicode/'],
+]
+
+const recentToolItems = tools.map((tool) => ({
+  slug: tool.id,
+  title: tool.title,
+  description: tool.description,
+}))
+
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -317,6 +395,65 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="mb-12 grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
+          <Card className="tool-surface border-slate-700/40 bg-slate-800/35 p-6">
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
+                <Sparkles className="h-5 w-5 text-blue-400" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-white">Search-first workflow guides</h2>
+                <p className="text-sm text-slate-400">Pages written for problem-based queries, not only tool names.</p>
+              </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {workflowHighlights.map((item) => (
+                <TrackedLink
+                  key={item.slug}
+                  href={item.href}
+                  eventName="search_click_landing"
+                  eventParams={{ slug: item.slug, destination_group: 'homepage_guide' }}
+                  className="group h-full"
+                >
+                  <Card className="h-full border-slate-700/40 bg-slate-900/45 transition-all hover:border-blue-500/35 hover:bg-slate-800/70">
+                    <div className="p-5">
+                      <h3 className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-blue-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-slate-400">{item.description}</p>
+                    </div>
+                  </Card>
+                </TrackedLink>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="tool-surface border-emerald-500/20 bg-emerald-500/5 p-6">
+            <div className="mb-5">
+              <h2 className="text-2xl font-black text-white">Popular in Bangladesh</h2>
+              <p className="mt-1 text-sm leading-relaxed text-slate-300">
+                Bangla conversion pages can capture more specific intent and route those users into the wider tool set.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {banglaHighlights.map((item) => (
+                <TrackedLink
+                  key={item.slug}
+                  href={item.href}
+                  eventName="search_click_landing"
+                  eventParams={{ slug: item.slug, destination_group: 'homepage_bangla' }}
+                  className="block rounded-2xl border border-emerald-500/20 bg-slate-900/45 p-4 transition-colors hover:border-emerald-400/35"
+                >
+                  <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-400">{item.description}</p>
+                </TrackedLink>
+              ))}
+            </div>
+          </Card>
+        </section>
+
         <section className="mb-12 border-t border-border pt-12" aria-labelledby="featured-utilities">
           <div className="mb-6 flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-amber-400" />
@@ -351,6 +488,78 @@ export default function Home() {
               )
             })}
           </div>
+        </section>
+
+        <section className="mb-12">
+          <RecentlyUsedTools items={recentToolItems} />
+        </section>
+
+        <section className="mb-12 grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
+          <Card className="tool-surface border-slate-700/40 bg-slate-800/35 p-6">
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-500/20 bg-amber-500/10">
+                <Globe className="h-5 w-5 text-amber-400" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-white">Browse by category hub</h2>
+                <p className="text-sm text-slate-400">Curated pathways for image, Bangla, and developer demand clusters.</p>
+              </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {categoryHighlights.map((item) => (
+                <TrackedLink
+                  key={item.slug}
+                  href={item.href}
+                  eventName="search_click_landing"
+                  eventParams={{ slug: item.slug, destination_group: 'homepage_category' }}
+                  className="group h-full"
+                >
+                  <Card className="h-full border-slate-700/40 bg-slate-900/45 transition-all hover:border-amber-400/30 hover:bg-slate-800/70">
+                    <div className="p-5">
+                      <h3 className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-amber-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-slate-400">{item.description}</p>
+                    </div>
+                  </Card>
+                </TrackedLink>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="tool-surface border-slate-700/40 bg-slate-800/35 p-6">
+            <div className="mb-5">
+              <h2 className="text-2xl font-black text-white">Compare before converting</h2>
+              <p className="mt-1 text-sm leading-relaxed text-slate-300">
+                Decision-stage pages help users choose the right format before they use a converter or optimizer.
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {comparisonHighlights.map(([label, href]) => (
+                <TrackedLink
+                  key={label}
+                  href={href}
+                  eventName="search_click_landing"
+                  eventParams={{ slug: label.toLowerCase().replace(/\s+/g, '-'), destination_group: 'homepage_compare' }}
+                  className="rounded-2xl border border-slate-700/40 bg-slate-900/45 px-4 py-4 text-sm font-semibold text-white transition-colors hover:border-blue-500/35"
+                >
+                  {label}
+                </TrackedLink>
+              ))}
+            </div>
+
+            <TrackedLink
+              href="/compare/"
+              eventName="search_click_landing"
+              eventParams={{ slug: 'homepage-compare-index', destination_group: 'compare_index' }}
+              className="mt-5 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+            >
+              Open the full comparison library
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </TrackedLink>
+          </Card>
         </section>
 
         <section aria-labelledby="tool-directory">

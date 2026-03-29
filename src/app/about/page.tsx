@@ -251,6 +251,32 @@ export default function AboutPage() {
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="tool-surface border-slate-700/50 bg-slate-800/45">
+              <CardContent className="p-6">
+                <h2 className="mb-4 text-xl font-bold text-white">Best review surfaces</h2>
+                <div className="space-y-3 text-sm">
+                  <Link href="/guides/" className="block rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35">
+                    <span className="block font-semibold text-white">Workflow guides</span>
+                    <span className="mt-1 block leading-relaxed text-slate-400">
+                      Best for reviewers who want to see practical, task-based content instead of only tool cards.
+                    </span>
+                  </Link>
+                  <Link href="/compare/" className="block rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35">
+                    <span className="block font-semibold text-white">Comparison library</span>
+                    <span className="mt-1 block leading-relaxed text-slate-400">
+                      Useful when directories or roundups want a clearer editorial layer beyond the tools themselves.
+                    </span>
+                  </Link>
+                  <Link href="/categories/" className="block rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35">
+                    <span className="block font-semibold text-white">Category hubs</span>
+                    <span className="mt-1 block leading-relaxed text-slate-400">
+                      Strong entry points for image, Bangla, and developer workflows that help visitors orient quickly.
+                    </span>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
@@ -285,6 +311,40 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-16 rounded-3xl border border-blue-500/20 bg-blue-500/5 p-6 md:p-8">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+            <div>
+              <h2 className="mb-4 text-3xl font-bold text-white">How the content system now supports discovery</h2>
+              <p className="text-sm leading-relaxed text-slate-300">
+                ConvertFiles is no longer just a directory of standalone pages. It now includes category hubs, workflow
+                guides, and comparison pages that help users arrive from different types of search intent and keep moving
+                once they land.
+              </p>
+            </div>
+
+            <div className="grid gap-3">
+              <Link href="/categories/image-tools/" className="rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35">
+                <h3 className="text-base font-semibold text-white">Image demand cluster</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                  Format conversion, compression, and transparent PNG workflows for broad search demand.
+                </p>
+              </Link>
+              <Link href="/categories/bangla-tools/" className="rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35">
+                <h3 className="text-base font-semibold text-white">Bangla publishing cluster</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                  Lower-competition, high-need routes for Bijoy and Unicode compatibility work.
+                </p>
+              </Link>
+              <Link href="/compare/png-vs-jpg/" className="rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35">
+                <h3 className="text-base font-semibold text-white">Decision-stage content</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                  Comparison pages capture people who are still choosing between formats before they convert anything.
+                </p>
+              </Link>
+            </div>
           </div>
         </section>
       </main>
