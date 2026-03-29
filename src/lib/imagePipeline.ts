@@ -1,7 +1,7 @@
 'use client'
 
 import imageCompression from 'browser-image-compression'
-import UPNG from 'upng-js'
+import UPNG from 'upng-js/UPNG.js'
 
 export type SupportedImageFormat = 'png' | 'jpg' | 'jpeg' | 'webp' | 'avif' | 'gif'
 export type OutputImageFormat = 'png' | 'jpeg' | 'webp'
