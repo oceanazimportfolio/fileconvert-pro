@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { toolsConfig } from '@/app/tools/[slug]/page'
 import { getAdPlacement } from '@/lib/adsense'
 import { TrackedLink } from '@/components/TrackedLink'
+import { ToolIcon } from '@/components/ToolIcon'
 import {
   ArrowLeft,
   ArrowRight,
@@ -174,6 +175,7 @@ export default function AllToolsPage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link href="/tools/image-converter/">
               <Button className="bg-primary px-6 font-semibold hover:bg-primary/90">
+                <ToolIcon slug="image-converter" className="mr-2 h-4 w-4" />
                 Start with image conversion
               </Button>
             </Link>
@@ -277,6 +279,9 @@ export default function AllToolsPage() {
                 <Link key={slug} href={`/tools/${slug}/`} className="group h-full">
                   <Card className="h-full overflow-hidden border-amber-400/20 bg-amber-400/5 p-5 transition-all duration-300 hover:border-amber-400/40 hover:bg-amber-400/10 hover:shadow-xl hover:shadow-amber-400/10">
                     <div className="flex h-full flex-col">
+                      <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-400/20 bg-amber-400/10">
+                        <ToolIcon slug={slug} className="h-5 w-5 text-amber-300" />
+                      </div>
                       <h3 className="mb-2 text-lg font-bold leading-tight text-white transition-colors group-hover:text-amber-300">
                         {tool.schemaData.name}
                       </h3>
@@ -324,6 +329,9 @@ export default function AllToolsPage() {
                     <Link key={tool.slug} href={`/tools/${tool.slug}/`} className="group h-full">
                       <Card className="h-full overflow-hidden p-5 transition-all duration-300 hover:border-primary/40 hover:bg-card hover:shadow-xl hover:shadow-primary/5">
                         <div className="flex h-full flex-col">
+                          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/15 bg-primary/10">
+                            <ToolIcon slug={tool.slug} className="h-5 w-5 text-primary" />
+                          </div>
                           <h3 className="mb-2 text-base font-bold leading-tight text-white transition-colors group-hover:text-primary">
                             {tool.schemaData.name}
                           </h3>
@@ -350,8 +358,15 @@ export default function AllToolsPage() {
             </div>
             <div className="grid gap-3">
               <Link href="/tools/image-compress/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
-                <h3 className="text-base font-semibold text-white">Need smaller image files?</h3>
-                <p className="mt-1 text-sm leading-relaxed text-slate-400">Use Image Compressor and Resizer for faster pages and lighter downloads.</p>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-primary/15 bg-primary/10">
+                    <ToolIcon slug="image-compress" className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-white">Need smaller image files?</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-400">Use Image Compressor and Resizer for faster pages and lighter downloads.</p>
+                  </div>
+                </div>
               </Link>
               <Link href="/guides/reduce-image-size-for-website/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
                 <h3 className="text-base font-semibold text-white">Need the workflow, not just the tool?</h3>
@@ -362,8 +377,15 @@ export default function AllToolsPage() {
                 <p className="mt-1 text-sm leading-relaxed text-slate-400">Compare PNG vs JPG before you commit to the next export path.</p>
               </Link>
               <Link href="/tools/json-formatter/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
-                <h3 className="text-base font-semibold text-white">Cleaning API or config data?</h3>
-                <p className="mt-1 text-sm leading-relaxed text-slate-400">JSON Formatter helps you validate and read complex payloads quickly.</p>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-primary/15 bg-primary/10">
+                    <ToolIcon slug="json-formatter" className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-white">Cleaning API or config data?</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-400">JSON Formatter helps you validate and read complex payloads quickly.</p>
+                  </div>
+                </div>
               </Link>
               <Link href="/about/" className="rounded-2xl border border-slate-700/50 bg-slate-900/45 p-4 transition-colors hover:border-primary/40">
                 <h3 className="text-base font-semibold text-white">Want to understand the privacy model?</h3>

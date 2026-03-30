@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { TrackedLink } from '@/components/TrackedLink'
+import { ToolIcon } from '@/components/ToolIcon'
 import { Clock3 } from 'lucide-react'
 
 interface ToolItem {
@@ -70,6 +71,9 @@ export function RecentlyUsedTools({
           >
             <Card className="h-full border-slate-700/35 bg-slate-900/45 transition-colors hover:border-amber-400/35 hover:bg-slate-900/70">
               <CardContent className="p-4">
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10">
+                  <ToolIcon slug={item.slug} className="h-4 w-4 text-amber-300" />
+                </div>
                 <h3 className="mb-2 text-sm font-semibold text-white transition-colors group-hover:text-amber-300">
                   {item.title}
                 </h3>

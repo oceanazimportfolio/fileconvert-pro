@@ -7,28 +7,17 @@ import { Badge } from '@/components/ui/badge'
 import { getAdPlacement } from '@/lib/adsense'
 import { TrackedLink } from '@/components/TrackedLink'
 import { RecentlyUsedTools } from '@/components/landing/RecentlyUsedTools'
+import { ToolIcon } from '@/components/ToolIcon'
 import {
   ArrowRight,
-  Binary,
-  CaseSensitive,
-  Eraser,
-  FileText,
   Globe,
-  Hash,
   Image as ImageIcon,
-  Key,
-  Link as LinkIcon,
-  Minimize2,
-  Palette,
-  QrCode,
   Shield,
   Sparkles,
-  Type,
-  Wand2,
-  Youtube,
   Zap,
 } from 'lucide-react'
 import { Footer } from '@/components/Footer'
+import type { ToolIconSlug } from '@/lib/toolIcons'
 
 export const metadata: Metadata = {
   title: 'Free Online File Converter and Browser Tools',
@@ -55,108 +44,93 @@ export const metadata: Metadata = {
 
 const tools = [
   {
-    id: 'bangla-converter',
+    id: 'bangla-converter' as ToolIconSlug,
     title: 'Bangla Converter',
     description: 'Unicode and Bijoy conversion for browser-based Bangla workflows.',
-    icon: Type,
     category: 'text',
   },
   {
-    id: 'image-converter',
+    id: 'image-converter' as ToolIconSlug,
     title: 'Image Converter',
     description: 'Convert PNG, JPG, WebP, and AVIF files with clear output choices.',
-    icon: ImageIcon,
     category: 'image',
   },
   {
-    id: 'image-compress',
+    id: 'image-compress' as ToolIconSlug,
     title: 'Compress and Resize',
     description: 'Reduce image size and resize assets for web, email, and upload workflows.',
-    icon: Minimize2,
     category: 'image',
   },
   {
-    id: 'image-enhancer',
+    id: 'image-enhancer' as ToolIconSlug,
     title: 'Image Enhancer',
     description: 'Adjust brightness, contrast, saturation, and sharpness directly in the browser.',
-    icon: Wand2,
     category: 'image',
   },
   {
-    id: 'background-remover',
+    id: 'background-remover' as ToolIconSlug,
     title: 'Background Remover',
     description: 'Create transparent cutouts and cleaner product visuals without leaving the site.',
-    icon: Eraser,
     category: 'image',
   },
   {
-    id: 'json-formatter',
+    id: 'json-formatter' as ToolIconSlug,
     title: 'JSON Formatter',
     description: 'Beautify, validate, and inspect JSON with fast browser-based formatting.',
-    icon: Binary,
     category: 'developer',
   },
   {
-    id: 'base64-encoder',
+    id: 'base64-encoder' as ToolIconSlug,
     title: 'Base64 Encoder',
     description: 'Encode and decode text or image data without exposing it to a server.',
-    icon: Binary,
     category: 'developer',
   },
   {
-    id: 'url-encoder',
+    id: 'url-encoder' as ToolIconSlug,
     title: 'URL Encoder',
     description: 'Encode or decode URLs and query strings quickly.',
-    icon: LinkIcon,
     category: 'developer',
   },
   {
-    id: 'case-converter',
+    id: 'case-converter' as ToolIconSlug,
     title: 'Case Converter',
     description: 'Switch text between uppercase, lowercase, title case, and more.',
-    icon: CaseSensitive,
     category: 'text',
   },
   {
-    id: 'word-counter',
+    id: 'word-counter' as ToolIconSlug,
     title: 'Word Counter',
     description: 'Count words, characters, and reading time for writing and SEO workflows.',
-    icon: Hash,
     category: 'text',
   },
   {
-    id: 'lorem-ipsum-generator',
+    id: 'lorem-ipsum-generator' as ToolIconSlug,
     title: 'Lorem Ipsum Generator',
     description: 'Generate placeholder text for layouts, mockups, and drafts.',
-    icon: FileText,
     category: 'text',
   },
   {
-    id: 'color-palette',
+    id: 'color-palette' as ToolIconSlug,
     title: 'Color Palette Generator',
     description: 'Build palettes, export color tokens, and explore combinations for design work.',
-    icon: Palette,
     category: 'design',
   },
   {
-    id: 'password-generator',
+    id: 'password-generator' as ToolIconSlug,
     title: 'Password Generator',
     description: 'Create strong browser-generated passwords with adjustable complexity.',
-    icon: Key,
     category: 'utility',
   },
   {
-    id: 'qr-code-generator',
+    id: 'qr-code-generator' as ToolIconSlug,
     title: 'QR Code Generator',
     description: 'Create QR codes for text, URLs, and more with instant PNG output.',
-    icon: QrCode,
     category: 'utility',
   },
   {
-    id: 'youtube-thumbnail',
+    id: 'youtube-thumbnail' as ToolIconSlug,
     title: 'YouTube Thumbnail Downloader',
     description: 'Fetch video thumbnails quickly for research and content workflows.',
-    icon: Youtube,
     category: 'social',
   },
 ]
@@ -315,6 +289,7 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link href="/tools/image-converter/">
               <Button size="lg" className="bg-primary px-7 font-semibold hover:bg-primary/90">
+                <ToolIcon slug="image-converter" className="mr-2 h-4 w-4" />
                 Open image converter
               </Button>
             </Link>
@@ -380,15 +355,16 @@ export default function Home() {
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
             {[
-              ['PNG to JPG', '/tools/png-to-jpg/'],
-              ['WebP to PNG', '/tools/webp-to-png/'],
-              ['JPG to PNG', '/tools/jpg-to-png/'],
-              ['WebP to JPG', '/tools/webp-to-jpg/'],
-              ['AVIF to PNG', '/tools/avif-to-png/'],
-            ].map(([label, href]) => (
-              <Link key={label} href={href}>
-                <Button variant="outline" className="h-12 w-full rounded-xl border-border/50 bg-card px-6 text-sm shadow-sm transition-all hover:scale-[1.01] hover:bg-muted hover:text-foreground">
-                  {label}
+              { label: 'PNG to JPG', href: '/tools/png-to-jpg/', slug: 'png-to-jpg' as ToolIconSlug },
+              { label: 'WebP to PNG', href: '/tools/webp-to-png/', slug: 'webp-to-png' as ToolIconSlug },
+              { label: 'JPG to PNG', href: '/tools/jpg-to-png/', slug: 'jpg-to-png' as ToolIconSlug },
+              { label: 'WebP to JPG', href: '/tools/webp-to-jpg/', slug: 'webp-to-jpg' as ToolIconSlug },
+              { label: 'AVIF to PNG', href: '/tools/avif-to-png/', slug: 'avif-to-png' as ToolIconSlug },
+            ].map((item) => (
+              <Link key={item.slug} href={item.href}>
+                <Button variant="outline" className="h-12 w-full justify-start gap-2 rounded-xl border-border/50 bg-card px-4 text-sm shadow-sm transition-all hover:scale-[1.01] hover:bg-muted hover:text-foreground">
+                  <ToolIcon slug={item.slug} className="h-4 w-4 text-primary" />
+                  <span className="truncate">{item.label}</span>
                 </Button>
               </Link>
             ))}
@@ -472,13 +448,11 @@ export default function Home() {
               const tool = tools.find((entry) => entry.id === toolId)
               if (!tool) return null
 
-              const Icon = tool.icon
-
               return (
                 <Link key={tool.id} href={`/tools/${tool.id}/`} className="group">
                   <Card className="flex h-full flex-col items-center p-4 text-center transition-all duration-300 hover:border-amber-400/30 hover:bg-card hover:shadow-xl hover:shadow-amber-400/5 active:scale-[0.98]">
                     <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted/50 transition-colors group-hover:bg-amber-400/10">
-                      <Icon className="h-5 w-5 text-amber-400" />
+                      <ToolIcon slug={tool.id} className="h-5 w-5 text-amber-400" />
                     </div>
                     <h3 className="text-sm font-bold text-white transition-colors group-hover:text-amber-400">
                       {tool.title}
@@ -578,14 +552,12 @@ export default function Home() {
 
           <div className="mb-24 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {tools.map((tool) => {
-              const Icon = tool.icon
-
               return (
                 <Link key={tool.id} href={`/tools/${tool.id}/`} className="group h-full">
                   <Card className="relative h-full overflow-hidden p-5 transition-all duration-300 hover:border-primary/50 hover:bg-card hover:shadow-xl hover:shadow-primary/5 active:scale-[0.98]">
                     <div className="flex h-full flex-col">
                       <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/50 transition-all duration-300 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/30">
-                        <Icon className="h-7 w-7 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
+                        <ToolIcon slug={tool.id} className="h-7 w-7 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
                       </div>
                       <h3 className="text-base font-black text-white transition-colors group-hover:text-primary">
                         {tool.title}

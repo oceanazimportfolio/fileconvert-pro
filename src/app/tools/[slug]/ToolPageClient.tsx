@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { AdsenseAd } from '@/components/AdsenseAd'
 import { CopyPageLinkButton } from '@/components/landing/CopyPageLinkButton'
 import { TrackedLink } from '@/components/TrackedLink'
+import { ToolIcon } from '@/components/ToolIcon'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -14,6 +15,7 @@ import { getAdPlacement, shouldRenderToolPageAd } from '@/lib/adsense'
 import { trackLandingClick, trackNextToolClick, trackToolUsage } from '@/lib/analytics'
 import { absoluteUrl } from '@/lib/site'
 import { toolEnhancements } from '@/lib/toolEnhancements'
+import { getToolSlugFromHref } from '@/lib/toolIcons'
 import { BackgroundRemover } from '@/components/tools/BackgroundRemover'
 import { BanglaConverter } from '@/components/tools/BanglaConverter'
 import { Base64Tool } from '@/components/tools/Base64Tool'
@@ -419,7 +421,8 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                 <div className="flex flex-wrap gap-2">
                   {relatedTools.map((item) => (
                     <Link key={item.id} href={`/tools/${item.id}/`}>
-                      <Button variant="outline" size="sm" className="text-xs text-slate-300 transition-all duration-150 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white">
+                      <Button variant="outline" size="sm" className="gap-2 text-xs text-slate-300 transition-all duration-150 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white">
+                        <ToolIcon slug={item.id} className="h-3.5 w-3.5" />
                         {item.title}
                         <ArrowRight className="ml-1.5 h-3 w-3 opacity-60" />
                       </Button>
@@ -602,34 +605,47 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
 
             <section className="border-t border-slate-700/40 py-7">
               <h2 className="mb-5 text-2xl font-bold text-white">Useful next steps</h2>
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {nextStepLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="group"
-                    onClick={() => {
-                      if (item.href.startsWith('/tools/')) {
-                        const nextToolId = item.href.split('/')[2]
-                        if (nextToolId) {
-                          trackNextToolClick(slug, nextToolId, 'tool_page')
-                        }
-                        return
-                      }
+                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {nextStepLinks.map((item) => {
+                    const toolSlug = getToolSlugFromHref(item.href)
 
-                      trackLandingClick('search_click_landing', slug, item.href)
-                    }}
-                  >
-                    <Card className="h-full border-slate-700/35 bg-slate-800/30 transition-colors hover:border-blue-500/40 hover:bg-slate-800/55">
-                      <CardContent className="p-4">
-                        <h3 className="mb-1 text-sm font-semibold text-white transition-colors group-hover:text-blue-300">{item.label}</h3>
-                        <p className="text-xs leading-relaxed text-slate-400">{item.description}</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="group"
+                        onClick={() => {
+                          if (item.href.startsWith('/tools/')) {
+                            const nextToolId = item.href.split('/')[2]
+                            if (nextToolId) {
+                              trackNextToolClick(slug, nextToolId, 'tool_page')
+                            }
+                            return
+                          }
+
+                          trackLandingClick('search_click_landing', slug, item.href)
+                        }}
+                      >
+                        <Card className="h-full border-slate-700/35 bg-slate-800/30 transition-colors hover:border-blue-500/40 hover:bg-slate-800/55">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              {toolSlug ? (
+                                <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-blue-500/15 bg-blue-500/10">
+                                  <ToolIcon slug={toolSlug} className="h-4 w-4 text-blue-300" />
+                                </div>
+                              ) : null}
+                              <div>
+                                <h3 className="mb-1 text-sm font-semibold text-white transition-colors group-hover:text-blue-300">{item.label}</h3>
+                                <p className="text-xs leading-relaxed text-slate-400">{item.description}</p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </section>
 
             {faqItems.length > 0 && (
             <section className="border-t border-slate-700/40 py-7">
@@ -659,6 +675,9 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                   <Link key={item.id} href={`/tools/${item.id}/`} className="group">
                     <Card className="h-full cursor-pointer border-slate-700/30 bg-slate-800/30 shadow-sm transition-all duration-200 hover:border-blue-500/40 hover:bg-slate-800/60 hover:shadow-md hover:shadow-blue-500/5">
                       <CardContent className="p-4">
+                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-500/15 bg-blue-500/10">
+                          <ToolIcon slug={item.id} className="h-4 w-4 text-blue-300" />
+                        </div>
                         <h3 className="mb-1.5 text-sm font-medium text-white transition-colors group-hover:text-blue-300">{item.title}</h3>
                         <p className="line-clamp-2 text-xs leading-relaxed text-slate-400">{item.desc}</p>
                       </CardContent>
@@ -711,11 +730,18 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                   <p className="mb-1.5 text-sm font-medium text-blue-300">Need another workflow?</p>
                   <p className="mb-4 text-sm leading-relaxed text-slate-400">Jump to a related tool, browse the full directory, or learn more about the platform.</p>
                   <div className="space-y-2">
-                    {nextStepLinks.slice(0, 4).map((item) => (
-                      <Link key={item.href} href={item.href} className="block rounded-xl border border-slate-700/40 px-3 py-3 text-sm text-slate-200 transition-colors hover:border-blue-500/40 hover:bg-slate-900/40">
-                        {item.label}
-                      </Link>
-                    ))}
+                    {nextStepLinks.slice(0, 4).map((item) => {
+                      const toolSlug = getToolSlugFromHref(item.href)
+
+                      return (
+                        <Link key={item.href} href={item.href} className="block rounded-xl border border-slate-700/40 px-3 py-3 text-sm text-slate-200 transition-colors hover:border-blue-500/40 hover:bg-slate-900/40">
+                          <span className="flex items-center gap-2">
+                            {toolSlug ? <ToolIcon slug={toolSlug} className="h-4 w-4 text-blue-300" /> : null}
+                            <span>{item.label}</span>
+                          </span>
+                        </Link>
+                      )
+                    })}
                   </div>
                 </CardContent>
               </Card>

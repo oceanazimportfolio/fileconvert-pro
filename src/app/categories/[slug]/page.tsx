@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { Footer } from '@/components/Footer'
 import { CopyPageLinkButton } from '@/components/landing/CopyPageLinkButton'
 import { TrackedLink } from '@/components/TrackedLink'
+import { ToolIcon } from '@/components/ToolIcon'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -126,6 +127,7 @@ export default async function CategoryHubPage({
                 eventParams={{ slug: hub.slug, destination_group: 'primary_tool' }}
               >
                 <Button className="bg-blue-600 px-6 font-semibold hover:bg-blue-500">
+                  <ToolIcon slug={featuredTools[0].slug} className="mr-2 h-4 w-4" />
                   Open featured tool
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -164,6 +166,9 @@ export default async function CategoryHubPage({
                   >
                     <Card className="h-full border-slate-700/40 bg-slate-800/30 transition-all hover:border-blue-500/35 hover:bg-slate-800/55">
                       <CardContent className="p-5">
+                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
+                          <ToolIcon slug={tool.slug} className="h-5 w-5 text-blue-300" />
+                        </div>
                         <h3 className="mb-2 text-xl font-bold text-white transition-colors group-hover:text-blue-300">
                           {tool.title}
                         </h3>
