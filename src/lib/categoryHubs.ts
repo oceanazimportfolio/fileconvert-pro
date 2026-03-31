@@ -8,7 +8,7 @@ export const categoryHubs: Record<string, CategoryHub> = {
     metaDescription: 'Browse ConvertFiles image tools for format changes, compression, enhancement, transparent PNG exports, and web-ready asset cleanup.',
     audience: 'Website owners, designers, ecommerce teams, and content operators',
     highlight: 'This is the strongest broad-demand cluster on the site and the main English traffic engine.',
-    featuredSlugs: ['image-converter', 'image-compress', 'background-remover', 'webp-to-png', 'png-to-jpg', 'jpg-to-png', 'webp-to-jpg', 'avif-to-png'],
+    featuredSlugs: ['image-converter', 'image-compress', 'background-remover', 'webp-to-png', 'png-to-jpg', 'jpg-to-png', 'webp-to-jpg', 'avif-to-png', 'jfif-to-png'],
     relatedLinks: [
       { href: '/guides/best-format-for-website-images/', label: 'Best format for website images', description: 'Choose the right format before converting.' },
       { href: '/compare/png-vs-jpg/', label: 'PNG vs JPG', description: 'Compare the two most common web defaults.' },

@@ -294,13 +294,8 @@ export default function Home() {
               </Button>
             </Link>
             <Link href="/all-tools/">
-              <Button size="lg" variant="outline" className="border-border px-7 text-foreground hover:text-white">
+              <Button size="lg" variant="secondary" className="px-7 font-semibold text-white">
                 Browse all tools
-              </Button>
-            </Link>
-            <Link href="/about/">
-              <Button size="lg" variant="ghost" className="px-7 text-slate-300 hover:text-white">
-                Why ConvertFiles?
               </Button>
             </Link>
           </div>
@@ -353,13 +348,14 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {[
               { label: 'PNG to JPG', href: '/tools/png-to-jpg/', slug: 'png-to-jpg' as ToolIconSlug },
               { label: 'WebP to PNG', href: '/tools/webp-to-png/', slug: 'webp-to-png' as ToolIconSlug },
               { label: 'JPG to PNG', href: '/tools/jpg-to-png/', slug: 'jpg-to-png' as ToolIconSlug },
               { label: 'WebP to JPG', href: '/tools/webp-to-jpg/', slug: 'webp-to-jpg' as ToolIconSlug },
               { label: 'AVIF to PNG', href: '/tools/avif-to-png/', slug: 'avif-to-png' as ToolIconSlug },
+              { label: 'JFIF to PNG', href: '/tools/jfif-to-png/', slug: 'jfif-to-png' as ToolIconSlug },
             ].map((item) => (
               <Link key={item.slug} href={item.href}>
                 <Button variant="outline" className="h-12 w-full justify-start gap-2 rounded-xl border-border/50 bg-card px-4 text-sm shadow-sm transition-all hover:scale-[1.01] hover:bg-muted hover:text-foreground">
@@ -430,145 +426,13 @@ export default function Home() {
           </Card>
         </section>
 
-        <section className="mb-12 border-t border-border pt-12" aria-labelledby="featured-utilities">
-          <div className="mb-6 flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-amber-400" />
-            <h2 id="featured-utilities" className="text-xl font-bold text-white">Featured utilities</h2>
-            <Badge variant="outline" className="border-amber-400/20 bg-amber-400/5 text-amber-400">High-use</Badge>
-          </div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-            {[
-              'image-compress',
-              'json-formatter',
-              'password-generator',
-              'qr-code-generator',
-              'word-counter',
-              'color-palette',
-            ].map((toolId) => {
-              const tool = tools.find((entry) => entry.id === toolId)
-              if (!tool) return null
-
-              return (
-                <Link key={tool.id} href={`/tools/${tool.id}/`} className="group">
-                  <Card className="flex h-full flex-col items-center p-4 text-center transition-all duration-300 hover:border-amber-400/30 hover:bg-card hover:shadow-xl hover:shadow-amber-400/5 active:scale-[0.98]">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted/50 transition-colors group-hover:bg-amber-400/10">
-                      <ToolIcon slug={tool.id} className="h-5 w-5 text-amber-400" />
-                    </div>
-                    <h3 className="text-sm font-bold text-white transition-colors group-hover:text-amber-400">
-                      {tool.title}
-                    </h3>
-                  </Card>
-                </Link>
-              )
-            })}
-          </div>
-        </section>
-
-        <section className="mb-12">
-          <RecentlyUsedTools items={recentToolItems} />
-        </section>
-
-        <section className="mb-12 grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
-          <Card className="tool-surface border-slate-700/40 bg-slate-800/35 p-6">
-            <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-500/20 bg-amber-500/10">
-                <Globe className="h-5 w-5 text-amber-400" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-black text-white">Browse by category hub</h2>
-                <p className="text-sm text-slate-400">Curated pathways for image, Bangla, and developer demand clusters.</p>
-              </div>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-              {categoryHighlights.map((item) => (
-                <TrackedLink
-                  key={item.slug}
-                  href={item.href}
-                  eventName="search_click_landing"
-                  eventParams={{ slug: item.slug, destination_group: 'homepage_category' }}
-                  className="group h-full"
-                >
-                  <Card className="h-full border-slate-700/40 bg-slate-900/45 transition-all hover:border-amber-400/30 hover:bg-slate-800/70">
-                    <div className="p-5">
-                      <h3 className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-amber-300">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-slate-400">{item.description}</p>
-                    </div>
-                  </Card>
-                </TrackedLink>
-              ))}
-            </div>
-          </Card>
-
-          <Card className="tool-surface border-slate-700/40 bg-slate-800/35 p-6">
-            <div className="mb-5">
-              <h2 className="text-2xl font-black text-white">Compare before converting</h2>
-              <p className="mt-1 text-sm leading-relaxed text-slate-300">
-                Decision-stage pages help users choose the right format before they use a converter or optimizer.
-              </p>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {comparisonHighlights.map(([label, href]) => (
-                <TrackedLink
-                  key={label}
-                  href={href}
-                  eventName="search_click_landing"
-                  eventParams={{ slug: label.toLowerCase().replace(/\s+/g, '-'), destination_group: 'homepage_compare' }}
-                  className="rounded-2xl border border-slate-700/40 bg-slate-900/45 px-4 py-4 text-sm font-semibold text-white transition-colors hover:border-blue-500/35"
-                >
-                  {label}
-                </TrackedLink>
-              ))}
-            </div>
-
-            <TrackedLink
-              href="/compare/"
-              eventName="search_click_landing"
-              eventParams={{ slug: 'homepage-compare-index', destination_group: 'compare_index' }}
-              className="mt-5 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary/80"
-            >
-              Open the full comparison library
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </TrackedLink>
-          </Card>
-        </section>
-
-        <section aria-labelledby="tool-directory">
-          <div className="mb-6 mt-12 flex items-center gap-2">
-            <Globe className="h-5 w-5 text-primary" />
-            <h2 id="tool-directory" className="text-xl font-bold text-white">Tool directory</h2>
-          </div>
-
-          <div className="mb-16 flex flex-wrap gap-3">
-            {categories.map((category) => (
-              <Badge key={category.id} variant="outline" className="px-4 py-2 text-sm">
-                {category.name} • {category.count}
-              </Badge>
-            ))}
-          </div>
-
-          <div className="mb-24 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {tools.map((tool) => {
-              return (
-                <Link key={tool.id} href={`/tools/${tool.id}/`} className="group h-full">
-                  <Card className="relative h-full overflow-hidden p-5 transition-all duration-300 hover:border-primary/50 hover:bg-card hover:shadow-xl hover:shadow-primary/5 active:scale-[0.98]">
-                    <div className="flex h-full flex-col">
-                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/50 transition-all duration-300 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/30">
-                        <ToolIcon slug={tool.id} className="h-7 w-7 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
-                      </div>
-                      <h3 className="text-base font-black text-white transition-colors group-hover:text-primary">
-                        {tool.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed line-clamp-3">{tool.description}</p>
-                    </div>
-                  </Card>
-                </Link>
-              )
-            })}
-          </div>
+        <section className="mb-16 mt-6 flex justify-center">
+          <Link href="/all-tools/">
+            <Button size="lg" variant="secondary" className="gap-2 px-8 font-semibold text-white">
+              <Globe className="h-5 w-5" />
+              Browse all tools and categories
+            </Button>
+          </Link>
         </section>
 
         {homepageAd && (

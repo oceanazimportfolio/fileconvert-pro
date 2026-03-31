@@ -420,11 +420,14 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                 <p className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Also try these related converters</p>
                 <div className="flex flex-wrap gap-2">
                   {relatedTools.map((item) => (
-                    <Link key={item.id} href={`/tools/${item.id}/`}>
-                      <Button variant="outline" size="sm" className="gap-2 text-xs text-slate-300 transition-all duration-150 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white">
-                        <ToolIcon slug={item.id} className="h-3.5 w-3.5" />
-                        {item.title}
-                        <ArrowRight className="ml-1.5 h-3 w-3 opacity-60" />
+                    <Link key={item.id} href={`/tools/${item.id}/`} className="max-w-full">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-auto max-w-full items-start justify-start gap-1.5 whitespace-normal px-3 py-2 text-left text-xs leading-snug text-slate-300 transition-all duration-150 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white sm:items-center sm:whitespace-nowrap"
+                      >
+                        <ToolIcon slug={item.id} className="mt-0.5 h-3.5 w-3.5 sm:mt-0" />
+                        <span className="min-w-0">{item.title}</span>
                       </Button>
                     </Link>
                   ))}
@@ -628,15 +631,15 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
                       >
                         <Card className="h-full border-slate-700/35 bg-slate-800/30 transition-colors hover:border-blue-500/40 hover:bg-slate-800/55">
                           <CardContent className="p-4">
-                            <div className="flex items-start gap-3">
+                            <div className="flex items-start gap-2.5 sm:gap-3">
                               {toolSlug ? (
-                                <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-blue-500/15 bg-blue-500/10">
+                                <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-blue-500/15 bg-blue-500/10 sm:h-9 sm:w-9 sm:rounded-xl">
                                   <ToolIcon slug={toolSlug} className="h-4 w-4 text-blue-300" />
                                 </div>
                               ) : null}
-                              <div>
-                                <h3 className="mb-1 text-sm font-semibold text-white transition-colors group-hover:text-blue-300">{item.label}</h3>
-                                <p className="text-xs leading-relaxed text-slate-400">{item.description}</p>
+                              <div className="min-w-0 flex-1">
+                                <h3 className="mb-1 line-clamp-2 text-sm font-semibold leading-snug text-white transition-colors group-hover:text-blue-300">{item.label}</h3>
+                                <p className="line-clamp-2 text-xs leading-relaxed text-slate-400">{item.description}</p>
                               </div>
                             </div>
                           </CardContent>
@@ -735,9 +738,13 @@ export function ToolPageClient({ slug, tool, relatedTools }: ToolPageClientProps
 
                       return (
                         <Link key={item.href} href={item.href} className="block rounded-xl border border-slate-700/40 px-3 py-3 text-sm text-slate-200 transition-colors hover:border-blue-500/40 hover:bg-slate-900/40">
-                          <span className="flex items-center gap-2">
-                            {toolSlug ? <ToolIcon slug={toolSlug} className="h-4 w-4 text-blue-300" /> : null}
-                            <span>{item.label}</span>
+                          <span className="flex items-start gap-2.5">
+                            {toolSlug ? (
+                              <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-blue-500/15 bg-blue-500/10">
+                                <ToolIcon slug={toolSlug} className="h-3.5 w-3.5 text-blue-300" />
+                              </span>
+                            ) : null}
+                            <span className="min-w-0 flex-1 leading-snug">{item.label}</span>
                           </span>
                         </Link>
                       )

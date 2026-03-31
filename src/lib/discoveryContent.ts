@@ -17,6 +17,7 @@ export const guideOrder = [
   'how-to-convert-png-to-jpg',
   'how-to-convert-jpg-to-png',
   'how-to-make-a-transparent-png',
+  'how-to-convert-jfif-to-png',
   'reduce-image-size-for-website',
   'reduce-image-size-for-email',
   'remove-background-from-product-photo',

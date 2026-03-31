@@ -228,15 +228,15 @@ export default async function GuidePage({
                         eventParams={{ slug: guide.slug, destination_group: 'related_link' }}
                         className="block rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35"
                       >
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-2.5 sm:gap-3">
                           {toolSlug ? (
-                            <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-blue-500/15 bg-blue-500/10">
+                            <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-blue-500/15 bg-blue-500/10 sm:h-9 sm:w-9 sm:rounded-xl">
                               <ToolIcon slug={toolSlug} className="h-4 w-4 text-blue-300" />
                             </div>
                           ) : null}
-                          <div>
-                            <h3 className="text-sm font-semibold text-white">{link.label}</h3>
-                            <p className="mt-1 text-xs leading-relaxed text-slate-400">{link.description}</p>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">{link.label}</h3>
+                            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-400">{link.description}</p>
                           </div>
                         </div>
                       </TrackedLink>

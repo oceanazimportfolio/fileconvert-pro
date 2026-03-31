@@ -147,6 +147,31 @@ export const toolEnhancements: Record<string, ToolEnhancement> = {
       'If a format change is the bigger issue, use a dedicated converter next.',
     ],
   },
+  'jfif-to-png': {
+    heroExample: {
+      label: 'Compatibility fix for desktop apps',
+      input: 'An image downloaded from a website that saved as a .jfif file instead of a normal .jpg.',
+      output: 'A completely standard PNG file that works in any design application or CMS.',
+      note: 'This tool exists purely as a frustration-saver when your software refuses to open a downloaded web image.',
+    },
+    useCases: [
+      'Fixing "unsupported file format" errors when uploading images to a CMS.',
+      'Opening web graphics in older versions of Photoshop or Word.',
+      'Standardizing messy downloaded image assets into a reliable format.',
+    ],
+    bestFor: [
+      'Content managers, social media marketers, and designers.',
+      'Anyone dealing with images downloaded straight from modern web browsers.',
+    ],
+    notBestFor: [
+      'When smallest file size matters more than compatibility (use PNG to JPG next).',
+      'When the target app already reads JFIF natively.',
+    ],
+    limitations: [
+      'The file size will be larger since it converts from compressed JPEG data to uncompressed PNG data.',
+      'It cannot restore lost quality from the original compressed JFIF file.',
+    ],
+  },
   'bijoy-to-unicode': {
     heroExample: {
       label: 'Legacy publishing text fix',

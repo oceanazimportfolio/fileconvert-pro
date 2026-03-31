@@ -79,14 +79,18 @@
 }
 
 .dark {
-  --background: oklch(0.18 0.015 250); /* Softer Dark Slate/Blue-Gray */
+  --background: oklch(0.18 0.015 250);
+  /* Softer Dark Slate/Blue-Gray */
   --foreground: oklch(0.98 0 0);
-  --card: oklch(0.22 0.02 250); /* Subtle uplift */
+  --card: oklch(0.22 0.02 250);
+  /* Subtle uplift */
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.22 0.02 250);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.65 0.22 250); /* Premium Blue Accent */
-  --primary-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.65 0.22 250);
+  /* Premium Blue Accent */
+  --primary-foreground: oklch(0.1 0 0);
+  /* Darker text for blue primary in dark mode */
   --secondary: oklch(0.28 0.02 250);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.28 0.02 250);
@@ -94,7 +98,8 @@
   --accent: oklch(0.65 0.22 250 / 12%);
   --accent-foreground: oklch(0.65 0.22 250);
   --destructive: oklch(0.6 0.18 25);
-  --border: oklch(1 0 0 / 8%); /* Subtler borders */
+  --border: oklch(1 0 0 / 8%);
+  /* Subtler borders */
   --input: oklch(1 0 0 / 10%);
   --ring: oklch(0.65 0.22 250 / 40%);
   --chart-1: oklch(0.65 0.22 250);
@@ -116,20 +121,24 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground;
   }
-  
+
   /* Typography Rhythm */
   h1 {
     @apply text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight;
   }
+
   h2 {
     @apply text-xl md:text-2xl lg:text-3xl font-bold tracking-tight leading-snug;
   }
+
   h3 {
     @apply text-lg md:text-xl font-bold tracking-tight;
   }
+
   p {
     @apply leading-relaxed text-muted-foreground;
   }
@@ -139,30 +148,39 @@
   .section-gap {
     @apply py-12 md:py-20 lg:py-24;
   }
+
   .container-tight {
     @apply max-w-4xl mx-auto px-4;
   }
+
   .container-standard {
     @apply max-w-7xl mx-auto px-4;
   }
+
   .page-shell {
     @apply min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-foreground;
   }
+
   .tool-surface {
     @apply rounded-2xl border border-border/60 bg-card/60 shadow-xl shadow-black/20;
   }
+
   .section-stack {
     @apply space-y-6 md:space-y-8;
   }
+
   .muted-panel {
     @apply rounded-2xl border border-border/50 bg-muted/15;
   }
+
   .legal-copy {
     @apply space-y-8 text-slate-300 leading-relaxed;
   }
+
   .glass-card {
     @apply bg-card/50 backdrop-blur-sm border border-border rounded-xl;
   }
+
   .accent-gradient {
     @apply bg-gradient-to-br from-primary to-primary/60 bg-clip-text text-transparent;
   }

@@ -28,16 +28,28 @@ export function RecentlyUsedTools({
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    let frameId: number | null = null
+
     try {
       const stored = window.localStorage.getItem('convertfiles_recent_tools')
       if (!stored) return
 
       const parsed = JSON.parse(stored)
       if (Array.isArray(parsed)) {
-        setRecentSlugs(parsed.filter((value): value is string => typeof value === 'string'))
+        const nextSlugs = parsed.filter((value): value is string => typeof value === 'string')
+
+        frameId = window.requestAnimationFrame(() => {
+          setRecentSlugs(nextSlugs)
+        })
       }
     } catch {
       // ignore malformed local storage
+    }
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId)
+      }
     }
   }, [])
 

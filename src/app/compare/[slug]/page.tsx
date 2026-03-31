@@ -84,6 +84,7 @@ export default async function ComparisonPage({
   }
 
   const primaryToolSlug = page.relatedLinks[0] ? getToolSlugFromHref(page.relatedLinks[0].href) : null
+  const [leftOption = 'Option A', rightOption = 'Option B'] = page.title.split(' vs ')
 
   return (
     <div className="page-shell">
@@ -137,13 +138,35 @@ export default async function ComparisonPage({
 
             <section>
               <h2 className="mb-4 text-2xl font-black text-white">Side-by-side comparison</h2>
-              <div className="overflow-hidden rounded-3xl border border-slate-700/40">
+              <div className="space-y-3 md:hidden">
+                {page.comparisonRows.map((row) => (
+                  <Card key={row.label} className="overflow-hidden border-slate-700/40 bg-slate-800/25">
+                    <CardContent className="p-0">
+                      <div className="border-b border-slate-700/30 bg-slate-900/70 px-4 py-3 text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
+                        {row.label}
+                      </div>
+                      <div className="grid gap-0">
+                        <div className="px-4 py-3">
+                          <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">{leftOption}</p>
+                          <p className="text-sm leading-relaxed text-slate-300">{row.left}</p>
+                        </div>
+                        <div className="border-t border-slate-700/30 px-4 py-3">
+                          <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">{rightOption}</p>
+                          <p className="text-sm leading-relaxed text-slate-300">{row.right}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="hidden overflow-hidden rounded-3xl border border-slate-700/40 md:block">
                 <div className="overflow-x-auto">
                   <div className="min-w-[720px]">
                     <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] border-b border-slate-700/40 bg-slate-900/70">
                       <div className="p-4 text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Criteria</div>
-                      <div className="border-l border-slate-700/40 p-4 text-sm font-bold text-white">{page.title.split(' vs ')[0]}</div>
-                      <div className="border-l border-slate-700/40 p-4 text-sm font-bold text-white">{page.title.split(' vs ')[1]}</div>
+                      <div className="border-l border-slate-700/40 p-4 text-sm font-bold text-white">{leftOption}</div>
+                      <div className="border-l border-slate-700/40 p-4 text-sm font-bold text-white">{rightOption}</div>
                     </div>
 
                     {page.comparisonRows.map((row) => (
@@ -206,15 +229,15 @@ export default async function ComparisonPage({
                         eventParams={{ slug: page.slug, destination_group: 'related_link' }}
                         className="block rounded-2xl border border-slate-700/40 bg-slate-900/45 p-4 transition-colors hover:border-blue-500/35"
                       >
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-2.5 sm:gap-3">
                           {toolSlug ? (
-                            <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-blue-500/15 bg-blue-500/10">
+                            <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-blue-500/15 bg-blue-500/10 sm:h-9 sm:w-9 sm:rounded-xl">
                               <ToolIcon slug={toolSlug} className="h-4 w-4 text-blue-300" />
                             </div>
                           ) : null}
-                          <div>
-                            <h3 className="text-sm font-semibold text-white">{link.label}</h3>
-                            <p className="mt-1 text-xs leading-relaxed text-slate-400">{link.description}</p>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">{link.label}</h3>
+                            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-400">{link.description}</p>
                           </div>
                         </div>
                       </TrackedLink>

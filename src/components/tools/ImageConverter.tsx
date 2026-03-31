@@ -49,6 +49,7 @@ const CONVERT_OPTIONS = [
   { from: 'avif', to: 'png', label: 'AVIF -> PNG' },
   { from: 'avif', to: 'jpg', label: 'AVIF -> JPG' },
   { from: 'avif', to: 'webp', label: 'AVIF -> WebP' },
+  { from: 'jfif', to: 'png', label: 'JFIF -> PNG' },
 ] as const
 
 const AVAILABLE_CONVERSIONS = new Set(
@@ -333,8 +334,12 @@ export function ImageConverter({
 
       <FileUpload
         accept={lockedMode
-          ? [fromFormat === 'jpg' ? 'jpeg' : fromFormat, fromFormat === 'jpg' ? 'jpg' : fromFormat]
-          : ['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif']}
+          ? [
+            fromFormat === 'jpg' ? 'jpeg' : fromFormat,
+            fromFormat === 'jpg' ? 'jpg' : fromFormat,
+            ...(fromFormat === 'jfif' ? ['jfif'] : []),
+          ]
+          : ['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif', 'jfif']}
         multiple
         maxFiles={30}
         maxSize={25 * 1024 * 1024}
