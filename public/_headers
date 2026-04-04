@@ -1,8 +1,9 @@
-/sitemap.xml
+/*.xml
   Content-Type: application/xml; charset=UTF-8
-
-/main-sitemap.xml
-  Content-Type: application/xml; charset=UTF-8
+  Cache-Control: public, max-age=0, must-revalidate, no-transform
+  X-Content-Type-Options: nosniff
 
 /robots.txt
   Content-Type: text/plain; charset=UTF-8
+  Cache-Control: public, max-age=0, must-revalidate, no-transform
+  X-Content-Type-Options: nosniff
