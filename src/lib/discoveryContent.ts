@@ -14,6 +14,7 @@ export const guidePages = {
 
 export const guideOrder = [
   'how-to-convert-webp-to-png',
+  'how-to-open-webp-files',
   'how-to-convert-png-to-jpg',
   'how-to-convert-jpg-to-png',
   'how-to-make-a-transparent-png',
@@ -33,3 +34,34 @@ export const comparisonOrder = [
   'bijoy-vs-unicode',
   'json-formatter-vs-json-validator',
 ]
+
+function validateGuideOrder() {
+  const seen = new Set<string>()
+
+  for (const slug of guideOrder) {
+    if (seen.has(slug)) {
+      throw new Error(`Duplicate guideOrder slug: ${slug}`)
+    }
+
+    seen.add(slug)
+
+    const guide = guidePages[slug]
+
+    if (!guide) {
+      throw new Error(`guideOrder references missing guide: ${slug}`)
+    }
+
+    const hasToolLink = guide.relatedLinks.some((link) => link.href.startsWith('/tools/'))
+    const hasGuideLink = guide.relatedLinks.some((link) => link.href.startsWith('/guides/'))
+
+    if (!hasToolLink) {
+      throw new Error(`Live guide is missing a tool link: ${slug}`)
+    }
+
+    if (!hasGuideLink) {
+      throw new Error(`Live guide is missing a guide link: ${slug}`)
+    }
+  }
+}
+
+validateGuideOrder()

@@ -19,6 +19,11 @@ export interface GuidePage {
     output: string
     note: string
   }
+  sections?: {
+    heading: string
+    paragraphs: string[]
+    bullets?: string[]
+  }[]
   steps: string[]
   useCases: string[]
   whenToUse: string[]

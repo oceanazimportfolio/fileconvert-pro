@@ -158,10 +158,10 @@ const workflowHighlights = [
     href: '/guides/reduce-image-size-for-website/',
   },
   {
-    slug: 'remove-background-from-product-photo',
-    title: 'Remove background from product photos',
-    description: 'A strong ecommerce workflow page tied to one of the highest-intent tools.',
-    href: '/guides/remove-background-from-product-photo/',
+    slug: 'how-to-open-webp-files',
+    title: 'How to open WebP files',
+    description: 'A practical troubleshooting guide for users who need to open or convert WebP images fast.',
+    href: '/guides/how-to-open-webp-files/',
   },
 ]
 
@@ -424,15 +424,6 @@ export default function Home() {
               ))}
             </div>
           </Card>
-        </section>
-
-        <section className="mb-16 mt-6 flex justify-center">
-          <Link href="/all-tools/">
-            <Button size="lg" variant="secondary" className="gap-2 px-8 font-semibold text-white">
-              <Globe className="h-5 w-5" />
-              Browse all tools and categories
-            </Button>
-          </Link>
         </section>
 
         {homepageAd && (

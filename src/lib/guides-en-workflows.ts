@@ -1,8 +1,8 @@
 import type { GuidePage } from '@/lib/discoveryTypes'
-import { CONTENT_REVIEWER, LAST_REVIEWED_DATE } from '@/lib/site'
+import { CONTENT_REVIEWER } from '@/lib/site'
 
 const reviewer = CONTENT_REVIEWER
-const lastReviewed = LAST_REVIEWED_DATE
+const lastReviewed = '2026-04-04'
 
 export const englishWorkflowGuides: Record<string, GuidePage> = {
   'reduce-image-size-for-website': {
@@ -18,7 +18,7 @@ export const englishWorkflowGuides: Record<string, GuidePage> = {
     heroExample: {
       input: 'A heavy hero image or product photo heading to a website.',
       output: 'A smaller, faster-loading image with quality still acceptable for the page.',
-      note: 'The goal is not “smallest possible,” but “small enough without looking bad.”',
+      note: 'The goal is not "smallest possible," but "small enough without looking bad."',
     },
     steps: [
       'Upload the image to Image Compressor and start with moderate compression, not the strongest setting.',
@@ -73,6 +73,90 @@ export const englishWorkflowGuides: Record<string, GuidePage> = {
       { href: '/tools/image-compress/', label: 'Compress the image', description: 'Shrink the attachment before sending.' },
       { href: '/guides/how-to-convert-png-to-jpg/', label: 'PNG to JPG guide', description: 'Use JPG when file size matters more than transparency.' },
       { href: '/compare/png-vs-jpg/', label: 'PNG vs JPG', description: 'Pick the better email-friendly format.' },
+    ],
+    lastReviewed,
+    reviewer,
+  },
+  'how-to-open-webp-files': {
+    slug: 'how-to-open-webp-files',
+    title: 'How to Open WebP Files',
+    searchTitle: 'How to Open WebP Files on Any Device',
+    metaDescription:
+      'Learn how to open WebP files on Windows, Mac, mobile, and older apps, plus when to convert WebP to PNG or JPG for easier compatibility.',
+    description: 'A practical troubleshooting guide for opening WebP images and converting them when the file format gets in the way.',
+    primaryIntent: 'how to open webp files',
+    language: 'en',
+    toolSlug: 'webp-to-png',
+    intro:
+      'If a WebP file will not open, the problem is usually app support rather than the image itself. Some browsers and modern editors handle WebP easily, while older software, office apps, and certain upload workflows still do not. This guide helps you decide whether to open the file as-is or convert it into a more dependable format.',
+    heroExample: {
+      input: 'A .webp image downloaded from a website that opens in the browser but not in your editor, document workflow, or older app.',
+      output: 'A practical next step: either open the file in a supported app or convert it into PNG or JPG for broader compatibility.',
+      note: 'This page is designed to solve the real problem quickly instead of forcing users into random software installs or extension hacks.',
+    },
+    sections: [
+      {
+        heading: 'Why WebP files sometimes will not open',
+        paragraphs: [
+          'WebP is a modern web format, so it works best in browsers and current software stacks. Problems usually appear when the file moves into older desktop apps, office workflows, legacy CMS setups, or tools that were built around JPG and PNG.',
+          'In other words, a WebP file is not usually broken. The destination app is often the weak point. That is why the best fix can be either opening it differently or converting it into a safer format for the next workflow.',
+        ],
+      },
+      {
+        heading: 'Open first, convert second',
+        paragraphs: [
+          'If your goal is only to view the image, try opening the WebP file in a modern browser first. Dragging the file into Chrome, Edge, or another current browser is often enough.',
+          'If your goal is to edit, upload, insert into a document, or share with someone using older tools, conversion is usually faster than troubleshooting app support.',
+        ],
+        bullets: [
+          'Open in a modern browser when you only need to view the image.',
+          'Convert to PNG when you need transparency or better editing compatibility.',
+          'Convert to JPG when you need a smaller file that opens almost everywhere.',
+        ],
+      },
+      {
+        heading: 'When to convert WebP to PNG or JPG',
+        paragraphs: [
+          'Choose PNG when the next workflow involves design, transparency, screenshots, or a tool that behaves better with lossless image formats.',
+          'Choose JPG when the real goal is simple compatibility, email sharing, or a lighter file for everyday delivery. The format choice should follow the next job, not just the current error message.',
+        ],
+      },
+    ],
+    steps: [
+      'Try opening the WebP file in a current browser first if you only need to view it.',
+      'If the destination app still refuses the file, decide whether you need PNG compatibility or a lighter JPG output.',
+      'Use WebP to PNG when transparency, editing flexibility, or design-tool support matters.',
+      'Use WebP to JPG when the goal is broad compatibility and a smaller final file.',
+    ],
+    useCases: ['Opening downloads from websites', 'Fixing unsupported file types in older apps', 'Converting WebP for office, CMS, and design workflows'],
+    whenToUse: [
+      'When a downloaded WebP image will not open in the next app',
+      'When you need a practical compatibility fix instead of troubleshooting software support',
+      'When you are not sure whether to keep the file as WebP or convert it',
+    ],
+    avoidWhen: [
+      'When your current browser or app already handles WebP correctly and no conversion is needed',
+      'When you are dealing with a damaged file rather than a format-support issue',
+    ],
+    faq: [
+      {
+        q: 'Can I open WebP files without converting them?',
+        a: 'Yes. Modern browsers and many newer apps open WebP files directly. Conversion is only necessary when the next workflow does not support the format well.',
+      },
+      {
+        q: 'Should I convert WebP to PNG or JPG?',
+        a: 'Use PNG when transparency, editing, or design handoff matters. Use JPG when you mainly need a smaller, broadly compatible file for sharing or upload.',
+      },
+      {
+        q: 'Why do WebP files open in the browser but not in some apps?',
+        a: 'Because browser support is generally strong, while some older desktop applications and office workflows still expect JPG or PNG.',
+      },
+    ],
+    relatedLinks: [
+      { href: '/tools/webp-to-png/', label: 'WebP to PNG converter', description: 'Use PNG when you need the safer compatibility path.' },
+      { href: '/guides/how-to-convert-webp-to-png/', label: 'How to convert WebP to PNG', description: 'Follow the flagship WebP-to-PNG workflow guide.' },
+      { href: '/tools/webp-to-jpg/', label: 'WebP to JPG converter', description: 'Use JPG when you want a lighter universal file.' },
+      { href: '/compare/webp-vs-png/', label: 'WebP vs PNG', description: 'Compare the two formats before choosing a conversion target.' },
     ],
     lastReviewed,
     reviewer,
@@ -185,6 +269,83 @@ export const englishWorkflowGuides: Record<string, GuidePage> = {
     lastReviewed,
     reviewer,
   },
+  'how-to-make-a-transparent-png': {
+    slug: 'how-to-make-a-transparent-png',
+    title: 'How to Make a Transparent PNG',
+    searchTitle: 'How to Make a Transparent PNG Online',
+    metaDescription:
+      'Make a transparent PNG online by removing the background from an image, keeping clean edges, and exporting a reusable transparent file.',
+    description: 'A broader transparency workflow guide for removing backgrounds and creating transparent PNGs that are actually usable.',
+    primaryIntent: 'how to make a transparent png',
+    language: 'en',
+    toolSlug: 'background-remover',
+    intro:
+      'Most people who want a transparent PNG are really trying to remove a background cleanly so the subject can be reused somewhere else. That might be a product photo, logo-style cutout, profile image, or design asset. The practical workflow is to remove the background first, then export a transparent PNG that will behave correctly on different backgrounds.',
+    heroExample: {
+      input: 'A photo or graphic with a background that needs to disappear.',
+      output: 'A transparent PNG ready for ecommerce, presentations, social graphics, or design comps.',
+      note: 'This page now covers the broader problem users actually have: creating transparency, not just naming the output format.',
+    },
+    sections: [
+      {
+        heading: 'What a transparent PNG solves',
+        paragraphs: [
+          'A transparent PNG lets the visible subject sit cleanly on white, dark, branded, or layered backgrounds without bringing the original backdrop along with it.',
+          'That makes it useful for product cards, marketing graphics, profile cutouts, slides, and many quick design workflows where a plain rectangular photo feels awkward or limiting.',
+        ],
+      },
+      {
+        heading: 'The practical workflow: remove background, then export',
+        paragraphs: [
+          'The important point is that transparency usually comes from background removal, not from a simple file conversion. Converting JPG to PNG or WebP to PNG alone does not magically remove the background.',
+          'That is why the best workflow is to start with a background-removal tool, review the edges, then export the result as PNG so the transparency survives in the final file.',
+        ],
+        bullets: [
+          'Use PNG because it is broadly supported for transparent output.',
+          'Check hair, shadows, and edge detail before downloading the final file.',
+          'Compress the PNG afterward if the file becomes too heavy for web use.',
+        ],
+      },
+    ],
+    steps: [
+      'Open Background Remover and upload the source image.',
+      'Generate the cutout and review the edges around the subject carefully.',
+      'Download the transparent PNG output.',
+      'If the PNG is heavier than needed, compress it after export rather than flattening it back into a non-transparent format.',
+    ],
+    useCases: ['Product cards', 'Profile graphics', 'Presentation and ad design'],
+    whenToUse: [
+      'When the subject needs to sit on multiple backgrounds',
+      'When a transparent file is required for design or ecommerce work',
+      'When you want a reusable cutout instead of a standard rectangular image',
+    ],
+    avoidWhen: [
+      'When the final output can keep a solid background',
+      'When the image needs heavy manual retouching beyond quick background removal',
+    ],
+    faq: [
+      {
+        q: 'Why use PNG for transparency?',
+        a: 'PNG is one of the most common broadly supported formats for transparent images in web, design, ecommerce, and document workflows.',
+      },
+      {
+        q: 'Can I make a transparent PNG by converting JPG to PNG?',
+        a: 'No. A format conversion alone does not remove the background. You need background removal first, then PNG export.',
+      },
+      {
+        q: 'What if my transparent PNG file is too large?',
+        a: 'That is common. PNG preserves transparency well, but the file can grow. Compress the PNG afterward if you need a lighter web or upload version.',
+      },
+    ],
+    relatedLinks: [
+      { href: '/tools/background-remover/', label: 'Open background remover', description: 'Create the transparent PNG now.' },
+      { href: '/guides/remove-background-from-product-photo/', label: 'Remove background from a product photo', description: 'Use the more ecommerce-specific workflow when the image is a product shot.' },
+      { href: '/tools/image-compress/', label: 'Compress transparent PNGs', description: 'Reduce file size after export.' },
+      { href: '/guides/how-to-convert-jpg-to-png/', label: 'How to convert JPG to PNG', description: 'Use the adjacent guide when your real problem is format conversion before editing.' },
+    ],
+    lastReviewed,
+    reviewer,
+  },
   'best-format-for-website-images': {
     slug: 'best-format-for-website-images',
     title: 'Best Format for Website Images',
@@ -194,11 +355,11 @@ export const englishWorkflowGuides: Record<string, GuidePage> = {
     primaryIntent: 'best format for website images',
     language: 'en',
     toolSlug: 'image-converter',
-    intro: 'There is no single “best” image format for every page. This guide helps you choose based on speed, compatibility, and whether transparency matters.',
+    intro: 'There is no single "best" image format for every page. This guide helps you choose based on speed, compatibility, and whether transparency matters.',
     heroExample: {
       input: 'A mix of product photos, screenshots, and graphics heading to a website.',
       output: 'A clearer format choice for each asset type instead of using one format blindly.',
-      note: 'The right format is usually “best for this use case,” not “best forever.”',
+      note: 'The right format is usually "best for this use case," not "best forever."',
     },
     steps: [
       'Use JPG for many photos and general marketing images where smaller size matters.',
@@ -215,6 +376,7 @@ export const englishWorkflowGuides: Record<string, GuidePage> = {
     ],
     relatedLinks: [
       { href: '/tools/image-converter/', label: 'Open image converter', description: 'Switch formats once you know the right target.' },
+      { href: '/guides/reduce-image-size-for-website/', label: 'Reduce image size for a website', description: 'Use the broader optimization workflow after choosing a format.' },
       { href: '/compare/png-vs-jpg/', label: 'PNG vs JPG', description: 'Compare the two most common defaults.' },
       { href: '/compare/webp-vs-png/', label: 'WebP vs PNG', description: 'Choose between smaller modern files and transparency-safe output.' },
     ],

@@ -137,6 +137,35 @@ export default async function GuidePage({
               </CardContent>
             </Card>
 
+            {guide.sections?.length ? (
+              <section className="space-y-5">
+                {guide.sections.map((section) => (
+                  <Card key={section.heading} className="border-slate-700/40 bg-slate-800/35">
+                    <CardContent className="p-6">
+                      <h2 className="mb-4 text-2xl font-black text-white">{section.heading}</h2>
+                      <div className="space-y-4">
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph} className="text-sm leading-relaxed text-slate-300">
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
+                      {section.bullets?.length ? (
+                        <ul className="mt-5 space-y-3">
+                          {section.bullets.map((item) => (
+                            <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
+                              <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-400" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </CardContent>
+                  </Card>
+                ))}
+              </section>
+            ) : null}
+
             <section>
               <div className="mb-4 flex items-center gap-2">
                 <ListChecks className="h-5 w-5 text-blue-400" />
