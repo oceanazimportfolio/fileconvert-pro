@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { GA_TRACKING_ID } from "@/lib/analytics";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -240,7 +239,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = GA_TRACKING_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 
   return (
@@ -282,16 +280,20 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3379852787762258"
           crossOrigin="anonymous"
         />
-        {/* Google Analytics Placeholder */}
-        {/*
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-GA-ID"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-YOUR-GA-ID');
-        </script>
-        */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TJ2VY4TSL8"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TJ2VY4TSL8', {
+              cookie_domain: 'auto'
+            });
+          `}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
@@ -300,25 +302,7 @@ export default function RootLayout({
         {children}
         <Toaster />
 
-        {/* Google Analytics 4 */}
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaId}', {
-                  cookie_domain: 'auto'
-                });
-              `}
-            </Script>
-          </>
-        )}
+
 
         {/* Microsoft Clarity */}
         {clarityId && (
