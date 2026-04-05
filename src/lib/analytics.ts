@@ -4,7 +4,7 @@
  * if the analytics scripts are blocked or missing environment variables.
  */
 
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+export const GA_TRACKING_ID = 'G-TJ2VY4TSL8';
 export const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 
 // Declare the window interface extensions

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { GA_TRACKING_ID } from "@/lib/analytics";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -239,7 +240,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gaId = GA_TRACKING_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 
   return (
